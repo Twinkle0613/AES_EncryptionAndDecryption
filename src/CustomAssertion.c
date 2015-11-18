@@ -1,7 +1,7 @@
 #include "CustomAssertion.h"
 #include <stdint.h>
 #include <stdlib.h>
-
+#include <stdarg.h>
 #include "unity.h"
 void customTestAssertEqualState(uint8_t** expState , uint8_t** actState, int lineNo){
   
@@ -15,7 +15,17 @@ void customTestAssertEqualState(uint8_t** expState , uint8_t** actState, int lin
   int row,col;
   for(col = 0; col < 4 ; col++){
    for(row = 0; row < 4 ; row++){
-    UNITY_TEST_ASSERT_EQUAL_INT8(actState[row][col],expState[row][col],lineNo,"The expected state is not same with the actual state.");
-    }
+   customTestAssertEqualValue(actState[row][col],expState[row][col],lineNo,"Expected %x(Hex) was %x(Hex) in [%d][%d].",expState[row][col],actState[row][col],row,col);
+   }
   }
+}
+
+
+void customTestAssertEqualValue(uint8_t expectValue,uint8_t actualValue,int lineNo,char* msg,...){
+  char *msgBuffer = malloc(1024);
+  va_list args;
+  va_start(args,msg);
+  vsprintf(msgBuffer, msg,args);
+  UNITY_TEST_ASSERT_EQUAL_INT8(actualValue,expectValue,lineNo,msgBuffer);
+  va_end(args);
 }

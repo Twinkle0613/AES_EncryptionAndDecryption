@@ -58,9 +58,17 @@ void printState(uint8_t** state){
        for(row = 0; row < 4 ; row++){
         printf("(%d)state[%d][%d] = %x \n",&state[row][col],row,col,state[row][col]);
       }
-    }
-  
-  
+    }  
+}
+
+void printBoxState(uint8_t** state){
+  int row;
+    printf("        0      1       2      3   \n");
+    printf("     -----------------------------\n");
+  for(row = 0 ; row < 4 ; row++){
+    printf("  %d  |  %x  |  %x  |  %x  |  %x  |\n",row,state[row][0],state[row][1],state[row][2],state[row][3]);
+    printf("     -----------------------------\n");
+  }
 }
 
 void subBytes(uint8_t** state){
@@ -72,3 +80,39 @@ void subBytes(uint8_t** state){
     }
 }
 
+void shiftRow(uint8_t** state){
+  int i;
+  for( i = 0 ; i < Nb ; i++) 
+  shift(i,Nb,state);
+}
+
+void shift(int row , int stateSize , uint8_t** state){
+  int rightSize = stateSize - row;
+  int leftSize = row;
+  int i,j;
+  int k = 0;
+  uint8_t rightTemp[rightSize];
+  uint8_t leftTemp[leftSize];
+  
+  for( i = 0 ; i < leftSize ; i++){
+    leftTemp[i] = state[row][i];
+   // printf("leftTemp[%d] = %x state[%d][%d] = %x\n",i,leftTemp[i],row,i,state[row][i]);
+  }
+  
+  for( j = leftSize ; j < stateSize ; j++){
+    rightTemp[k++] = state[row][j];
+   // printf("rightTemp[%d] = %x  state[%d][%d] = %x\n",k-1,rightTemp[k-1],row,j,state[row][j]);
+  }
+  
+  for ( i = 0; i < rightSize ; i++){
+    state[row][i] = rightTemp[i];
+  //    printf("state[row][%d] = %x  rightTemp[%d] = %x\n",i,state[row][i],i,rightTemp[i]);
+  }
+  
+  k = 0;
+  for ( j = stateSize - leftSize ; j < stateSize ; j++){
+//     printf("state[row][%d] = %x leftTemp[%d] = %x\n",j,state[row][j],k-1,leftTemp[k-1]);
+     state[row][j] = leftTemp[k++];
+  }
+ // printf("\n");
+}

@@ -4,7 +4,7 @@
 
 #include "unity.h"
 
-
+void customTestAssertEqualValue(uint8_t expValue,uint8_t actValue,int lineNo,char* msg,...);
 
 void customTestAssertEqualState(uint8_t** expState , uint8_t** actState, int lineNo);
 #define TEST_ASSERT_EQUAL_STATE(expState,actState){               \

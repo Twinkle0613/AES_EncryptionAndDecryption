@@ -30,8 +30,6 @@ char* GlobalOrderError;
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-extern void test_convInputToState_given_ABCDEFGHIJKLMNOP(void);
-extern void test_shift(void);
 
 
 //=======Test Reset Option=====
@@ -46,9 +44,7 @@ void resetTest(void)
 //=======MAIN=====
 int main(void)
 {
-  UnityBegin("test_Encryption.c");
-  RUN_TEST(test_convInputToState_given_ABCDEFGHIJKLMNOP, 24);
-  RUN_TEST(test_shift, 73);
+  UnityBegin("test_Decryption.c");
 
   return (UnityEnd());
 }

@@ -26,11 +26,13 @@ void test_convInputToState_given_ABCDEFGHIJKLMNOP(void){
 
   printState(state);
 
+
+
   for(col = 0; col < 4 ; col++){
 
    for(row = 0; row < 4 ; row++){
 
-     UnityAssertEqualNumber((_U_SINT)((in[row + (4*col)])), (_U_SINT)((state[row][col])), (((void *)0)), (_U_UINT)34, UNITY_DISPLAY_STYLE_INT);
+     UnityAssertEqualNumber((_U_SINT)((in[row + (4*col)])), (_U_SINT)((state[row][col])), (((void *)0)), (_U_UINT)35, UNITY_DISPLAY_STYLE_INT);
 
     }
 
@@ -38,7 +40,7 @@ void test_convInputToState_given_ABCDEFGHIJKLMNOP(void){
 
 }
 
-void test_subBytes(void){
+void xtest_subBytes(void){
 
   printf("test_subBytes\n");
 
@@ -52,15 +54,49 @@ void test_subBytes(void){
 
   uint8_t **state = convInputToState(in);
 
-  printState(state);
+
+
+  printBoxState(state);
 
   subBytes(state);
 
-  printf("-----S-BOX-----\n");
+  printf("            -----S-BOX-----       \n");
 
-  printState(state);
 
-  { customTestAssertEqualState(expState,state,66); };
+
+  printBoxState(state);
+
+  { customTestAssertEqualState(expState,state,69); };
+
+}
+
+
+
+
+
+void test_shift(void){
+
+  uint8_t in2[] = "AFKPEJODINCHMBGL";
+
+  uint8_t in[] = "ABCDEFGHIJKLMNOP";
+
+  uint8_t** expState = convInputToState(in2) ;
+
+  uint8_t **state = convInputToState(in);
+
+  printBoxState(state);
+
+  shift(0,4,state);
+
+  shift(1,4,state);
+
+  shift(2,4,state);
+
+  shift(3,4,state);
+
+  printBoxState(state);
+
+ { customTestAssertEqualState(expState,state,84); };
 
 
 
