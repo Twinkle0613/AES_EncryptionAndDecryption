@@ -93,26 +93,35 @@ void shift(int row , int stateSize , uint8_t** state){
   int k = 0;
   uint8_t rightTemp[rightSize];
   uint8_t leftTemp[leftSize];
-  
   for( i = 0 ; i < leftSize ; i++){
     leftTemp[i] = state[row][i];
-   // printf("leftTemp[%d] = %x state[%d][%d] = %x\n",i,leftTemp[i],row,i,state[row][i]);
   }
-  
   for( j = leftSize ; j < stateSize ; j++){
     rightTemp[k++] = state[row][j];
-   // printf("rightTemp[%d] = %x  state[%d][%d] = %x\n",k-1,rightTemp[k-1],row,j,state[row][j]);
   }
-  
   for ( i = 0; i < rightSize ; i++){
     state[row][i] = rightTemp[i];
-  //    printf("state[row][%d] = %x  rightTemp[%d] = %x\n",i,state[row][i],i,rightTemp[i]);
   }
-  
   k = 0;
   for ( j = stateSize - leftSize ; j < stateSize ; j++){
-//     printf("state[row][%d] = %x leftTemp[%d] = %x\n",j,state[row][j],k-1,leftTemp[k-1]);
      state[row][j] = leftTemp[k++];
   }
- // printf("\n");
 }
+
+void mixColumns(uint8_t** state){
+  int row,col;
+  
+  uint8_t two = (uint8_t)2;
+  uint8_t three = (uint8_t)3;
+  for( col = 0;  col < Nb ; col++){
+      state[0][col] = (two * state[0][col]) ^ (three * state[1][col]) ^ state[2][col] ^ state[3][col];
+      state[1][col] = state[0][col] ^ ( two * state[1][col]) ^ ( three * state[2][col]) ^ state[3][col];
+      state[2][col] = state[0][col] ^ state[1][col] ^ ( two * state[2][col]) ^ ( three * state[3][col]);
+      state[3][col] = ( three * state[0][col]) ^ state[1][col] ^ state[2][col] ^ ( two * state[3][col]);
+  }
+}
+
+      // state[1][col] = state[0][col] ^ ((uint8_t*)2 * state[1][col]) ^ ((uint8_t*)3 * state[2][col]) ^ state[3][col];
+      // state[2][col] = state[0][col] ^ state[1][col] ^ ((uint8_t*)2 * state[2][col]) ^ ((uint8_t*)3 * state[3][col]);
+      // state[3][col] = ((uint8_t*)3 * state[0][col]) ^ state[1][col] ^ state[2][col] ^ ((uint8_t*)2 * state[3][col]);
+

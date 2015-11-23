@@ -40,7 +40,7 @@ void test_convInputToState_given_ABCDEFGHIJKLMNOP(void){
 
 }
 
-void xtest_subBytes(void){
+void test_subBytes(void){
 
   printf("test_subBytes\n");
 
@@ -70,11 +70,9 @@ void xtest_subBytes(void){
 
 }
 
+void test_shift_given_ABCDEFGHIJKLMNOP_expected_pass(void){
 
-
-
-
-void test_shift(void){
+   printf("            -----shift-----       \n");
 
   uint8_t in2[] = "AFKPEJODINCHMBGL";
 
@@ -96,7 +94,51 @@ void test_shift(void){
 
   printBoxState(state);
 
- { customTestAssertEqualState(expState,state,84); };
+ { customTestAssertEqualState(expState,state,99); };
+
+}
+
+
+
+void test_shiftRow_given_ABCDEFGHIJKLMNOP_expected_pass(void){
+
+  printf("            -----shiftRow-----       \n");
+
+  uint8_t in2[] = "AFKPEJODINCHMBGL";
+
+  uint8_t in[] = "ABCDEFGHIJKLMNOP";
+
+  uint8_t** expState = convInputToState(in2) ;
+
+  uint8_t **state = convInputToState(in);
+
+  printBoxState(state);
+
+  shiftRow(state);
+
+  printBoxState(state);
+
+ { customTestAssertEqualState(expState,state,111); };
+
+}
+
+
+
+
+
+void test_mixColumns(void){
+
+  printf("            -----mixColumns-----       \n");
+
+  uint8_t in[] = {0xd4,0xbf,0x5b,0x30,0xe0,0xb4,0x52,0xae,0xb8,0x41,0x11,0xf1,0x1e,0x27,0x98,0xe5};
+
+  uint8_t **state = convInputToState(in);
+
+  printBoxState(state);
+
+  mixColumns(state);
+
+  printBoxState(state);
 
 
 
