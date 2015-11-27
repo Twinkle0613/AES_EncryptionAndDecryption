@@ -47,7 +47,7 @@ void test_convStrToState_(void){
 
 
 
-void test_subBytes_(void){
+void test_subBytes_given_ABCDEFGHIJKLMNOP(void){
 
   printf("No.2 - subBytes\n");
 
@@ -101,13 +101,13 @@ void test_mixColumns_in(void){
 
   printfState(state);
 
-  (_mixColumns(state));
+  printf("\n");
 
-    int col;
+  mixColumns(state);
 
   printfState(state);
 
-  { customTestAssertEqualState(exState,state,69); };
+  { customTestAssertEqualState(exState,state,57); };
 
 
 
@@ -117,120 +117,32 @@ void test_mixColumns_in(void){
 
 
 
-void test_xtime(void){
+void test_add(void){
 
-  int value1,value2,value3,value4;
 
-  printf("\n");
 
-  printf("0) %x %x %x %x \n",timesTwo(0xd4) , timesThree(0xbf) , 0x5d , 0x30);
+  uint32_t word[4] = {0x09c4f43c,0xFFaabbcc,0x12345678,0x33225566};
 
-  value1 = timesTwo(0xd4) ^ timesThree(0xbf) ^ 0x5d ^ 0x30;
 
-  printf("1) %x %x %x %x \n",0xd4 , timesTwo(0xbf) , timesThree(0x5d) , 0x30);
 
-  value2 = 0xd4 ^ timesTwo(0xbf) ^ timesThree(0x5d) ^ 0x30;
+  uint8_t key[4][4];
 
-  printf("2) %x %x %x %x \n",0xd4 , 0xbf , timesTwo(0x5d) , timesThree(0x30));
+  int row,col,shift;
 
-  value3 = 0xd4 ^ 0xbf ^ timesTwo(0x5d) ^ timesThree(0x30);
+  for( col = 0; col < 4 ; col++ ){
 
-  printf("3) %x %x %x %x \n", timesThree(0xd4) , 0xbf , 0x5d , timesTwo(0x30));
+    shift = 0;
 
- value4 = timesThree(0xd4) ^ 0xbf ^ 0x5d ^ timesTwo(0x30);
+    for( row = 3 ; row >= 0 ; row--){
 
+      key[row][col] = (word[col] >> shift) & 0x000000FF;
 
+      shift = shift + 8;
 
+    }
 
+  }
 
-
-
-
-
-
-
-  printf("\n");
-
-  printf("0) %x %x %x %x \n",timesTwo(0xe0) , timesThree(0xb4) , 0x52 , 0xae);
-
-  value1 = timesTwo(0xe0) ^ timesThree(0xb4) ^ 0x52 ^ 0xae;
-
-  printf("1) %x %x %x %x \n",0xe0 , timesTwo(0xb4) , timesThree(0x52) , 0xae);
-
-  value2 = 0xe0 ^ timesTwo(0xb4) ^ timesThree(0x52) ^ 0xae;
-
-  printf("2) %x %x %x %x \n",0xe0 , 0xb4 , timesTwo(0x52) , timesThree(0xae));
-
-  value3 = 0xe0 ^ 0xb4 ^ timesTwo(0x52) ^ timesThree(0xae);
-
-  printf("3) %x %x %x %x \n", timesThree(0xe0) , 0xb4 , 0x52 , timesTwo(0xae));
-
-  value4 = timesThree(0xe0) ^ 0xb4 ^ 0x52 ^ timesTwo(0xae);
-
-
-
-
-
-
-
-
-
-
-
-  printf("\n");
-
-  printf("0) %x %x %x %x \n",timesTwo(0xb8) , timesThree(0x41) , 0x11 , 0xf1);
-
-  value1 = timesTwo(0xb8) ^ timesThree(0x41) ^ 0x11 ^ 0xf1;
-
-  printf("1) %x %x %x %x \n",0xb8 , timesTwo(0x41) , timesThree(0x11) , 0xf1);
-
-  value2 = 0xb8 ^ timesTwo(0x41) ^ timesThree(0x11) ^ 0xf1;
-
-  printf("2) %x %x %x %x \n",0xb8 , 0x41 , timesTwo(0x11) , timesThree(0xf1));
-
-  value3 = 0xb8 ^ 0x41 ^ timesTwo(0x11) ^ timesThree(0xf1);
-
-  printf("3) %x %x %x %x \n", timesThree(0xb8) , 0x41 , 0x11 , timesTwo(0xf1));
-
-  value4 = timesThree(0xb8) ^ 0x41 ^ 0x11 ^ timesTwo(0xf1);
-
-
-
-
-
-
-
-
-
-
-
-  printf("\n");
-
-  printf("0) %x %x %x %x \n",timesTwo(0x1e) , timesThree(0x27) , 0x98 , 0xe5);
-
-  value1 = timesTwo(0x1e) ^ timesThree(0x27) ^ 0x98 ^ 0xe5;
-
-  printf("1) %x %x %x %x \n",0x1e , timesTwo(0x27) , timesThree(0x98) , 0xe5);
-
-  value2 = 0x1e ^ timesTwo(0x27) ^ timesThree(0x98) ^ 0xe5;
-
-  printf("2) %x %x %x %x \n",0x1e , 0x27 , timesTwo(0x98) , timesThree(0xe5));
-
-  value3 = 0x1e ^ 0x27 ^ timesTwo(0x98) ^ timesThree(0xe5);
-
-  printf("3) %x %x %x %x \n", timesThree(0x1e) , 0x27 , 0x98 , timesTwo(0xe5));
-
-  value4 = timesThree(0x1e) ^ 0x27 ^ 0x98 ^ timesTwo(0xe5);
-
-
-
-
-
-
-
-
-
-
+  printfState(key);
 
 }

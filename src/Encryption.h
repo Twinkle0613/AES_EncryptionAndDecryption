@@ -4,7 +4,8 @@
 void convStrToState(char* str, uint8_t state[][4]);
 
 #define Nb 4
-#define mixColumns(x) (_mixColumns(x))
+#define Nk 4
+
 
 static const uint8_t sBox[256] = 
  {

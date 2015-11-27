@@ -79,25 +79,33 @@ uint8_t timesThree(uint8_t value){
   return  ( value ^ xTime(value) );
 }
 
-void _mixColumns( uint8_t state[][Nb]){
+void mixColumns( uint8_t state[][Nb]){
   int col;
   uint8_t value0,value1,value2,value3;
- // printfState(state);
- // printf("\n");
   for( col = 0 ; col < Nb ; col++){
-  printf("\n");
-     printf("0) %x %x %x %x \n",timesTwo(state[0][col]),timesThree(state[1][col]),state[2][col],state[3][col]);    
      value0 =  timesTwo(state[0][col]) ^  timesThree(state[1][col]) ^ state[2][col]  ^ state[3][col];
-      printf("1) %x %x %x %x \n", state[0][col] ,  timesTwo(state[1][col]) , timesThree(state[2][col]) , state[3][col]);
      value1 = state[0][col] ^  timesTwo(state[1][col]) ^ timesThree(state[2][col]) ^ state[3][col];
-     printf("2) %x %x %x %x \n",state[0][col] , state[1][col] , timesTwo(state[2][col]) , timesThree(state[3][col]));
-    value2 = state[0][col] ^ state[1][col] ^ timesTwo(state[2][col]) ^ timesThree(state[3][col]);
-      printf("2) %x %x %x %x \n",timesThree(state[0][col]) , state[1][col] , state[2][col] , timesTwo(state[3][col]));
+     value2 = state[0][col] ^ state[1][col] ^ timesTwo(state[2][col]) ^ timesThree(state[3][col]);
      value3 = timesThree(state[0][col]) ^ state[1][col] ^ state[2][col] ^ timesTwo(state[3][col]);
-  //printfState(state);
     state[0][col] = value0;
     state[1][col] = value1;
     state[2][col] = value2;
     state[3][col] = value3;
   }
 }
+
+void addRoundKey(uint8_t state[][Nb],uint32_t word[], int limit){
+  
+  int start = limit - 3;
+  uint8_t key[4][Nk];
+  int row,col,shift;
+  for( col = 0; col < 4 ; col++ ){
+    shift = 0;
+    for( row = 4 ; row > 0 ; row--){
+      key[row][col] = word[start] >> shift & 3;
+      shift += 2;       
+    }
+  }
+  
+}
+
