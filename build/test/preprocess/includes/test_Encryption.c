@@ -1,3 +1,4 @@
 ---
 - unity.h
+- Encryption.h
 - CustomAssertion.h

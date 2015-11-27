@@ -7,7 +7,7 @@
 void setUp(void){}
 
 void tearDown(void){}
-
+/*
 void xtest_customTestAssertEqualState_actState_is_a_NULL(void){
   
   uint8_t** actState = NULL;
@@ -59,3 +59,4 @@ void xtest_customTestAssertEqualState_given_hec_and_str_array_that_should_return
   
   
 }
+*/

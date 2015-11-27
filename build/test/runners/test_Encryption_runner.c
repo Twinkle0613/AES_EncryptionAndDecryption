@@ -30,11 +30,10 @@ char* GlobalOrderError;
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-extern void test_convInputToState_given_ABCDEFGHIJKLMNOP(void);
-extern void test_subBytes(void);
-extern void test_shift_given_ABCDEFGHIJKLMNOP_expected_pass(void);
-extern void test_shiftRow_given_ABCDEFGHIJKLMNOP_expected_pass(void);
-extern void test_mixColumns(void);
+extern void test_convStrToState_(void);
+extern void test_subBytes_(void);
+extern void test_mixColumns_in(void);
+extern void test_xtime(void);
 
 
 //=======Test Reset Option=====
@@ -50,11 +49,10 @@ void resetTest(void)
 int main(void)
 {
   UnityBegin("test_Encryption.c");
-  RUN_TEST(test_convInputToState_given_ABCDEFGHIJKLMNOP, 24);
-  RUN_TEST(test_subBytes, 56);
-  RUN_TEST(test_shift_given_ABCDEFGHIJKLMNOP_expected_pass, 87);
-  RUN_TEST(test_shiftRow_given_ABCDEFGHIJKLMNOP_expected_pass, 102);
-  RUN_TEST(test_mixColumns, 115);
+  RUN_TEST(test_convStrToState_, 13);
+  RUN_TEST(test_subBytes_, 27);
+  RUN_TEST(test_mixColumns_in, 42);
+  RUN_TEST(test_xtime, 74);
 
   return (UnityEnd());
 }
