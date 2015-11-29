@@ -32,8 +32,27 @@ extern void setUp(void);
 extern void tearDown(void);
 extern void test_convStrToState_(void);
 extern void test_subBytes_given_ABCDEFGHIJKLMNOP(void);
-extern void test_mixColumns_in(void);
-extern void test_add(void);
+extern void test_shift_given_ABCDEFGHIJKLMNOP_expected_equal_exState(void);
+extern void test_shiftRow_given_ABCDEFGHIJKLMNOP_expected_equal_exState(void);
+extern void test_shiftRow_given_state_and_expected_euqal_exState(void);
+extern void test_mixColumns_given_state_and_expected_equal_exState(void);
+extern void test_mixColumns_given_state2_and_expected_equal_exState(void);
+extern void test_mixColumns_given_state3_and_expected_equal_exState(void);
+extern void test_convWordToArr_given_word_that_contain_4_array_data(void);
+extern void test_convWordToArr_given_word_that_contain_8_array_data(void);
+extern void test_convWordToArr_given_word_that_contain_16_array_data(void);
+extern void test_addRoundKey_given_state_and_cipherKey_expected_equal_exState(void);
+extern void test_addRoundKey_given_state1_and_cipherKey1_expected_equal_exState(void);
+extern void test_addRoundKey_given_state2_and_cipherKey_expected_equal_exState(void);
+extern void test_convKeyToWord_(void);
+extern void test_rotWord_given_0x31323334_and_expected_0x34313233(void);
+extern void test_rotWord_given_0x2a6c7605_and_expected_0x6c76052a(void);
+extern void test_rotWord_given_0x7359f67f_and_expected_0x59f67f73(void);
+extern void test_subWord_given_0xcf4f3c09_expected_0x8a84eb01(void);
+extern void test_subWord_given_0x6c76052a_expected_0x50386be5(void);
+extern void test_keyExpansion_given_128_bit_cipher_key(void);
+extern void test_keyExpansion_given_192_bit_cipher_key(void);
+extern void test_keyExpansion_given_256_bit_cipher_key(void);
 
 
 //=======Test Reset Option=====
@@ -49,10 +68,29 @@ void resetTest(void)
 int main(void)
 {
   UnityBegin("test_Encryption.c");
-  RUN_TEST(test_convStrToState_, 13);
-  RUN_TEST(test_subBytes_given_ABCDEFGHIJKLMNOP, 27);
-  RUN_TEST(test_mixColumns_in, 42);
-  RUN_TEST(test_add, 62);
+  RUN_TEST(test_convStrToState_, 14);
+  RUN_TEST(test_subBytes_given_ABCDEFGHIJKLMNOP, 28);
+  RUN_TEST(test_shift_given_ABCDEFGHIJKLMNOP_expected_equal_exState, 44);
+  RUN_TEST(test_shiftRow_given_ABCDEFGHIJKLMNOP_expected_equal_exState, 62);
+  RUN_TEST(test_shiftRow_given_state_and_expected_euqal_exState, 77);
+  RUN_TEST(test_mixColumns_given_state_and_expected_equal_exState, 96);
+  RUN_TEST(test_mixColumns_given_state2_and_expected_equal_exState, 113);
+  RUN_TEST(test_mixColumns_given_state3_and_expected_equal_exState, 128);
+  RUN_TEST(test_convWordToArr_given_word_that_contain_4_array_data, 144);
+  RUN_TEST(test_convWordToArr_given_word_that_contain_8_array_data, 159);
+  RUN_TEST(test_convWordToArr_given_word_that_contain_16_array_data, 174);
+  RUN_TEST(test_addRoundKey_given_state_and_cipherKey_expected_equal_exState, 193);
+  RUN_TEST(test_addRoundKey_given_state1_and_cipherKey1_expected_equal_exState, 211);
+  RUN_TEST(test_addRoundKey_given_state2_and_cipherKey_expected_equal_exState, 229);
+  RUN_TEST(test_convKeyToWord_, 247);
+  RUN_TEST(test_rotWord_given_0x31323334_and_expected_0x34313233, 268);
+  RUN_TEST(test_rotWord_given_0x2a6c7605_and_expected_0x6c76052a, 277);
+  RUN_TEST(test_rotWord_given_0x7359f67f_and_expected_0x59f67f73, 285);
+  RUN_TEST(test_subWord_given_0xcf4f3c09_expected_0x8a84eb01, 295);
+  RUN_TEST(test_subWord_given_0x6c76052a_expected_0x50386be5, 303);
+  RUN_TEST(test_keyExpansion_given_128_bit_cipher_key, 313);
+  RUN_TEST(test_keyExpansion_given_192_bit_cipher_key, 330);
+  RUN_TEST(test_keyExpansion_given_256_bit_cipher_key, 345);
 
   return (UnityEnd());
 }

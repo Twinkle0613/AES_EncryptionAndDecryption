@@ -94,18 +94,108 @@ void mixColumns( uint8_t state[][Nb]){
   }
 }
 
+//**************addRoundKey****************//
+
+
 void addRoundKey(uint8_t state[][Nb],uint32_t word[], int limit){
   
-  int start = limit - 3;
   uint8_t key[4][Nk];
-  int row,col,shift;
-  for( col = 0; col < 4 ; col++ ){
-    shift = 0;
-    for( row = 4 ; row > 0 ; row--){
-      key[row][col] = word[start] >> shift & 3;
-      shift += 2;       
+  convWordToArr(key,word,limit);
+//  printfState(key);
+  printf("\n");
+  int row,col;
+  
+  for(col = 0 ; col < 4 ; col++){
+    for(row = 0; row < Nb ; row++){
+     state[row][col] = state[row][col] ^ key[row][col]; 
     }
   }
   
 }
+
+
+
+void convWordToArr( uint8_t key[][Nb],uint32_t word[], int limit){
+  
+  int row,col,shift,i;
+  i = 0;
+  
+  for( col =  limit - 3 ; col <= limit ; col++ ){
+    shift = 0;
+    for( row = 3 ; row >= 0 ; row--){
+      key[row][i] = (word[col] >> shift) & 0x000000FF;
+      shift = shift + 8;       
+    }
+    i++;
+  }
+  
+}
+
+//************keyExpansion**********//
+
+void convKeyToArr(char* key, uint8_t cipherKey[][4], int keySize){
+  int row,col;                               
+  for(col = 0; col < keySize ; col++){             
+    for(row = 0; row < 4 ; row++){           
+      cipherKey[row][col] = key[row + (4*col)];   
+    }                                        
+  }  
+  
+}
+uint32_t convKeyToWord(uint8_t key0,uint8_t key1,uint8_t key2,uint8_t key3){
+   // if(key0 == NULL || key1 == NULL || key2 == NULL || key3 == NULL ){
+   // }
+  return (uint32_t)( ( key0 << 24 )| (key1 << 16 )| (key2 << 8 ) | key3);
+  
+}
+
+uint32_t rotWord(uint32_t temp){
+  return ( temp >> 24 | temp << 8);
+}
+
+#define Nr 12
+
+uint32_t subWord(uint32_t temp){
+  
+  int i;
+  uint8_t store[4];
+  for(i = 0; i < 4 ; i++){
+  store[i] = sBox[ (uint8_t)(temp >> (i*8) &  0xFF  ) ];
+  }
+  return (uint32_t)( ( store[3] << 24 )| ( store[2] << 16 )| (store[1] << 8 ) | store[0]);
+}
+
+void keyExpansion(uint8_t key[] ,uint32_t word[] ,int keySize, int round){
+  int i = 0;
+  uint32_t temp;
+  while( i < keySize){
+    word[i] =  convKeyToWord(key[4*i],key[(4*i)+1],key[(4*i)+2],key[(4*i)+3]);
+ printf("word[%d] = %.*x\n",i,8,word[i]);
+    i++;
+  }
+  
+  
+  i = keySize;
+  
+  while( i < ( Nb*(round+1) ) ) {
+    temp = word[i - 1];
+    if( (i % keySize) == 0){
+      // printf("rotWord(temp) = %.*x\n",8,rotWord(temp));
+      // printf("subWord(rotWord(temp)) = %.*x\n",8,subWord(rotWord(temp)));
+      // printf("rcon[%d] = %.*x\n",i/keySize,8,(rcon[i/keySize] << 24));
+      temp = subWord(rotWord(temp)) ^ (rcon[(i/keySize)] << 24);
+    }else if( keySize > 6 && (i % keySize == 4 ) ){
+      temp = subWord(temp);
+    }
+  //  printf("word[%d] = %.*x\n",i - keySize,2,word[i - keySize]);
+  //    printf("temp = %x\n",temp);
+    word[i] = word[i - keySize] ^ temp;
+    //printf("word[%d] = %.*x\n",i,2,word[i]);
+    i++;
+  }
+}
+
+
+
+
 
