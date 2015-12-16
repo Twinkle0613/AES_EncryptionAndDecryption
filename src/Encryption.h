@@ -3,9 +3,10 @@
 #include <stdint.h>
 void convStrToState(char* str, uint8_t state[][4]);
 void convWordToArr( uint8_t key[][4],uint32_t word[], int limit);
+void prinfWord( uint32_t word[],int limit);
 #define Nb 4
 #define Nk 4
-
+#define Nr 10
 
 static const uint8_t sBox[256] = 
  {

@@ -98,13 +98,9 @@ void mixColumns( uint8_t state[][Nb]){
 
 
 void addRoundKey(uint8_t state[][Nb],uint32_t word[], int limit){
-  
   uint8_t key[4][Nk];
   convWordToArr(key,word,limit);
-//  printfState(key);
-  printf("\n");
   int row,col;
-  
   for(col = 0 ; col < 4 ; col++){
     for(row = 0; row < Nb ; row++){
      state[row][col] = state[row][col] ^ key[row][col]; 
@@ -113,7 +109,12 @@ void addRoundKey(uint8_t state[][Nb],uint32_t word[], int limit){
   
 }
 
-
+void prinfWord( uint32_t word[],int limit){
+  int i;
+  for(i = limit - 3; i <= limit ; i++){
+    printf("word[%d] = 0x%.*x\n",i,8,word[i]);
+  }
+}
 
 void convWordToArr( uint8_t key[][Nb],uint32_t word[], int limit){
   
@@ -153,7 +154,7 @@ uint32_t rotWord(uint32_t temp){
   return ( temp >> 24 | temp << 8);
 }
 
-#define Nr 12
+
 
 uint32_t subWord(uint32_t temp){
   
@@ -165,37 +166,61 @@ uint32_t subWord(uint32_t temp){
   return (uint32_t)( ( store[3] << 24 )| ( store[2] << 16 )| (store[1] << 8 ) | store[0]);
 }
 
-void keyExpansion(uint8_t key[] ,uint32_t word[] ,int keySize, int round){
+void keyExpansion(uint8_t key[] ,uint32_t word[] ,int keySize, int numOfRound){
   int i = 0;
   uint32_t temp;
   while( i < keySize){
     word[i] =  convKeyToWord(key[4*i],key[(4*i)+1],key[(4*i)+2],key[(4*i)+3]);
- printf("word[%d] = %.*x\n",i,8,word[i]);
+    //printf("word[%d] = %.*x\n",i,8,word[i]);
     i++;
   }
-  
-  
   i = keySize;
-  
-  while( i < ( Nb*(round+1) ) ) {
+  while( i < ( Nb*(numOfRound+1) ) ) {
     temp = word[i - 1];
     if( (i % keySize) == 0){
-      // printf("rotWord(temp) = %.*x\n",8,rotWord(temp));
-      // printf("subWord(rotWord(temp)) = %.*x\n",8,subWord(rotWord(temp)));
-      // printf("rcon[%d] = %.*x\n",i/keySize,8,(rcon[i/keySize] << 24));
       temp = subWord(rotWord(temp)) ^ (rcon[(i/keySize)] << 24);
     }else if( keySize > 6 && (i % keySize == 4 ) ){
       temp = subWord(temp);
     }
-  //  printf("word[%d] = %.*x\n",i - keySize,2,word[i - keySize]);
-  //    printf("temp = %x\n",temp);
     word[i] = word[i - keySize] ^ temp;
-    //printf("word[%d] = %.*x\n",i,2,word[i]);
+   // printf("word[%d] = %.*x\n",i,2,word[i]);
     i++;
   }
 }
 
 
+void copyState(uint8_t in[][4],uint8_t state[][4]){
+    int row,col;
+  for(row = 0 ; row < 4 ; row++){
+    for(col = 0; col < 4 ; col++){
+    state[row][col] = in[row][col];
+    }
+  }
+}
 
+void cipher( uint8_t in[][4], uint8_t out[][4], uint32_t word[],int NumOfRound){
+  int i;
+  uint8_t state[4][4];
+  copyState(in,state);
+ // printf("state\n");
+ // printfState(state);
+  addRoundKey(state,word,3);
+   for( i = 1 ; i <= NumOfRound - 1 ; i++){
+     subBytes(state);
+   // printf("subBytes\n");
+   // printfState(state);
+     shiftRow(state);
+   // printf("shiftRow\n");
+   // printfState(state);
+     mixColumns(state);
+   //  printf("mixColumns\n");
+   // printfState(state);
+     addRoundKey(state,word, (i+1)*Nb-1 );
+    }
+    subBytes(state);
+    shiftRow(state);
+    addRoundKey(state,word,(NumOfRound+1)*Nb-1 );
+    copyState(state,out);
+}
 
 

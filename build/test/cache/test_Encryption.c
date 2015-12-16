@@ -371,12 +371,6 @@ void test_convWordToArr_given_word_that_contain_16_array_data(void){
 
 }
 
-
-
-
-
-
-
 void test_addRoundKey_given_state_and_cipherKey_expected_equal_exState(void){
 
   printf("No6.0 - addRoundKey\n");
@@ -405,7 +399,7 @@ void test_addRoundKey_given_state_and_cipherKey_expected_equal_exState(void){
 
   printfState(state);
 
-   { customTestAssertEqualState(exState,state,207); };
+   { customTestAssertEqualState(exState,state,221); };
 
 
 
@@ -441,7 +435,7 @@ void test_addRoundKey_given_state1_and_cipherKey1_expected_equal_exState(void){
 
   printfState(state);
 
-   { customTestAssertEqualState(exState,state,225); };
+   { customTestAssertEqualState(exState,state,239); };
 
 
 
@@ -477,13 +471,11 @@ void test_addRoundKey_given_state2_and_cipherKey_expected_equal_exState(void){
 
   printfState(state);
 
-   { customTestAssertEqualState(exState,state,243); };
+   { customTestAssertEqualState(exState,state,257); };
 
 
 
 }
-
-
 
 void test_convKeyToWord_(void){
 
@@ -515,13 +507,13 @@ void test_convKeyToWord_(void){
 
   }
 
-  UnityAssertEqualNumber((_U_SINT)(_UU32)((expect0)), (_U_SINT)(_UU32)((word[0])), (((void *)0)), (_U_UINT)262, UNITY_DISPLAY_STYLE_UINT32);
+  UnityAssertEqualNumber((_U_SINT)(_UU32)((expect0)), (_U_SINT)(_UU32)((word[0])), (((void *)0)), (_U_UINT)287, UNITY_DISPLAY_STYLE_UINT32);
 
-  UnityAssertEqualNumber((_U_SINT)(_UU32)((expect1)), (_U_SINT)(_UU32)((word[1])), (((void *)0)), (_U_UINT)263, UNITY_DISPLAY_STYLE_UINT32);
+  UnityAssertEqualNumber((_U_SINT)(_UU32)((expect1)), (_U_SINT)(_UU32)((word[1])), (((void *)0)), (_U_UINT)288, UNITY_DISPLAY_STYLE_UINT32);
 
-  UnityAssertEqualNumber((_U_SINT)(_UU32)((expect2)), (_U_SINT)(_UU32)((word[2])), (((void *)0)), (_U_UINT)264, UNITY_DISPLAY_STYLE_UINT32);
+  UnityAssertEqualNumber((_U_SINT)(_UU32)((expect2)), (_U_SINT)(_UU32)((word[2])), (((void *)0)), (_U_UINT)289, UNITY_DISPLAY_STYLE_UINT32);
 
-  UnityAssertEqualNumber((_U_SINT)(_UU32)((expect3)), (_U_SINT)(_UU32)((word[3])), (((void *)0)), (_U_UINT)265, UNITY_DISPLAY_STYLE_UINT32);
+  UnityAssertEqualNumber((_U_SINT)(_UU32)((expect3)), (_U_SINT)(_UU32)((word[3])), (((void *)0)), (_U_UINT)290, UNITY_DISPLAY_STYLE_UINT32);
 
 
 
@@ -539,7 +531,7 @@ void test_rotWord_given_0x31323334_and_expected_0x34313233(void){
 
   printf("%x %x",expect0,temp);
 
-  UnityAssertEqualNumber((_U_SINT)(_UU32)((expect0)), (_U_SINT)(_UU32)((temp)), (((void *)0)), (_U_UINT)274, UNITY_DISPLAY_STYLE_UINT32);
+  UnityAssertEqualNumber((_U_SINT)(_UU32)((expect0)), (_U_SINT)(_UU32)((temp)), (((void *)0)), (_U_UINT)312, UNITY_DISPLAY_STYLE_UINT32);
 
 }
 
@@ -557,7 +549,7 @@ void test_rotWord_given_0x2a6c7605_and_expected_0x6c76052a(void){
 
   printf("%x %x",expect0,temp);
 
-  UnityAssertEqualNumber((_U_SINT)(_UU32)((expect0)), (_U_SINT)(_UU32)((temp)), (((void *)0)), (_U_UINT)283, UNITY_DISPLAY_STYLE_UINT32);
+  UnityAssertEqualNumber((_U_SINT)(_UU32)((expect0)), (_U_SINT)(_UU32)((temp)), (((void *)0)), (_U_UINT)321, UNITY_DISPLAY_STYLE_UINT32);
 
 }
 
@@ -573,13 +565,9 @@ void test_rotWord_given_0x7359f67f_and_expected_0x59f67f73(void){
 
   printf("%x %x",expect0,temp);
 
-  UnityAssertEqualNumber((_U_SINT)(_UU32)((expect0)), (_U_SINT)(_UU32)((temp)), (((void *)0)), (_U_UINT)291, UNITY_DISPLAY_STYLE_UINT32);
+  UnityAssertEqualNumber((_U_SINT)(_UU32)((expect0)), (_U_SINT)(_UU32)((temp)), (((void *)0)), (_U_UINT)329, UNITY_DISPLAY_STYLE_UINT32);
 
 }
-
-
-
-
 
 void test_subWord_given_0xcf4f3c09_expected_0x8a84eb01(void){
 
@@ -593,7 +581,7 @@ void test_subWord_given_0xcf4f3c09_expected_0x8a84eb01(void){
 
   printf("%x %x",expect0,temp);
 
-  UnityAssertEqualNumber((_U_SINT)(_UU32)((expect0)), (_U_SINT)(_UU32)((temp)), (((void *)0)), (_U_UINT)301, UNITY_DISPLAY_STYLE_UINT32);
+  UnityAssertEqualNumber((_U_SINT)(_UU32)((expect0)), (_U_SINT)(_UU32)((temp)), (((void *)0)), (_U_UINT)351, UNITY_DISPLAY_STYLE_UINT32);
 
 }
 
@@ -609,7 +597,7 @@ void test_subWord_given_0x6c76052a_expected_0x50386be5(void){
 
   printf("%x %x",expect0,temp);
 
-  UnityAssertEqualNumber((_U_SINT)(_UU32)((expect0)), (_U_SINT)(_UU32)((temp)), (((void *)0)), (_U_UINT)309, UNITY_DISPLAY_STYLE_UINT32);
+  UnityAssertEqualNumber((_U_SINT)(_UU32)((expect0)), (_U_SINT)(_UU32)((temp)), (((void *)0)), (_U_UINT)359, UNITY_DISPLAY_STYLE_UINT32);
 
 }
 
@@ -639,11 +627,11 @@ void test_keyExpansion_given_128_bit_cipher_key(void){
 
   keyExpansion(key,word,4,10);
 
-  UnityAssertEqualNumber((_U_SINT)(_UU32)((0xb6630ca6)), (_U_SINT)(_UU32)((word[43])), (((void *)0)), (_U_UINT)324, UNITY_DISPLAY_STYLE_UINT32);
+  UnityAssertEqualNumber((_U_SINT)(_UU32)((0xb6630ca6)), (_U_SINT)(_UU32)((word[43])), (((void *)0)), (_U_UINT)374, UNITY_DISPLAY_STYLE_UINT32);
 
-  UnityAssertEqualNumber((_U_SINT)(_UU32)((0xac7766f3)), (_U_SINT)(_UU32)((word[36])), (((void *)0)), (_U_UINT)325, UNITY_DISPLAY_STYLE_UINT32);
+  UnityAssertEqualNumber((_U_SINT)(_UU32)((0xac7766f3)), (_U_SINT)(_UU32)((word[36])), (((void *)0)), (_U_UINT)375, UNITY_DISPLAY_STYLE_UINT32);
 
-  UnityAssertEqualNumber((_U_SINT)(_UU32)((0x110b3efd)), (_U_SINT)(_UU32)((word[25])), (((void *)0)), (_U_UINT)326, UNITY_DISPLAY_STYLE_UINT32);
+  UnityAssertEqualNumber((_U_SINT)(_UU32)((0x110b3efd)), (_U_SINT)(_UU32)((word[25])), (((void *)0)), (_U_UINT)376, UNITY_DISPLAY_STYLE_UINT32);
 
 }
 
@@ -673,7 +661,7 @@ void test_keyExpansion_given_192_bit_cipher_key(void){
 
   keyExpansion(key,word,6,12);
 
-  UnityAssertEqualNumber((_U_SINT)(_UU32)((0xad07d753)), (_U_SINT)(_UU32)((word[43])), (((void *)0)), (_U_UINT)341, UNITY_DISPLAY_STYLE_UINT32);
+  UnityAssertEqualNumber((_U_SINT)(_UU32)((0xad07d753)), (_U_SINT)(_UU32)((word[43])), (((void *)0)), (_U_UINT)391, UNITY_DISPLAY_STYLE_UINT32);
 
 
 
@@ -705,16 +693,50 @@ void test_keyExpansion_given_256_bit_cipher_key(void){
 
   keyExpansion(key,word,8,14);
 
-  UnityAssertEqualNumber((_U_SINT)(_UU32)((0x9ba35411)), (_U_SINT)(_UU32)((word[8])), (((void *)0)), (_U_UINT)357, UNITY_DISPLAY_STYLE_UINT32);
+  UnityAssertEqualNumber((_U_SINT)(_UU32)((0x9ba35411)), (_U_SINT)(_UU32)((word[8])), (((void *)0)), (_U_UINT)407, UNITY_DISPLAY_STYLE_UINT32);
 
-  UnityAssertEqualNumber((_U_SINT)(_UU32)((0x98312229)), (_U_SINT)(_UU32)((word[22])), (((void *)0)), (_U_UINT)358, UNITY_DISPLAY_STYLE_UINT32);
+  UnityAssertEqualNumber((_U_SINT)(_UU32)((0x98312229)), (_U_SINT)(_UU32)((word[22])), (((void *)0)), (_U_UINT)408, UNITY_DISPLAY_STYLE_UINT32);
 
-  UnityAssertEqualNumber((_U_SINT)(_UU32)((0xde136967)), (_U_SINT)(_UU32)((word[40])), (((void *)0)), (_U_UINT)359, UNITY_DISPLAY_STYLE_UINT32);
+  UnityAssertEqualNumber((_U_SINT)(_UU32)((0xde136967)), (_U_SINT)(_UU32)((word[40])), (((void *)0)), (_U_UINT)409, UNITY_DISPLAY_STYLE_UINT32);
 
-  UnityAssertEqualNumber((_U_SINT)(_UU32)((0x706c631e)), (_U_SINT)(_UU32)((word[59])), (((void *)0)), (_U_UINT)360, UNITY_DISPLAY_STYLE_UINT32);
+  UnityAssertEqualNumber((_U_SINT)(_UU32)((0x706c631e)), (_U_SINT)(_UU32)((word[59])), (((void *)0)), (_U_UINT)410, UNITY_DISPLAY_STYLE_UINT32);
+
+}
 
 
 
+void test_cipher_given_128_bit_cipher_ker(void){
 
+  printf("No11.0 - cipher\n");
+
+  uint8_t in[4][4] = { {0x32,0x88,0x31,0xe0},
+
+                           {0x43,0x5a,0x31,0x37},
+
+                           {0xf6,0x30,0x98,0x07},
+
+                           {0xa8,0x8d,0xa2,0x34} };
+
+  uint8_t expOut[4][4] = { {0x39,0x02,0xdc,0x19},
+
+                            {0x25,0xdc,0x11,0x6a},
+
+                            {0x84,0x09,0x85,0x0b},
+
+                            {0x1d,0xfb,0x97,0x32} };
+
+  uint8_t out[4][4];
+
+  uint32_t word[44];
+
+  uint8_t cipcherkey[] = { 0x2b,0x7e,0x15,0x16,0x28,0xae,0xd2,0xa6,0xab,0xf7,0x15,0x88,0x09,0xcf,0x4f,0x3c};
+
+  keyExpansion(cipcherkey,word,4,10);
+
+  cipher(in,out,word,10);
+
+  printfState(out);
+
+  { customTestAssertEqualState(expOut,out,429); };
 
 }

@@ -190,6 +190,20 @@ void test_convWordToArr_given_word_that_contain_16_array_data(void){
 
 //**************addRoundKey****************//
 
+/*
+
+   W - word => 32-bit
+   S - byte => 8-bit
+
+         S(0,0) S(0,1) S(0,2) S(0,3)                                S'(0,0) S'(0,1) S'(0,2) S'(0,3)
+         S(1,0) S(1,1) S(1,2) S(1,3)   ^   W[0] W[1] W[2] W[3]   =  S'(1,0) S'(1,1) S'(1,2) S'(1,3)
+         S(2,0) S(2,1) S(2,2) S(2,3)                                S'(2,0) S'(2,1) S'(2,2) S'(2,3)
+         S(3,0) S(3,1) S(3,2) S(3,3)                                S'(3,0) S'(3,1) S'(3,2) S'(3,3)
+
+
+*/
+
+
 void test_addRoundKey_given_state_and_cipherKey_expected_equal_exState(void){
   printf("No6.0 - addRoundKey\n");
   uint8_t exState[4][4] = { {0x19,0xa0,0x9a,0xe9},    \
@@ -243,7 +257,18 @@ void test_addRoundKey_given_state2_and_cipherKey_expected_equal_exState(void){
    TEST_ASSERT_EQUAL_STATE(exState,state);
   
 }
-
+/*   
+                                          
+                                            ---------
+                                     word1 | 0x1234 |
+                                           ---------
+                                     word2 | 0x5678 |
+   *key = "123456789ABCDEFG"   --->        ---------
+                                     word3 | 0x9ABC |
+                                           ---------
+                                     word4 | 0xDEFG |
+                                            ---------
+*/
 void test_convKeyToWord_(void){
   printf("No7.0 - convKeyToWord\n");
   char *key = "123456789ABCDEFG" ;
@@ -265,6 +290,19 @@ void test_convKeyToWord_(void){
   TEST_ASSERT_EQUAL_UINT32(expect3,word[3]);
   
 }
+
+/*
+       -----                -----
+      | 31 |               | 34 |
+      -----                -----
+      | 32 |     rotWord   | 31 |
+      -----     ------>    -----
+      | 33 |               | 32 |
+      -----                -----
+      | 34 |               | 33 |
+      -----                -----
+  
+*/
 void test_rotWord_given_0x31323334_and_expected_0x34313233(void){
   printf("No8.0 - rotWord\n");
   uint32_t expect0 = '2' << 24 | '3' << 16 | '4' << 8 | '1' << 0;
@@ -291,6 +329,18 @@ void test_rotWord_given_0x7359f67f_and_expected_0x59f67f73(void){
   TEST_ASSERT_EQUAL_UINT32(expect0,temp); 
 }
 
+/*
+       -----                -----
+      | cf |               | 8a |
+      -----                -----
+      | 4f |     subWord   | 84 |
+      -----     ------>    -----
+      | 3c |               | eb |
+      -----                -----
+      | 09 |               | 01 |
+      -----                -----
+  
+*/
 
 void test_subWord_given_0xcf4f3c09_expected_0x8a84eb01(void){
   printf("No9.0 - subWord\n");
@@ -358,6 +408,24 @@ void test_keyExpansion_given_256_bit_cipher_key(void){
   TEST_ASSERT_EQUAL_UINT32(0x98312229,word[22]); 
   TEST_ASSERT_EQUAL_UINT32(0xde136967,word[40]); 
   TEST_ASSERT_EQUAL_UINT32(0x706c631e,word[59]); 
-  
-  
 }
+
+void test_cipher_given_128_bit_cipher_ker(void){
+  printf("No11.0 - cipher\n");
+  uint8_t in[4][4] = {     {0x32,0x88,0x31,0xe0},        \
+                           {0x43,0x5a,0x31,0x37},    \
+                           {0xf6,0x30,0x98,0x07},    \
+                           {0xa8,0x8d,0xa2,0x34}  }; 
+  uint8_t expOut[4][4] =  { {0x39,0x02,0xdc,0x19},    \
+                            {0x25,0xdc,0x11,0x6a},    \
+                            {0x84,0x09,0x85,0x0b},    \
+                            {0x1d,0xfb,0x97,0x32} };
+  uint8_t out[4][4];
+  uint32_t word[44];
+  uint8_t cipcherkey[] = { 0x2b,0x7e,0x15,0x16,0x28,0xae,0xd2,0xa6,0xab,0xf7,0x15,0x88,0x09,0xcf,0x4f,0x3c};
+  keyExpansion(cipcherkey,word,4,10);
+  cipher(in,out,word,10);
+  printfState(out);
+  TEST_ASSERT_EQUAL_STATE(expOut,out);  
+}
+
