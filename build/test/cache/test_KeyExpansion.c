@@ -46,13 +46,13 @@ void test_convKeyToWord_(void){
 
   }
 
-  UnityAssertEqualNumber((_U_SINT)(_UU32)((expect0)), (_U_SINT)(_UU32)((word[0])), (((void *)0)), (_U_UINT)40, UNITY_DISPLAY_STYLE_UINT32);
+  UnityAssertEqualNumber((_U_SINT)(_UU32)((expect0)), (_U_SINT)(_UU32)((word[0])), (((void *)0)), (_U_UINT)39, UNITY_DISPLAY_STYLE_UINT32);
 
-  UnityAssertEqualNumber((_U_SINT)(_UU32)((expect1)), (_U_SINT)(_UU32)((word[1])), (((void *)0)), (_U_UINT)41, UNITY_DISPLAY_STYLE_UINT32);
+  UnityAssertEqualNumber((_U_SINT)(_UU32)((expect1)), (_U_SINT)(_UU32)((word[1])), (((void *)0)), (_U_UINT)40, UNITY_DISPLAY_STYLE_UINT32);
 
-  UnityAssertEqualNumber((_U_SINT)(_UU32)((expect2)), (_U_SINT)(_UU32)((word[2])), (((void *)0)), (_U_UINT)42, UNITY_DISPLAY_STYLE_UINT32);
+  UnityAssertEqualNumber((_U_SINT)(_UU32)((expect2)), (_U_SINT)(_UU32)((word[2])), (((void *)0)), (_U_UINT)41, UNITY_DISPLAY_STYLE_UINT32);
 
-  UnityAssertEqualNumber((_U_SINT)(_UU32)((expect3)), (_U_SINT)(_UU32)((word[3])), (((void *)0)), (_U_UINT)43, UNITY_DISPLAY_STYLE_UINT32);
+  UnityAssertEqualNumber((_U_SINT)(_UU32)((expect3)), (_U_SINT)(_UU32)((word[3])), (((void *)0)), (_U_UINT)42, UNITY_DISPLAY_STYLE_UINT32);
 
 
 
@@ -70,7 +70,7 @@ void test_rotWord_given_0x31323334_and_expected_0x34313233(void){
 
   printf("%x %x",expect0,temp);
 
-  UnityAssertEqualNumber((_U_SINT)(_UU32)((expect0)), (_U_SINT)(_UU32)((temp)), (((void *)0)), (_U_UINT)65, UNITY_DISPLAY_STYLE_UINT32);
+  UnityAssertEqualNumber((_U_SINT)(_UU32)((expect0)), (_U_SINT)(_UU32)((temp)), (((void *)0)), (_U_UINT)64, UNITY_DISPLAY_STYLE_UINT32);
 
 }
 
@@ -88,7 +88,7 @@ void test_rotWord_given_0x2a6c7605_and_expected_0x6c76052a(void){
 
   printf("%x %x",expect0,temp);
 
-  UnityAssertEqualNumber((_U_SINT)(_UU32)((expect0)), (_U_SINT)(_UU32)((temp)), (((void *)0)), (_U_UINT)74, UNITY_DISPLAY_STYLE_UINT32);
+  UnityAssertEqualNumber((_U_SINT)(_UU32)((expect0)), (_U_SINT)(_UU32)((temp)), (((void *)0)), (_U_UINT)73, UNITY_DISPLAY_STYLE_UINT32);
 
 }
 
@@ -104,7 +104,7 @@ void test_rotWord_given_0x7359f67f_and_expected_0x59f67f73(void){
 
   printf("%x %x",expect0,temp);
 
-  UnityAssertEqualNumber((_U_SINT)(_UU32)((expect0)), (_U_SINT)(_UU32)((temp)), (((void *)0)), (_U_UINT)82, UNITY_DISPLAY_STYLE_UINT32);
+  UnityAssertEqualNumber((_U_SINT)(_UU32)((expect0)), (_U_SINT)(_UU32)((temp)), (((void *)0)), (_U_UINT)81, UNITY_DISPLAY_STYLE_UINT32);
 
 }
 
@@ -120,7 +120,7 @@ void test_subWord_given_0xcf4f3c09_expected_0x8a84eb01(void){
 
   printf("%x %x",expect0,temp);
 
-  UnityAssertEqualNumber((_U_SINT)(_UU32)((expect0)), (_U_SINT)(_UU32)((temp)), (((void *)0)), (_U_UINT)104, UNITY_DISPLAY_STYLE_UINT32);
+  UnityAssertEqualNumber((_U_SINT)(_UU32)((expect0)), (_U_SINT)(_UU32)((temp)), (((void *)0)), (_U_UINT)103, UNITY_DISPLAY_STYLE_UINT32);
 
 }
 
@@ -136,6 +136,6 @@ void test_subWord_given_0x6c76052a_expected_0x50386be5(void){
 
   printf("%x %x",expect0,temp);
 
-  UnityAssertEqualNumber((_U_SINT)(_UU32)((expect0)), (_U_SINT)(_UU32)((temp)), (((void *)0)), (_U_UINT)112, UNITY_DISPLAY_STYLE_UINT32);
+  UnityAssertEqualNumber((_U_SINT)(_UU32)((expect0)), (_U_SINT)(_UU32)((temp)), (((void *)0)), (_U_UINT)111, UNITY_DISPLAY_STYLE_UINT32);
 
 }

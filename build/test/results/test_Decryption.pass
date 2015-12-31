@@ -3,43 +3,17 @@
   :path: test
   :file: test_Decryption.c
 :successes:
-- :test: test_invSubBytes_given_ABCDEFGHIJK
-  :line: 26
-  :message: ''
 - :test: test_invShift_given_ABCDEFGHIJKLMNOP_expected_equal_exState
-  :line: 53
-  :message: ''
-- :test: test_invShiftRow_given_ABCDEFGHIJKLMNOP_expected_result_is_ANKHEBOLIFCPMJGD
-  :line: 83
-  :message: ''
-- :test: test_invShiftRow_given_123456789ABCEFG_expected_result_is_ANKHEBOLIFCPMJGD
-  :line: 99
-  :message: ''
-- :test: test_invMixColumns_given_state_and_expected_equal_exState
-  :line: 124
-  :message: ''
-- :test: test_invMixColumns_given_state2_and_expected_equal_exState
-  :line: 139
-  :message: ''
-- :test: test_multiWithXRO_given_0x57_and_0x83_expected_0x2b79
-  :line: 174
-  :message: ''
-- :test: test_module0x11bWithXRO_
-  :line: 190
-  :message: ''
-- :test: test_multiInGF_given_0x57_and_times_14_expected_
-  :line: 196
+  :line: 51
   :message: ''
 :failures: []
 :ignores: []
 :counts:
-  :total: 9
-  :passed: 9
+  :total: 1
+  :passed: 1
   :failed: 0
   :ignored: 0
 :stdout:
-- No1.0 - invSubBytes
-- ''
 - No2.0 - invShift
 - 41 45 49 4d
 - 42 46 4a 4e
@@ -50,12 +24,4 @@
 - 4e 42 46 4a
 - 4b 4f 43 47
 - 48 4c 50 44
-- No3.0 - invShiftRow
-- No3.1 - invShiftRow
-- No4.0 - invMixColumns
-- No4.1 - invMixColumns
-- No5.3 - multiWithXRO
-- 0xF1*0x03 = 0x2d3 , multiWithXRO(0xf1,0x03) = 0x113
-- No5.4 - module0x11bWithXRO
-- No5.5 - multiInGF
 - ''

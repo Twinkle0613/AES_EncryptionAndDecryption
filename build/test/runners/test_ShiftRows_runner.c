@@ -33,6 +33,8 @@ extern void tearDown(void);
 extern void test_shift_given_ABCDEFGHIJKLMNOP_expected_equal_exState(void);
 extern void test_shiftRow_given_ABCDEFGHIJKLMNOP_expected_equal_exState(void);
 extern void test_shiftRow_given_state_and_expected_euqal_exState(void);
+extern void test_invShiftRow_given_ABCDEFGHIJKLMNOP_expected_result_is_ANKHEBOLIFCPMJGD(void);
+extern void test_invShiftRow_given_123456789ABCEFG_expected_result_is_ANKHEBOLIFCPMJGD(void);
 
 
 //=======Test Reset Option=====
@@ -51,6 +53,8 @@ int main(void)
   RUN_TEST(test_shift_given_ABCDEFGHIJKLMNOP_expected_equal_exState, 24);
   RUN_TEST(test_shiftRow_given_ABCDEFGHIJKLMNOP_expected_equal_exState, 51);
   RUN_TEST(test_shiftRow_given_state_and_expected_euqal_exState, 66);
+  RUN_TEST(test_invShiftRow_given_ABCDEFGHIJKLMNOP_expected_result_is_ANKHEBOLIFCPMJGD, 85);
+  RUN_TEST(test_invShiftRow_given_123456789ABCEFG_expected_result_is_ANKHEBOLIFCPMJGD, 101);
 
   return (UnityEnd());
 }

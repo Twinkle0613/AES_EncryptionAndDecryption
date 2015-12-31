@@ -1,6 +1,6 @@
 #include "MixColumns.h"
 #include <stdint.h>
-
+#include "SubBytes.h" 
 #define getBit(value,posBit)  ( ( value >> posBit) & 1 )
 
 uint8_t multiInGF(uint8_t value, uint8_t valueOfMulti ){
@@ -48,3 +48,17 @@ void mixColumns( uint8_t state[][4]){
   }
 }
 
+void invMixColumns(uint8_t state[][4]){
+  int col;
+  uint8_t value0,value1,value2,value3;
+  for( col = 0 ; col < Nb ; col++){
+     value0 = multiInGF(0x0e,state[0][col]) ^  multiInGF(0x0b,state[1][col]) ^ multiInGF(0x0d,state[2][col])  ^ multiInGF(0x09,state[3][col]);
+     value1 = multiInGF(0x09,state[0][col]) ^  multiInGF(0x0e,state[1][col]) ^ multiInGF(0x0b,state[2][col])  ^ multiInGF(0x0d,state[3][col]);
+     value2 = multiInGF(0x0d,state[0][col]) ^  multiInGF(0x09,state[1][col]) ^ multiInGF(0x0e,state[2][col])  ^ multiInGF(0x0b,state[3][col]);
+     value3 = multiInGF(0x0b,state[0][col]) ^  multiInGF(0x0d,state[1][col]) ^ multiInGF(0x09,state[2][col])  ^ multiInGF(0x0e,state[3][col]);
+    state[0][col] = value0;
+    state[1][col] = value1;
+    state[2][col] = value2;
+    state[3][col] = value3;
+  }
+}

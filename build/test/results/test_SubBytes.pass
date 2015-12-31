@@ -6,17 +6,18 @@
 - :test: test_subBytes_given_ABCDEFGHIJKLMNOP
   :line: 22
   :message: ''
+- :test: test_invSubBytes_given_ABCDEFGHIJK
+  :line: 47
+  :message: ''
 :failures: []
 :ignores: []
 :counts:
-  :total: 1
-  :passed: 1
+  :total: 2
+  :passed: 2
   :failed: 0
   :ignored: 0
 :stdout:
 - No2.0 - subBytes
-- 83 6e 3b e3
-- 2c 5a d6 2f
-- 1a a0 b3 84
-- 1b 52 29 53
+- No1.0 - invSubBytes
+- ''
 - ''

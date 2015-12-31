@@ -81,3 +81,35 @@ void test_shiftRow_given_state_and_expected_euqal_exState(void){
   TEST_ASSERT_EQUAL_STATE(exState,state);
   
 }
+
+void test_invShiftRow_given_ABCDEFGHIJKLMNOP_expected_result_is_ANKHEBOLIFCPMJGD(void){
+  printf("No3.0 - invShiftRow\n");
+  uint8_t state[4][4] = { {'A','E','I','M'},\
+                          {'B','F','J','N'},\
+                          {'C','G','K','O'},\
+                          {'D','H','L','P'}  };
+                          
+  uint8_t exState[4][4] = { {'A','E','I','M'},\
+                            {'N','B','F','J'},\
+                            {'K','O','C','G'},\
+                            {'H','L','P','D'}  };
+
+  invShiftRow(state);              
+  TEST_ASSERT_EQUAL_STATE(exState,state);
+}
+
+void test_invShiftRow_given_123456789ABCEFG_expected_result_is_ANKHEBOLIFCPMJGD(void){
+  printf("No3.1 - invShiftRow\n");
+  uint8_t state[4][4] = { {'1','5','9','D'},\
+                          {'2','6','A','E'},\
+                          {'3','7','B','F'},\
+                          {'L','P','D','H'}  };
+                          
+  uint8_t exState[4][4] = { {'1','5','9','D'},\
+                            {'E','2','6','A'},\
+                            {'B','F','3','7'},\
+                            {'P','D','H','L'}  };
+
+  invShiftRow(state);              
+  TEST_ASSERT_EQUAL_STATE(exState,state);
+}

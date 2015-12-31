@@ -31,6 +31,7 @@ char* GlobalOrderError;
 extern void setUp(void);
 extern void tearDown(void);
 extern void test_subBytes_given_ABCDEFGHIJKLMNOP(void);
+extern void test_invSubBytes_given_ABCDEFGHIJK(void);
 
 
 //=======Test Reset Option=====
@@ -47,6 +48,7 @@ int main(void)
 {
   UnityBegin("test_SubBytes.c");
   RUN_TEST(test_subBytes_given_ABCDEFGHIJKLMNOP, 22);
+  RUN_TEST(test_invSubBytes_given_ABCDEFGHIJK, 47);
 
   return (UnityEnd());
 }

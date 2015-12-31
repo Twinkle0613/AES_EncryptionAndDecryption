@@ -29,3 +29,32 @@ void shiftRow(uint8_t state[][4]){
   for( i = 0 ; i < 4 ; i++) 
   shift(i,4,state);
 }
+
+void invShift(int row , int stateSize , uint8_t state[][4]){
+  int leftSize = stateSize - row;
+  int rightSize = row;
+  int i,j;
+  int k = 0;
+  uint8_t rightTemp[rightSize];
+  uint8_t leftTemp[leftSize];
+  
+  for( i = 0 ; i < leftSize ; i++){
+    leftTemp[i] = state[row][i];
+  }
+  for( j = leftSize ; j < stateSize ; j++){  
+    rightTemp[k++] = state[row][j];
+  }
+  for ( i = 0; i < rightSize ; i++){
+    state[row][i] = rightTemp[i];
+  }
+  k = 0;
+  for ( j = rightSize ; j < stateSize ; j++){
+     state[row][j] = leftTemp[k++];
+  }
+}
+
+void invShiftRow(uint8_t state[][4]){
+  int i;
+  for( i = 0 ; i < Nb ; i++) 
+  invShift(i,Nb,state);
+}

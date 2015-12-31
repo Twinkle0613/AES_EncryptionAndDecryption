@@ -30,15 +30,7 @@ char* GlobalOrderError;
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-extern void test_invSubBytes_given_ABCDEFGHIJK(void);
 extern void test_invShift_given_ABCDEFGHIJKLMNOP_expected_equal_exState(void);
-extern void test_invShiftRow_given_ABCDEFGHIJKLMNOP_expected_result_is_ANKHEBOLIFCPMJGD(void);
-extern void test_invShiftRow_given_123456789ABCEFG_expected_result_is_ANKHEBOLIFCPMJGD(void);
-extern void test_invMixColumns_given_state_and_expected_equal_exState(void);
-extern void test_invMixColumns_given_state2_and_expected_equal_exState(void);
-extern void test_multiWithXRO_given_0x57_and_0x83_expected_0x2b79(void);
-extern void test_module0x11bWithXRO_(void);
-extern void test_multiInGF_given_0x57_and_times_14_expected_(void);
 
 
 //=======Test Reset Option=====
@@ -54,15 +46,7 @@ void resetTest(void)
 int main(void)
 {
   UnityBegin("test_Decryption.c");
-  RUN_TEST(test_invSubBytes_given_ABCDEFGHIJK, 26);
-  RUN_TEST(test_invShift_given_ABCDEFGHIJKLMNOP_expected_equal_exState, 53);
-  RUN_TEST(test_invShiftRow_given_ABCDEFGHIJKLMNOP_expected_result_is_ANKHEBOLIFCPMJGD, 83);
-  RUN_TEST(test_invShiftRow_given_123456789ABCEFG_expected_result_is_ANKHEBOLIFCPMJGD, 99);
-  RUN_TEST(test_invMixColumns_given_state_and_expected_equal_exState, 124);
-  RUN_TEST(test_invMixColumns_given_state2_and_expected_equal_exState, 139);
-  RUN_TEST(test_multiWithXRO_given_0x57_and_0x83_expected_0x2b79, 174);
-  RUN_TEST(test_module0x11bWithXRO_, 190);
-  RUN_TEST(test_multiInGF_given_0x57_and_times_14_expected_, 196);
+  RUN_TEST(test_invShift_given_ABCDEFGHIJKLMNOP_expected_equal_exState, 51);
 
   return (UnityEnd());
 }

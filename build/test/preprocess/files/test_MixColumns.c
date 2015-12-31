@@ -17,6 +17,66 @@ void tearDown(void)
 
 
 
+void test_multiWithXRO_given_0x57_and_0x83_expected_0x2b79(void){
+
+    printf("No5.3 - multiWithXRO\n");
+
+    UnityAssertEqualNumber((_U_SINT)((0x2b79)), (_U_SINT)((multiWithXRO(0x57,0x83))), (((void *)0)), (_U_UINT)14, UNITY_DISPLAY_STYLE_INT);
+
+    UnityAssertEqualNumber((_U_SINT)((0x0)), (_U_SINT)((multiWithXRO(0x57,0x0))), (((void *)0)), (_U_UINT)15, UNITY_DISPLAY_STYLE_INT);
+
+    UnityAssertEqualNumber((_U_SINT)((0x0)), (_U_SINT)((multiWithXRO(0x0,0x2))), (((void *)0)), (_U_UINT)16, UNITY_DISPLAY_STYLE_INT);
+
+    UnityAssertEqualNumber((_U_SINT)((0x2)), (_U_SINT)((multiWithXRO(0x1,0x2))), (((void *)0)), (_U_UINT)17, UNITY_DISPLAY_STYLE_INT);
+
+    UnityAssertEqualNumber((_U_SINT)((0x8)), (_U_SINT)((multiWithXRO(0x4,0x2))), (((void *)0)), (_U_UINT)18, UNITY_DISPLAY_STYLE_INT);
+
+    UnityAssertEqualNumber((_U_SINT)((0x570)), (_U_SINT)((multiWithXRO(0x57,0x10))), (((void *)0)), (_U_UINT)19, UNITY_DISPLAY_STYLE_INT);
+
+    UnityAssertEqualNumber((_U_SINT)((0x570)), (_U_SINT)((multiWithXRO(0x10,0x57))), (((void *)0)), (_U_UINT)20, UNITY_DISPLAY_STYLE_INT);
+
+    UnityAssertEqualNumber((_U_SINT)((0x20)), (_U_SINT)((multiWithXRO(0x10,0x2))), (((void *)0)), (_U_UINT)21, UNITY_DISPLAY_STYLE_INT);
+
+
+
+
+
+}
+
+
+
+void test_module0x11bWithXRO_(void){
+
+  printf("No5.4 - module0x11bWithXRO\n");
+
+
+
+  UnityAssertEqualNumber((_U_SINT)((0xb)), (_U_SINT)((module0x11bWithXRO(0x110))), (((void *)0)), (_U_UINT)29, UNITY_DISPLAY_STYLE_INT);
+
+}
+
+
+
+void test_multiInGF_given_0x57_and_times_14_expected_(void){
+
+  printf("No5.5 - multiInGF\n");
+
+  UnityAssertEqualNumber((_U_SINT)((0xae)), (_U_SINT)((multiInGF(0x57,0x02))), (((void *)0)), (_U_UINT)34, UNITY_DISPLAY_STYLE_INT);
+
+  UnityAssertEqualNumber((_U_SINT)((0xfe)), (_U_SINT)((multiInGF(0x57,0x13))), (((void *)0)), (_U_UINT)35, UNITY_DISPLAY_STYLE_INT);
+
+  UnityAssertEqualNumber((_U_SINT)((0x07)), (_U_SINT)((multiInGF(0x57,0x10))), (((void *)0)), (_U_UINT)36, UNITY_DISPLAY_STYLE_INT);
+
+  UnityAssertEqualNumber((_U_SINT)((0x47)), (_U_SINT)((multiInGF(0x57,0x04))), (((void *)0)), (_U_UINT)37, UNITY_DISPLAY_STYLE_INT);
+
+  UnityAssertEqualNumber((_U_SINT)((0x57)), (_U_SINT)((multiInGF(0x57,0x01))), (((void *)0)), (_U_UINT)38, UNITY_DISPLAY_STYLE_INT);
+
+}
+
+
+
+
+
 void test_mixColumns_given_state2_and_expected_equal_exState(void){
 
   printf("No4.1\n");
@@ -37,11 +97,9 @@ void test_mixColumns_given_state2_and_expected_equal_exState(void){
 
                            {0x93,0x33,0x7c,0xdc} };
 
-
-
     mixColumns(state2);
 
-    { customTestAssertEqualState(exState,state2,24); };
+    { customTestAssertEqualState(exState,state2,53); };
 
 }
 
@@ -71,8 +129,68 @@ void test_mixColumns_given_state3_and_expected_equal_exState(void){
 
     mixColumns(state3);
 
-    { customTestAssertEqualState(exState,state3,39); };
+    { customTestAssertEqualState(exState,state3,68); };
 
 
+
+}
+
+
+
+void test_invMixColumns_given_state_and_expected_equal_exState(void){
+
+  printf("No4.0 - invMixColumns\n");
+
+    uint8_t state[4][4] = { {0xbd,0xf2,0x0b,0x8b},
+
+                            {0x6e,0xb5,0x61,0x10},
+
+                            {0x7c,0x77,0x21,0xb6},
+
+                            {0x3d,0x9e,0x6e,0x89} };
+
+
+
+  uint8_t exState[4][4] = { {0x47,0xf7,0x61,0xa1},
+
+                            {0x73,0x2f,0xcb,0xe6},
+
+                            {0xb9,0x35,0x01,0xcf},
+
+                            {0x1f,0x43,0x8e,0x2c} };
+
+  invMixColumns(state);
+
+  { customTestAssertEqualState(exState,state,84); };
+
+}
+
+
+
+void test_invMixColumns_given_state2_and_expected_equal_exState(void){
+
+  printf("No4.1 - invMixColumns\n");
+
+    uint8_t state[4][4] = { {0xfd,0x05,0x35,0xf1},
+
+                            {0xe3,0xe5,0x47,0xfe},
+
+                            {0xba,0xd0,0x96,0x37},
+
+                            {0xd2,0xd7,0x4e,0xf1} };
+
+
+
+  uint8_t exState[4][4] = { {0x2d,0x39,0xe6,0x01},
+
+                            {0x7e,0xd9,0x57,0x90},
+
+                            {0x86,0x39,0x0a,0x4e},
+
+                            {0xa3,0x3e,0x11,0x16} };
+
+  invMixColumns(state);
+
+  { customTestAssertEqualState(exState,state,99); };
 
 }
