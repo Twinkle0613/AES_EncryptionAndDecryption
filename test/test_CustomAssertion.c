@@ -2,8 +2,7 @@
 #include "CustomAssertion.h"
 #include <stdint.h>
 #include <stdlib.h>
-
-#include "Encryption.h"
+//#include "Encryption.h"
 void setUp(void){}
 
 void tearDown(void){}

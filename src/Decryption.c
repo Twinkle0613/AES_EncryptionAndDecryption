@@ -2,6 +2,11 @@
 #include "Encryption.h"
 #include "stdint.h"
 #include "stdio.h"
+#include "AddRoundKey.h"
+#include "KeyExpansion.h"
+#include "MixColumns.h"
+#include "ShiftRows.h"
+#include "SubBytes.h"   
 
 //#define getBit(value,bit) (value >> bit & 0x01)
 
@@ -51,70 +56,70 @@ void invShiftRow(uint8_t state[][4]){
   invShift(i,Nb,state);
 }
 
-uint8_t timesEvenNumber(uint8_t value,int evenNum){
-  int limit;
-  int i;
-  int temp = value;
-  if( evenNum%2 == 1 ){
-    printf("Error: Number of times can not be odd number\n");
-  }else{
+// uint8_t timesEvenNumber(uint8_t value,int evenNum){
+  // int limit;
+  // int i;
+  // int temp = value;
+  // if( evenNum%2 == 1 ){
+    // printf("Error: Number of times can not be odd number\n");
+  // }else{
     
-    if(evenNum < 5){
-      limit = evenNum/2;
-    }else{
-      limit = evenNum/2 - 1;
-    } 
+    // if(evenNum < 5){
+      // limit = evenNum/2;
+    // }else{
+      // limit = evenNum/2 - 1;
+    // } 
    
-   for( i = 0; i < limit ; i++){
-      temp = xTime(temp);
-   }
-   return temp;
-  }
+   // for( i = 0; i < limit ; i++){
+      // temp = xTime(temp);
+   // }
+   // return temp;
+  // }
   
-}
+// }
 
-uint8_t timesTen(uint8_t value){
-  int i = 0;
-  int temp = value;
-  for(i = 0 ; i < 4 ; i++ ){
-    temp = xTime(temp);
-  }
-  return temp;
-}
+// uint8_t timesTen(uint8_t value){
+  // int i = 0;
+  // int temp = value;
+  // for(i = 0 ; i < 4 ; i++ ){
+    // temp = xTime(temp);
+  // }
+  // return temp;
+// }
 
-uint8_t timesFour(uint8_t value){
-  int i = 0;
-  int temp = value;
-  for(i = 0 ; i < 2 ; i++ ){
-    temp = xTime(temp);
-  }
-  return temp;
-}
+// uint8_t timesFour(uint8_t value){
+  // int i = 0;
+  // int temp = value;
+  // for(i = 0 ; i < 2 ; i++ ){
+    // temp = xTime(temp);
+  // }
+  // return temp;
+// }
 
-uint8_t timesEight(uint8_t value){
-  int i = 0;
-  int temp = value;
-  for(i = 0 ; i < 3 ; i++ ){
-    temp = xTime(temp);
-  }
-  return temp;
-}
+// uint8_t timesEight(uint8_t value){
+  // int i = 0;
+  // int temp = value;
+  // for(i = 0 ; i < 3 ; i++ ){
+    // temp = xTime(temp);
+  // }
+  // return temp;
+// }
 
-uint8_t timesFourteen(uint8_t value){
-  return ( timesTen(value) ^ timesFour(value) );
-}
+// uint8_t timesFourteen(uint8_t value){
+  // return ( timesTen(value) ^ timesFour(value) );
+// }
 
-uint8_t timesEleven(uint8_t value){
-  return (timesTen(value) ^ value);
-}
+// uint8_t timesEleven(uint8_t value){
+  // return (timesTen(value) ^ value);
+// }
 
-uint8_t timesThirteen(uint8_t value){
-  return (timesTen(value) ^ timesTwo(value) ^ value);
-}
+// uint8_t timesThirteen(uint8_t value){
+  // return (timesTen(value) ^ timesTwo(value) ^ value);
+// }
 
-uint8_t timesNine(uint8_t value){
-  return (timesEight(value) ^ value);
-}
+// uint8_t timesNine(uint8_t value){
+  // return (timesEight(value) ^ value);
+// }
 
 
 

@@ -30,13 +30,8 @@ char* GlobalOrderError;
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-extern void test_keyExpansion_given_128_bit_cipher_key(void);
-extern void test_keyExpansion_given_192_bit_cipher_key(void);
-extern void test_keyExpansion_given_256_bit_cipher_key(void);
-extern void test_cipher_given_128_bit_cipher_key(void);
-extern void test_cipher_given_192_bit_cipher_key(void);
-extern void test_cipher_given_256_bit_cipher_key(void);
-extern void test_encryption16byte_(void);
+extern void test_mixColumns_given_state2_and_expected_equal_exState(void);
+extern void test_mixColumns_given_state3_and_expected_equal_exState(void);
 
 
 //=======Test Reset Option=====
@@ -51,14 +46,9 @@ void resetTest(void)
 //=======MAIN=====
 int main(void)
 {
-  UnityBegin("test_Encryption.c");
-  RUN_TEST(test_keyExpansion_given_128_bit_cipher_key, 21);
-  RUN_TEST(test_keyExpansion_given_192_bit_cipher_key, 38);
-  RUN_TEST(test_keyExpansion_given_256_bit_cipher_key, 53);
-  RUN_TEST(test_cipher_given_128_bit_cipher_key, 71);
-  RUN_TEST(test_cipher_given_192_bit_cipher_key, 90);
-  RUN_TEST(test_cipher_given_256_bit_cipher_key, 111);
-  RUN_TEST(test_encryption16byte_, 132);
+  UnityBegin("test_MixColumns.c");
+  RUN_TEST(test_mixColumns_given_state2_and_expected_equal_exState, 12);
+  RUN_TEST(test_mixColumns_given_state3_and_expected_equal_exState, 27);
 
   return (UnityEnd());
 }

@@ -1,7 +1,11 @@
 #ifndef Encryption_H
 #define Encryption_H
 #include <stdint.h>
-
+#include "AddRoundKey.h"
+#include "KeyExpansion.h"
+#include "MixColumns.h"
+#include "ShiftRows.h"
+#include "SubBytes.h"   
 
 
 

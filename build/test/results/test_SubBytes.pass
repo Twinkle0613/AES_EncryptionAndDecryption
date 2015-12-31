@@ -1,0 +1,22 @@
+---
+:source:
+  :path: test
+  :file: test_SubBytes.c
+:successes:
+- :test: test_subBytes_given_ABCDEFGHIJKLMNOP
+  :line: 22
+  :message: ''
+:failures: []
+:ignores: []
+:counts:
+  :total: 1
+  :passed: 1
+  :failed: 0
+  :ignored: 0
+:stdout:
+- No2.0 - subBytes
+- 83 6e 3b e3
+- 2c 5a d6 2f
+- 1a a0 b3 84
+- 1b 52 29 53
+- ''

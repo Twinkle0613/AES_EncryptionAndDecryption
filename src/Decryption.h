@@ -2,6 +2,12 @@
 #define Decryption_H
 #include "stdint.h"
 #include "Encryption.h"
+#include "AddRoundKey.h"
+#include "KeyExpansion.h"
+#include "MixColumns.h"
+#include "ShiftRows.h"
+#include "SubBytes.h"   
+
 static const uint8_t invSBox[256] = 
  {
     0x52, 0x09, 0x6A, 0xD5, 0x30, 0x36, 0xA5, 0x38, 0xBF, 0x40, 0xA3, 0x9E, 0x81, 0xF3, 0xD7, 0xFB,

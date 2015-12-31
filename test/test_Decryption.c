@@ -2,6 +2,13 @@
 #include "Decryption.h"
 #include "Encryption.h"
 #include "CustomAssertion.h"
+#include "AddRoundKey.h"
+#include "KeyExpansion.h"
+#include "MixColumns.h"
+#include "ShiftRows.h"
+#include "SubBytes.h"   
+
+
 void setUp(void){}
 
 void tearDown(void){}
@@ -145,23 +152,23 @@ void test_invMixColumns_given_state2_and_expected_equal_exState(void){
 }
 
 
-void test_timesTen_given_0x57_expected_0x07(void){
-  printf("No5.0 - timesTen\n");
-  TEST_ASSERT_EQUAL(0x07,timesTen(0x57));
-}
+// void test_timesTen_given_0x57_expected_0x07(void){
+  // printf("No5.0 - timesTen\n");
+  // TEST_ASSERT_EQUAL(0x07,timesTen(0x57));
+// }
 
-void test_timeFour_given_0x57_ecpected_0x8e(void){
-  printf("No5.1 - timesFour\n");
-  TEST_ASSERT_EQUAL(0x47,timesFour(0x57));
-}
+// void test_timeFour_given_0x57_ecpected_0x8e(void){
+  // printf("No5.1 - timesFour\n");
+  // TEST_ASSERT_EQUAL(0x47,timesFour(0x57));
+// }
 
-void test_timesEvenNumber_given_0x57_and_times_2_4_8_and_10(void){
-   printf("No5.2 - timesEvenNumber\n");
-   TEST_ASSERT_EQUAL(0xae,timesEvenNumber(0x57,2));
-   TEST_ASSERT_EQUAL(0x47,timesEvenNumber(0x57,4));
-   TEST_ASSERT_EQUAL(0x8e,timesEvenNumber(0x57,8));
-   TEST_ASSERT_EQUAL(0x07,timesEvenNumber(0x57,10));
-}
+// void test_timesEvenNumber_given_0x57_and_times_2_4_8_and_10(void){
+   // printf("No5.2 - timesEvenNumber\n");
+   // TEST_ASSERT_EQUAL(0xae,timesEvenNumber(0x57,2));
+   // TEST_ASSERT_EQUAL(0x47,timesEvenNumber(0x57,4));
+   // TEST_ASSERT_EQUAL(0x8e,timesEvenNumber(0x57,8));
+   // TEST_ASSERT_EQUAL(0x07,timesEvenNumber(0x57,10));
+// }
 
 
 void test_multiWithXRO_given_0x57_and_0x83_expected_0x2b79(void){
@@ -175,7 +182,7 @@ void test_multiWithXRO_given_0x57_and_0x83_expected_0x2b79(void){
     TEST_ASSERT_EQUAL(0x570,multiWithXRO(0x10,0x57));
     TEST_ASSERT_EQUAL(0x20,multiWithXRO(0x10,0x2));
     printf("0xF1*0x03 = 0x%x , multiWithXRO(0xf1,0x03) = 0x%x\n",(0xf1*0x03),multiWithXRO(0xf1,0x03));
-    printf("multiInGF(0xf1,0x03) = 0x%x, timesThree(0xf1) = 0x%x",multiInGF(0xf1,0x03),timesThree(0xf1));
+//    printf("multiInGF(0xf1,0x03) = 0x%x, timesThree(0xf1) = 0x%x",multiInGF(0xf1,0x03),timesThree(0xf1));
     
     
 }
