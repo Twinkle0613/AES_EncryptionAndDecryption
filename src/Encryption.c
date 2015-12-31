@@ -35,7 +35,6 @@ void cipher( uint8_t in[][4], uint8_t out[][4], uint32_t word[],int NumOfRound){
     copyState(state,out);
 }
 
-
 void encryption_16byte(uint8_t plainText[][4],uint8_t key[],uint8_t result[][4]){
    uint32_t word[44];
    keyExpansion(key,word,4,10);

@@ -19,10 +19,10 @@
   :line: 56
   :message: ''
 - :test: test_invMixColumns_given_state_and_expected_equal_exState
-  :line: 72
+  :line: 71
   :message: ''
 - :test: test_invMixColumns_given_state2_and_expected_equal_exState
-  :line: 87
+  :line: 86
   :message: ''
 :failures: []
 :ignores: []
@@ -32,11 +32,11 @@
   :failed: 0
   :ignored: 0
 :stdout:
-- No5.3 - multiWithXRO
-- No5.4 - module0x11bWithXRO
-- No5.5 - multiInGF
-- No4.1
-- No4.2
-- No4.0 - invMixColumns
-- No4.1 - invMixColumns
+- No1.0 - multiWithXRO
+- No2.0 - module0x11bWithXRO
+- No3.0 - multiInGF
+- No4.0 - mixColumns
+- No5.0 - mixColumns
+- No6.0 - invMixColumns
+- No7.0 - invMixColumns
 - ''

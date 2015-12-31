@@ -17,7 +17,7 @@ void tearDown(void)
 
 void test_subBytes_given_ABCDEFGHIJKLMNOP(void){
 
-  printf("No2.0 - subBytes\n");
+  printf("No1.0 - subBytes\n");
 
   uint8_t exState[4][4] = {{0x83,0x6e,0x3b,0xe3},
 
@@ -45,7 +45,7 @@ void test_subBytes_given_ABCDEFGHIJKLMNOP(void){
 
 void test_invSubBytes_given_ABCDEFGHIJK(void){
 
-  printf("No1.0 - invSubBytes\n");
+  printf("No2.0 - invSubBytes\n");
 
    uint8_t exState[4][4] = {{0xf8,0x68,0xa4,0x65},
 

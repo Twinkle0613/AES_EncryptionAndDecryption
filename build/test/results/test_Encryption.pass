@@ -3,54 +3,42 @@
   :path: test
   :file: test_Encryption.c
 :successes:
-- :test: test_keyExpansion_given_128_bit_cipher_key
-  :line: 21
-  :message: ''
-- :test: test_keyExpansion_given_192_bit_cipher_key
-  :line: 38
-  :message: ''
-- :test: test_keyExpansion_given_256_bit_cipher_key
-  :line: 53
-  :message: ''
 - :test: test_cipher_given_128_bit_cipher_key
-  :line: 71
+  :line: 23
   :message: ''
 - :test: test_cipher_given_192_bit_cipher_key
-  :line: 90
+  :line: 45
   :message: ''
 - :test: test_cipher_given_256_bit_cipher_key
-  :line: 111
+  :line: 71
   :message: ''
 - :test: test_encryption16byte_
-  :line: 132
+  :line: 98
   :message: ''
 :failures: []
 :ignores: []
 :counts:
-  :total: 7
-  :passed: 7
+  :total: 4
+  :passed: 4
   :failed: 0
   :ignored: 0
 :stdout:
-- No10.0 - keyExpansion 128-bit cipher key
-- No10.1 - keyExpansion 192-bit cipher key
-- No10.2 - keyExpansion 256-bit cipher key
-- 'No11.0 - cipher 128-bit key Size '
+- 'No1.0 - cipher 128-bit key Size '
 - 39 02 dc 19
 - 25 dc 11 6a
 - 84 09 85 0b
 - 1d fb 97 32
-- 'No11.1 - cipher 192-bit key Size '
+- 'No2.0 - cipher 192-bit key Size '
 - dd 86 6e ec
 - a9 4c af 0d
 - 7c df 70 71
 - a4 e0 a0 91
-- 'No11.2 - cipher 256-bit key Size '
+- 'No3.0 - cipher 256-bit key Size '
 - 8e 51 ea 4b
 - a2 67 fc 49
 - b7 45 49 60
 - ca bf 90 89
-- No12.0 - encryption_16byte
+- No4.0 - encryption_16byte
 - 39 02 dc 19
 - 25 dc 11 6a
 - 84 09 85 0b

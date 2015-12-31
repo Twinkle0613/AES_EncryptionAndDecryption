@@ -30,7 +30,9 @@ char* GlobalOrderError;
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-extern void test_invShift_given_ABCDEFGHIJKLMNOP_expected_equal_exState(void);
+extern void test_invCipher_given_128_bit_chiper_key(void);
+extern void test_invCipher_given_192_bit_chiper_key(void);
+extern void test_invCipher_given_256_bit_chiper_key(void);
 
 
 //=======Test Reset Option=====
@@ -46,7 +48,9 @@ void resetTest(void)
 int main(void)
 {
   UnityBegin("test_Decryption.c");
-  RUN_TEST(test_invShift_given_ABCDEFGHIJKLMNOP_expected_equal_exState, 51);
+  RUN_TEST(test_invCipher_given_128_bit_chiper_key, 16);
+  RUN_TEST(test_invCipher_given_192_bit_chiper_key, 42);
+  RUN_TEST(test_invCipher_given_256_bit_chiper_key, 70);
 
   return (UnityEnd());
 }

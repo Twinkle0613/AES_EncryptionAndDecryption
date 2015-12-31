@@ -57,8 +57,8 @@ int main(void)
   RUN_TEST(test_multiInGF_given_0x57_and_times_14_expected_, 32);
   RUN_TEST(test_mixColumns_given_state2_and_expected_equal_exState, 42);
   RUN_TEST(test_mixColumns_given_state3_and_expected_equal_exState, 56);
-  RUN_TEST(test_invMixColumns_given_state_and_expected_equal_exState, 72);
-  RUN_TEST(test_invMixColumns_given_state2_and_expected_equal_exState, 87);
+  RUN_TEST(test_invMixColumns_given_state_and_expected_equal_exState, 71);
+  RUN_TEST(test_invMixColumns_given_state2_and_expected_equal_exState, 86);
 
   return (UnityEnd());
 }

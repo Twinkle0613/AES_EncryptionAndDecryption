@@ -26,7 +26,7 @@
   :failed: 0
   :ignored: 0
 :stdout:
-- No3.0 - shift
+- No1.0 - shift
 - 41 45 49 4d
 - 42 46 4a 4e
 - 43 47 4b 4f
@@ -36,7 +36,7 @@
 - 46 4a 4e 42
 - 4b 4f 43 47
 - 50 44 48 4c
-- No3.1 - shiftRow
+- No2.0 - shiftRow
 - 41 45 49 4d
 - 42 46 4a 4e
 - 43 47 4b 4f
@@ -46,7 +46,7 @@
 - 46 4a 4e 42
 - 4b 4f 43 47
 - 50 44 48 4c
-- No3.2 - shiftRow
+- No3.0 - shiftRow
 - 31 32 33 34
 - 35 36 37 38
 - 39 41 42 43
@@ -56,6 +56,6 @@
 - 36 37 38 35
 - 42 43 39 41
 - 47 44 45 46
-- No3.0 - invShiftRow
-- No3.1 - invShiftRow
+- No4.0 - invShiftRow
+- No5.0 - invShiftRow
 - ''

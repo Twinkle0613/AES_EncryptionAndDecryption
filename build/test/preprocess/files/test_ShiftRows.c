@@ -20,7 +20,7 @@ void tearDown(void)
 
 void test_shift_given_ABCDEFGHIJKLMNOP_expected_equal_exState(void){
 
-  printf("No3.0 - shift\n");
+  printf("No1.0 - shift\n");
 
   uint8_t expStr[] = "AFKPEJODINCHMBGL";
 
@@ -54,7 +54,7 @@ void test_shift_given_ABCDEFGHIJKLMNOP_expected_equal_exState(void){
 
 void test_shiftRow_given_ABCDEFGHIJKLMNOP_expected_equal_exState(void){
 
-  printf("No3.1 - shiftRow\n");
+  printf("No2.0 - shiftRow\n");
 
   uint8_t expStr[] = "AFKPEJODINCHMBGL";
 
@@ -84,7 +84,7 @@ void test_shiftRow_given_ABCDEFGHIJKLMNOP_expected_equal_exState(void){
 
 void test_shiftRow_given_state_and_expected_euqal_exState(void){
 
-  printf("No3.2 - shiftRow\n");
+  printf("No3.0 - shiftRow\n");
 
 
 
@@ -122,7 +122,7 @@ void test_shiftRow_given_state_and_expected_euqal_exState(void){
 
 void test_invShiftRow_given_ABCDEFGHIJKLMNOP_expected_result_is_ANKHEBOLIFCPMJGD(void){
 
-  printf("No3.0 - invShiftRow\n");
+  printf("No4.0 - invShiftRow\n");
 
   uint8_t state[4][4] = { {'A','E','I','M'},
 
@@ -154,7 +154,7 @@ void test_invShiftRow_given_ABCDEFGHIJKLMNOP_expected_result_is_ANKHEBOLIFCPMJGD
 
 void test_invShiftRow_given_123456789ABCEFG_expected_result_is_ANKHEBOLIFCPMJGD(void){
 
-  printf("No3.1 - invShiftRow\n");
+  printf("No5.0 - invShiftRow\n");
 
   uint8_t state[4][4] = { {'1','5','9','D'},
 

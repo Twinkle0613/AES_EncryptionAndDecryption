@@ -17,7 +17,7 @@
   :failed: 0
   :ignored: 0
 :stdout:
-- No2.0 - subBytes
-- No1.0 - invSubBytes
+- No1.0 - subBytes
+- No2.0 - invSubBytes
 - ''
 - ''

@@ -48,9 +48,9 @@ void resetTest(void)
 int main(void)
 {
   UnityBegin("test_AddRoundKey.c");
-  RUN_TEST(test_addRoundKey_given_state_and_cipherKey_expected_equal_exState, 30);
-  RUN_TEST(test_addRoundKey_given_state1_and_cipherKey1_expected_equal_exState, 48);
-  RUN_TEST(test_addRoundKey_given_state2_and_cipherKey_expected_equal_exState, 66);
+  RUN_TEST(test_addRoundKey_given_state_and_cipherKey_expected_equal_exState, 27);
+  RUN_TEST(test_addRoundKey_given_state1_and_cipherKey1_expected_equal_exState, 45);
+  RUN_TEST(test_addRoundKey_given_state2_and_cipherKey_expected_equal_exState, 63);
 
   return (UnityEnd());
 }

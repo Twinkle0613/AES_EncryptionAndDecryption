@@ -10,7 +10,7 @@ void tearDown(void)
 }
 
 void test_multiWithXRO_given_0x57_and_0x83_expected_0x2b79(void){
-    printf("No5.3 - multiWithXRO\n");
+    printf("No1.0 - multiWithXRO\n");
     TEST_ASSERT_EQUAL(0x2b79,multiWithXRO(0x57,0x83));
     TEST_ASSERT_EQUAL(0x0,multiWithXRO(0x57,0x0));
     TEST_ASSERT_EQUAL(0x0,multiWithXRO(0x0,0x2));
@@ -24,13 +24,13 @@ void test_multiWithXRO_given_0x57_and_0x83_expected_0x2b79(void){
 }
 
 void test_module0x11bWithXRO_(void){
-  printf("No5.4 - module0x11bWithXRO\n");
+  printf("No2.0 - module0x11bWithXRO\n");
   //printf("module0x11bWithXRO(0x110) = 0x%x",module0x11bWithXRO(0x110));
   TEST_ASSERT_EQUAL(0xb,module0x11bWithXRO(0x110));
 }
 
 void test_multiInGF_given_0x57_and_times_14_expected_(void){
-  printf("No5.5 - multiInGF\n");
+  printf("No3.0 - multiInGF\n");
   TEST_ASSERT_EQUAL(0xae,multiInGF(0x57,0x02));
   TEST_ASSERT_EQUAL(0xfe,multiInGF(0x57,0x13));
   TEST_ASSERT_EQUAL(0x07,multiInGF(0x57,0x10));
@@ -40,7 +40,7 @@ void test_multiInGF_given_0x57_and_times_14_expected_(void){
 
 
 void test_mixColumns_given_state2_and_expected_equal_exState(void){
-  printf("No4.1\n");
+  printf("No4.0 - mixColumns\n");
   uint8_t state2[4][4] = { {0xac,0xef,0x13,0x45},    \
                           {0xc1,0xb5,0x23,0x73},    \
                           {0xd6,0x5a,0xcf,0x11},    \
@@ -54,7 +54,7 @@ void test_mixColumns_given_state2_and_expected_equal_exState(void){
 }
 
 void test_mixColumns_given_state3_and_expected_equal_exState(void){
-  printf("No4.2\n");
+  printf("No5.0 - mixColumns\n");
   uint8_t state3[4][4] = { {0x87,0xf2,0x4d,0x97},    \
                           {0x6e,0x4c,0x90,0xec},    \
                           {0x46,0xe7,0x4a,0xc3},    \
@@ -63,14 +63,13 @@ void test_mixColumns_given_state3_and_expected_equal_exState(void){
                            {0x37,0xd4,0x70,0x9f},    \
                            {0x94,0xe4,0x3a,0x42},    \
                            {0xed,0xa5,0xa6,0xbc} }; 
-                           
     mixColumns(state3);
     TEST_ASSERT_EQUAL_STATE(exState,state3);
     
 }
 
 void test_invMixColumns_given_state_and_expected_equal_exState(void){
-  printf("No4.0 - invMixColumns\n");
+  printf("No6.0 - invMixColumns\n");
     uint8_t state[4][4] = { {0xbd,0xf2,0x0b,0x8b},\
                             {0x6e,0xb5,0x61,0x10},\
                             {0x7c,0x77,0x21,0xb6},\
@@ -85,7 +84,7 @@ void test_invMixColumns_given_state_and_expected_equal_exState(void){
 }
 
 void test_invMixColumns_given_state2_and_expected_equal_exState(void){
-  printf("No4.1 - invMixColumns\n");
+  printf("No7.0 - invMixColumns\n");
     uint8_t state[4][4] = { {0xfd,0x05,0x35,0xf1},\
                             {0xe3,0xe5,0x47,0xfe},\
                             {0xba,0xd0,0x96,0x37},\

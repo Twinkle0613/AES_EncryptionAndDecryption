@@ -12,7 +12,6 @@ void tearDown(void)
 }
 
 //**************addRoundKey****************//
-
 /*
 
    W - word => 32-bit
@@ -25,10 +24,8 @@ void tearDown(void)
 
 
 */
-
-
 void test_addRoundKey_given_state_and_cipherKey_expected_equal_exState(void){
-  printf("No6.0 - addRoundKey\n");
+  printf("No1.0 - addRoundKey\n");
   uint8_t exState[4][4] = { {0x19,0xa0,0x9a,0xe9},    \
                             {0x3d,0xf4,0xc6,0xf8},    \
                             {0xe3,0xe2,0x8d,0x48},    \
@@ -46,7 +43,7 @@ void test_addRoundKey_given_state_and_cipherKey_expected_equal_exState(void){
 }
 
 void test_addRoundKey_given_state1_and_cipherKey1_expected_equal_exState(void){
-  printf("No6.1 - addRoundKey\n");
+  printf("No2.0 - addRoundKey\n");
   uint8_t exState[4][4] = { {0x48,0x67,0x4d,0xd6},    \
                             {0x6c,0x1d,0xe3,0x5f},    \
                             {0x4e,0x9d,0xb1,0x58},    \
@@ -64,7 +61,7 @@ void test_addRoundKey_given_state1_and_cipherKey1_expected_equal_exState(void){
 }
 
 void test_addRoundKey_given_state2_and_cipherKey_expected_equal_exState(void){
-  printf("No6.2 - addRoundKey\n");
+  printf("No3.0 - addRoundKey\n");
   uint8_t exState[4][4] = { {0x11,0x11,0x11,0x11},    \
                             {0x11,0x11,0x11,0x11},    \
                             {0x11,0x11,0x11,0x11},    \

@@ -30,12 +30,15 @@ char* GlobalOrderError;
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-extern void test_convKeyToWord_(void);
+extern void test_convKeyToWord_given_key_123456789ABCDEFG(void);
 extern void test_rotWord_given_0x31323334_and_expected_0x34313233(void);
 extern void test_rotWord_given_0x2a6c7605_and_expected_0x6c76052a(void);
 extern void test_rotWord_given_0x7359f67f_and_expected_0x59f67f73(void);
 extern void test_subWord_given_0xcf4f3c09_expected_0x8a84eb01(void);
 extern void test_subWord_given_0x6c76052a_expected_0x50386be5(void);
+extern void test_keyExpansion_given_128_bit_cipher_key(void);
+extern void test_keyExpansion_given_192_bit_cipher_key(void);
+extern void test_keyExpansion_given_256_bit_cipher_key(void);
 
 
 //=======Test Reset Option=====
@@ -51,12 +54,15 @@ void resetTest(void)
 int main(void)
 {
   UnityBegin("test_KeyExpansion.c");
-  RUN_TEST(test_convKeyToWord_, 24);
+  RUN_TEST(test_convKeyToWord_given_key_123456789ABCDEFG, 24);
   RUN_TEST(test_rotWord_given_0x31323334_and_expected_0x34313233, 58);
   RUN_TEST(test_rotWord_given_0x2a6c7605_and_expected_0x6c76052a, 67);
   RUN_TEST(test_rotWord_given_0x7359f67f_and_expected_0x59f67f73, 75);
   RUN_TEST(test_subWord_given_0xcf4f3c09_expected_0x8a84eb01, 97);
   RUN_TEST(test_subWord_given_0x6c76052a_expected_0x50386be5, 105);
+  RUN_TEST(test_keyExpansion_given_128_bit_cipher_key, 114);
+  RUN_TEST(test_keyExpansion_given_192_bit_cipher_key, 131);
+  RUN_TEST(test_keyExpansion_given_256_bit_cipher_key, 146);
 
   return (UnityEnd());
 }
