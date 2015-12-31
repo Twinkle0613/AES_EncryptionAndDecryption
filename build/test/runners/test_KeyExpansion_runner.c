@@ -30,6 +30,12 @@ char* GlobalOrderError;
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
+extern void test_convKeyToWord_(void);
+extern void test_rotWord_given_0x31323334_and_expected_0x34313233(void);
+extern void test_rotWord_given_0x2a6c7605_and_expected_0x6c76052a(void);
+extern void test_rotWord_given_0x7359f67f_and_expected_0x59f67f73(void);
+extern void test_subWord_given_0xcf4f3c09_expected_0x8a84eb01(void);
+extern void test_subWord_given_0x6c76052a_expected_0x50386be5(void);
 
 
 //=======Test Reset Option=====
@@ -44,7 +50,13 @@ void resetTest(void)
 //=======MAIN=====
 int main(void)
 {
-  UnityBegin("test_Decryption.c");
+  UnityBegin("test_KeyExpansion.c");
+  RUN_TEST(test_convKeyToWord_, 25);
+  RUN_TEST(test_rotWord_given_0x31323334_and_expected_0x34313233, 59);
+  RUN_TEST(test_rotWord_given_0x2a6c7605_and_expected_0x6c76052a, 68);
+  RUN_TEST(test_rotWord_given_0x7359f67f_and_expected_0x59f67f73, 76);
+  RUN_TEST(test_subWord_given_0xcf4f3c09_expected_0x8a84eb01, 98);
+  RUN_TEST(test_subWord_given_0x6c76052a_expected_0x50386be5, 106);
 
   return (UnityEnd());
 }

@@ -1,0 +1,38 @@
+---
+:source:
+  :path: test
+  :file: test_AddRoundKey.c
+:successes:
+- :test: test_addRoundKey_given_state_and_cipherKey_expected_equal_exState
+  :line: 30
+  :message: ''
+- :test: test_addRoundKey_given_state1_and_cipherKey1_expected_equal_exState
+  :line: 48
+  :message: ''
+- :test: test_addRoundKey_given_state2_and_cipherKey_expected_equal_exState
+  :line: 66
+  :message: ''
+:failures: []
+:ignores: []
+:counts:
+  :total: 3
+  :passed: 3
+  :failed: 0
+  :ignored: 0
+:stdout:
+- No6.0 - addRoundKey
+- 19 a0 9a e9
+- 3d f4 c6 f8
+- e3 e2 8d 48
+- be 2b 2a 08
+- No6.1 - addRoundKey
+- 48 67 4d d6
+- 6c 1d e3 5f
+- 4e 9d b1 58
+- ee 0d 38 e7
+- No6.2 - addRoundKey
+- 11 11 11 11
+- 11 11 11 11
+- 11 11 11 11
+- 11 11 11 11
+- ''

@@ -1,0 +1,44 @@
+---
+:source:
+  :path: test
+  :file: test_KeyExpansion.c
+:successes:
+- :test: test_convKeyToWord_
+  :line: 25
+  :message: ''
+- :test: test_rotWord_given_0x31323334_and_expected_0x34313233
+  :line: 59
+  :message: ''
+- :test: test_rotWord_given_0x2a6c7605_and_expected_0x6c76052a
+  :line: 68
+  :message: ''
+- :test: test_rotWord_given_0x7359f67f_and_expected_0x59f67f73
+  :line: 76
+  :message: ''
+- :test: test_subWord_given_0xcf4f3c09_expected_0x8a84eb01
+  :line: 98
+  :message: ''
+- :test: test_subWord_given_0x6c76052a_expected_0x50386be5
+  :line: 106
+  :message: ''
+:failures: []
+:ignores: []
+:counts:
+  :total: 6
+  :passed: 6
+  :failed: 0
+  :ignored: 0
+:stdout:
+- No7.0 - convKeyToWord
+- '31323334 35363738 39414243 44454647 '
+- No8.0 - rotWord
+- 32333431 32333431
+- No8.1 - rotWord
+- 6c76052a 6c76052a
+- No8.2 - rotWord
+- 59f67f73 59f67f73
+- No9.0 - subWord
+- 8a84eb01 8a84eb01
+- No9.1 - subWord
+- 50386be5 50386be5
+- ''

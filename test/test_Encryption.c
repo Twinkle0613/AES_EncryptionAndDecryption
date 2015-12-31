@@ -3,6 +3,13 @@
 #include <stdint.h>
 #include "CustomAssertion.h"
 #include "malloc.h"
+
+#include "AddRoundKey.h"
+#include "KeyExpansion.h"
+#include "MixColumns.h"
+#include "ShiftRows.h"
+#include "SubBytes.h"
+
 void setUp(void)
 {
 }
@@ -24,6 +31,15 @@ void test_convStrToState_(void){
   TEST_ASSERT_EQUAL_UINT8('P',state[3][3]);
   printfState(state);
 }
+//*****************subBytes()******************//
+/*
+
+  'A'(41) 'E'(45) 'I'(49) 'M'(4d)   S-BOX   83 6e 3b e3
+  'B'(42) 'F'(46) 'J'(4a) 'N'(4e)  ----->   2c 5a d6 2f
+  'C'(43) 'G'(47) 'K'(4b) 'O'(4f)           1a a0 b3 84
+  'D'(44) 'H'(48) 'L'(4c) 'P'(50)           1b 52 29 53
+
+*/
 
 void test_subBytes_given_ABCDEFGHIJKLMNOP(void){
   printf("No2.0 - subBytes\n");
@@ -40,6 +56,15 @@ void test_subBytes_given_ABCDEFGHIJKLMNOP(void){
   
 }
 
+//*****************shiftRow()******************//
+
+/*
+ row 
+ 0   'A' 'E' 'I' 'M'   --->shift(0,4,state)--->   'A' 'E' 'I' 'M'
+ 1   'B' 'F' 'J' 'N'   --->shift(1,4,state)--->   'F' 'J' 'N' 'B'
+ 2   'C' 'G' 'K' 'O'   --->shift(2,4,state)--->   'K' 'O' 'C' 'G'
+ 3   'D' 'H' 'L' 'P'   --->shift(3,4,state)--->   'P' 'D' 'H' 'L'
+*/
 
 void test_shift_given_ABCDEFGHIJKLMNOP_expected_equal_exState(void){
   printf("No3.0 - shift\n");
@@ -58,7 +83,16 @@ void test_shift_given_ABCDEFGHIJKLMNOP_expected_equal_exState(void){
   printfState(state);
  TEST_ASSERT_EQUAL_STATE(exState,state);
 }
-//*****************subBytes()******************//
+
+/*
+ row 
+ 0   'A' 'E' 'I' 'M'                     'A' 'E' 'I' 'M'
+ 1   'B' 'F' 'J' 'N'   ---shiftRow--->   'F' 'J' 'N' 'B'
+ 2   'C' 'G' 'K' 'O'                     'K' 'O' 'C' 'G'
+ 3   'D' 'H' 'L' 'P'                     'P' 'D' 'H' 'L'
+*/
+
+
 void test_shiftRow_given_ABCDEFGHIJKLMNOP_expected_equal_exState(void){
   printf("No3.1 - shiftRow\n");
   uint8_t expStr[] = "AFKPEJODINCHMBGL";
@@ -73,7 +107,7 @@ void test_shiftRow_given_ABCDEFGHIJKLMNOP_expected_equal_exState(void){
   printfState(state);
  TEST_ASSERT_EQUAL_STATE(exState,state);
 }
-//*****************shiftRow()******************//
+
 void test_shiftRow_given_state_and_expected_euqal_exState(void){
   printf("No3.2 - shiftRow\n");
 
@@ -93,6 +127,14 @@ void test_shiftRow_given_state_and_expected_euqal_exState(void){
   
 }
 //*****************mixColumns()******************//
+
+/*
+    S'(0,C)      02 03 01 01       S(0,C)
+    S'(1,C)  =   01 02 03 01  dot  S(1,C)  
+    S'(2,C)      01 01 02 03       S(2,C)
+    S'(3,C)      03 01 01 02       S(3,C)
+*/
+
 void test_mixColumns_given_state_and_expected_equal_exState(void){
   printf("No4.0 - mixColumns\n");
   uint8_t state[4][4] = { {0xd4,0xe0,0xb8,0x1e},    \
@@ -257,6 +299,7 @@ void test_addRoundKey_given_state2_and_cipherKey_expected_equal_exState(void){
    TEST_ASSERT_EQUAL_STATE(exState,state);
   
 }
+
 /*   
                                           
                                             ---------
@@ -293,13 +336,13 @@ void test_convKeyToWord_(void){
 
 /*
        -----                -----
-      | 31 |               | 34 |
-      -----                -----
-      | 32 |     rotWord   | 31 |
-      -----     ------>    -----
-      | 33 |               | 32 |
-      -----                -----
-      | 34 |               | 33 |
+  --->| 31 |               | 34 |
+  |   -----                -----
+  |   | 32 |     rotWord   | 31 |
+  |   -----     ------>    -----
+  |   | 33 |               | 32 |
+  |   -----                -----
+  ----| 34 |               | 33 |
       -----                -----
   
 */
@@ -332,7 +375,7 @@ void test_rotWord_given_0x7359f67f_and_expected_0x59f67f73(void){
 /*
        -----                -----
       | cf |               | 8a |
-      -----                -----
+      -----      (S-BOX)   -----
       | 4f |     subWord   | 84 |
       -----     ------>    -----
       | 3c |               | eb |
@@ -361,7 +404,7 @@ void test_subWord_given_0x6c76052a_expected_0x50386be5(void){
 
 
 void test_keyExpansion_given_128_bit_cipher_key(void){
- printf("No10.0 - keyExpansion\n");
+ printf("No10.0 - keyExpansion 128-bit cipher key\n");
   int i = 0;
   char* key = malloc(sizeof(char)*17);
   uint8_t cipcherkey[] = { 0x2b,0x7e,0x15,0x16,0x28,0xae,0xd2,0xa6,0xab,0xf7,0x15,0x88,0x09,0xcf,0x4f,0x3c};
@@ -378,7 +421,7 @@ void test_keyExpansion_given_128_bit_cipher_key(void){
 
 
 void test_keyExpansion_given_192_bit_cipher_key(void){
- printf("No10.1 - keyExpansion\n");
+ printf("No10.1 - keyExpansion 192-bit cipher key\n");
   int i = 0;
   char* key = malloc(sizeof(char)*25);
   uint8_t cipcherkey[] = { 0x8e,0x73,0xb0,0xf7,0xda,0x0e,0x64,0x52,0xc8,0x10,0xf3,0x2b,\
@@ -393,7 +436,7 @@ void test_keyExpansion_given_192_bit_cipher_key(void){
 }
 
 void test_keyExpansion_given_256_bit_cipher_key(void){
- printf("No10.2 - keyExpansion\n");
+ printf("No10.2 - keyExpansion 256-bit cipher key\n");
   int i = 0;
   char* key = malloc(sizeof(char)*33);
   uint8_t cipcherkey[] = { 0x60,0x3d,0xeb,0x10,0x15,0xca,0x71,0xbe,0x2b,0x73,0xae,0xf0,\
@@ -410,8 +453,8 @@ void test_keyExpansion_given_256_bit_cipher_key(void){
   TEST_ASSERT_EQUAL_UINT32(0x706c631e,word[59]); 
 }
 
-void test_cipher_given_128_bit_cipher_ker(void){
-  printf("No11.0 - cipher\n");
+void test_cipher_given_128_bit_cipher_key(void){
+  printf("No11.0 - cipher 128-bit key Size \n");
   uint8_t in[4][4] = {     {0x32,0x88,0x31,0xe0},        \
                            {0x43,0x5a,0x31,0x37},    \
                            {0xf6,0x30,0x98,0x07},    \
@@ -428,4 +471,67 @@ void test_cipher_given_128_bit_cipher_ker(void){
   printfState(out);
   TEST_ASSERT_EQUAL_STATE(expOut,out);  
 }
+
+void test_cipher_given_192_bit_cipher_key(void){
+  printf("No11.1 - cipher 192-bit key Size \n");
+  uint8_t plainText[4][4] = { {0x00,0x44,0x88,0xcc},    \
+                              {0x11,0x55,0x99,0xdd},    \
+                              {0x22,0x66,0xaa,0xee},    \
+                              {0x33,0x77,0xbb,0xff}  }; 
+
+  uint8_t expOut[4][4] =  { {0xdd,0x86,0x6e,0xec},    \
+                            {0xa9,0x4c,0xaf,0x0d},    \
+                            {0x7c,0xdf,0x70,0x71},    \
+                            {0xa4,0xe0,0xa0,0x91} };
+  uint8_t out[4][4];
+  uint32_t word[52];
+  uint8_t key[] = {0x00,0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08,0x09,0x0a,0x0b,0x0c,0x0d,0x0e,\
+                    0x0f,0x10,0x11,0x12,0x13,0x14,0x15,0x16,0x17};
+  keyExpansion(key,word,6,12);
+  cipher(plainText,out,word,12);
+  printfState(out);
+  TEST_ASSERT_EQUAL_STATE(expOut,out);  
+}
+
+void test_cipher_given_256_bit_cipher_key(void){
+  printf("No11.2 - cipher 256-bit key Size \n");
+  uint8_t plainText[4][4] = { {0x00,0x44,0x88,0xcc},    \
+                              {0x11,0x55,0x99,0xdd},    \
+                              {0x22,0x66,0xaa,0xee},    \
+                              {0x33,0x77,0xbb,0xff}  }; 
+
+  uint8_t expOut[4][4] =  { {0x8e,0x51,0xea,0x4b},    \
+                            {0xa2,0x67,0xfc,0x49},    \
+                            {0xb7,0x45,0x49,0x60},    \
+                            {0xca,0xbf,0x90,0x89} };
+  uint8_t out[4][4];
+  uint32_t word[60];
+  uint8_t key[] = {0x00,0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08,0x09,0x0a,0x0b,0x0c,0x0d,\
+                    0x0e,0x0f,0x10,0x11,0x12,0x13,0x14,0x15,0x16,0x17,0x18,0x19,0x1a,0x1b,0x1c,0x1d,0x1e,0x1f};
+  keyExpansion(key,word,8,14);
+  cipher(plainText,out,word,14);
+ printfState(out);
+  TEST_ASSERT_EQUAL_STATE(expOut,out);  
+}
+
+void test_encryption16byte_(void){
+  printf("No12.0 - encryption_16byte\n");
+  uint8_t plainText[4][4] = { {0x32,0x88,0x31,0xe0},        \
+                              {0x43,0x5a,0x31,0x37},    \
+                              {0xf6,0x30,0x98,0x07},    \
+                              {0xa8,0x8d,0xa2,0x34}  }; 
+  uint8_t expOut[4][4] =  { {0x39,0x02,0xdc,0x19},    \
+                            {0x25,0xdc,0x11,0x6a},    \
+                            {0x84,0x09,0x85,0x0b},    \
+                            {0x1d,0xfb,0x97,0x32} };
+  uint8_t cipcherkey[] = { 0x2b,0x7e,0x15,0x16,0x28,0xae,0xd2,0xa6,0xab,0xf7,0x15,0x88,0x09,0xcf,0x4f,0x3c};
+  uint8_t out[4][4];
+  encryption_16byte(plainText,cipcherkey,out);
+  printfState(out);
+  TEST_ASSERT_EQUAL_STATE(expOut,out);  
+}
+
+
+
+
 

@@ -53,7 +53,10 @@ extern void test_subWord_given_0x6c76052a_expected_0x50386be5(void);
 extern void test_keyExpansion_given_128_bit_cipher_key(void);
 extern void test_keyExpansion_given_192_bit_cipher_key(void);
 extern void test_keyExpansion_given_256_bit_cipher_key(void);
-extern void test_cipher_given_128_bit_cipher_ker(void);
+extern void test_cipher_given_128_bit_cipher_key(void);
+extern void test_cipher_given_192_bit_cipher_key(void);
+extern void test_cipher_given_256_bit_cipher_key(void);
+extern void test_encryption16byte_(void);
 
 
 //=======Test Reset Option=====
@@ -69,30 +72,33 @@ void resetTest(void)
 int main(void)
 {
   UnityBegin("test_Encryption.c");
-  RUN_TEST(test_convStrToState_, 14);
-  RUN_TEST(test_subBytes_given_ABCDEFGHIJKLMNOP, 28);
-  RUN_TEST(test_shift_given_ABCDEFGHIJKLMNOP_expected_equal_exState, 44);
-  RUN_TEST(test_shiftRow_given_ABCDEFGHIJKLMNOP_expected_equal_exState, 62);
-  RUN_TEST(test_shiftRow_given_state_and_expected_euqal_exState, 77);
-  RUN_TEST(test_mixColumns_given_state_and_expected_equal_exState, 96);
-  RUN_TEST(test_mixColumns_given_state2_and_expected_equal_exState, 113);
-  RUN_TEST(test_mixColumns_given_state3_and_expected_equal_exState, 128);
-  RUN_TEST(test_convWordToArr_given_word_that_contain_4_array_data, 144);
-  RUN_TEST(test_convWordToArr_given_word_that_contain_8_array_data, 159);
-  RUN_TEST(test_convWordToArr_given_word_that_contain_16_array_data, 174);
-  RUN_TEST(test_addRoundKey_given_state_and_cipherKey_expected_equal_exState, 207);
-  RUN_TEST(test_addRoundKey_given_state1_and_cipherKey1_expected_equal_exState, 225);
-  RUN_TEST(test_addRoundKey_given_state2_and_cipherKey_expected_equal_exState, 243);
-  RUN_TEST(test_convKeyToWord_, 272);
-  RUN_TEST(test_rotWord_given_0x31323334_and_expected_0x34313233, 306);
-  RUN_TEST(test_rotWord_given_0x2a6c7605_and_expected_0x6c76052a, 315);
-  RUN_TEST(test_rotWord_given_0x7359f67f_and_expected_0x59f67f73, 323);
-  RUN_TEST(test_subWord_given_0xcf4f3c09_expected_0x8a84eb01, 345);
-  RUN_TEST(test_subWord_given_0x6c76052a_expected_0x50386be5, 353);
-  RUN_TEST(test_keyExpansion_given_128_bit_cipher_key, 363);
-  RUN_TEST(test_keyExpansion_given_192_bit_cipher_key, 380);
-  RUN_TEST(test_keyExpansion_given_256_bit_cipher_key, 395);
-  RUN_TEST(test_cipher_given_128_bit_cipher_ker, 413);
+  RUN_TEST(test_convStrToState_, 21);
+  RUN_TEST(test_subBytes_given_ABCDEFGHIJKLMNOP, 44);
+  RUN_TEST(test_shift_given_ABCDEFGHIJKLMNOP_expected_equal_exState, 69);
+  RUN_TEST(test_shiftRow_given_ABCDEFGHIJKLMNOP_expected_equal_exState, 96);
+  RUN_TEST(test_shiftRow_given_state_and_expected_euqal_exState, 111);
+  RUN_TEST(test_mixColumns_given_state_and_expected_equal_exState, 138);
+  RUN_TEST(test_mixColumns_given_state2_and_expected_equal_exState, 155);
+  RUN_TEST(test_mixColumns_given_state3_and_expected_equal_exState, 170);
+  RUN_TEST(test_convWordToArr_given_word_that_contain_4_array_data, 186);
+  RUN_TEST(test_convWordToArr_given_word_that_contain_8_array_data, 201);
+  RUN_TEST(test_convWordToArr_given_word_that_contain_16_array_data, 216);
+  RUN_TEST(test_addRoundKey_given_state_and_cipherKey_expected_equal_exState, 249);
+  RUN_TEST(test_addRoundKey_given_state1_and_cipherKey1_expected_equal_exState, 267);
+  RUN_TEST(test_addRoundKey_given_state2_and_cipherKey_expected_equal_exState, 285);
+  RUN_TEST(test_convKeyToWord_, 315);
+  RUN_TEST(test_rotWord_given_0x31323334_and_expected_0x34313233, 349);
+  RUN_TEST(test_rotWord_given_0x2a6c7605_and_expected_0x6c76052a, 358);
+  RUN_TEST(test_rotWord_given_0x7359f67f_and_expected_0x59f67f73, 366);
+  RUN_TEST(test_subWord_given_0xcf4f3c09_expected_0x8a84eb01, 388);
+  RUN_TEST(test_subWord_given_0x6c76052a_expected_0x50386be5, 396);
+  RUN_TEST(test_keyExpansion_given_128_bit_cipher_key, 406);
+  RUN_TEST(test_keyExpansion_given_192_bit_cipher_key, 423);
+  RUN_TEST(test_keyExpansion_given_256_bit_cipher_key, 438);
+  RUN_TEST(test_cipher_given_128_bit_cipher_key, 456);
+  RUN_TEST(test_cipher_given_192_bit_cipher_key, 475);
+  RUN_TEST(test_cipher_given_256_bit_cipher_key, 496);
+  RUN_TEST(test_encryption16byte_, 517);
 
   return (UnityEnd());
 }

@@ -2,3 +2,8 @@
 - unity.h
 - Encryption.h
 - CustomAssertion.h
+- AddRoundKey.h
+- KeyExpansion.h
+- MixColumns.h
+- ShiftRows.h
+- SubBytes.h

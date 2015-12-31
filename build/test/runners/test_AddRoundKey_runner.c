@@ -30,6 +30,9 @@ char* GlobalOrderError;
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
+extern void test_addRoundKey_given_state_and_cipherKey_expected_equal_exState(void);
+extern void test_addRoundKey_given_state1_and_cipherKey1_expected_equal_exState(void);
+extern void test_addRoundKey_given_state2_and_cipherKey_expected_equal_exState(void);
 
 
 //=======Test Reset Option=====
@@ -44,7 +47,10 @@ void resetTest(void)
 //=======MAIN=====
 int main(void)
 {
-  UnityBegin("test_CustomAssertion.c");
+  UnityBegin("test_AddRoundKey.c");
+  RUN_TEST(test_addRoundKey_given_state_and_cipherKey_expected_equal_exState, 30);
+  RUN_TEST(test_addRoundKey_given_state1_and_cipherKey1_expected_equal_exState, 48);
+  RUN_TEST(test_addRoundKey_given_state2_and_cipherKey_expected_equal_exState, 66);
 
   return (UnityEnd());
 }
