@@ -13,6 +13,16 @@ void convStrToState(char* str, uint8_t state[][4]){
   }   
 }
 
+void convStateToStr( uint8_t state[][4] , char* str){
+    int row,col;                               
+  for(col = 0; col < 4 ; col++){             
+    for(row = 0; row < 4 ; row++){           
+      str[row + (4*col)] = state[row][col];   
+    }                                        
+  }
+  str[(row + (4*col))+1] = '\0';
+}
+
 void printfState(uint8_t state[][4]){
   int row;
   for(row = 0 ; row < 4 ; row++){

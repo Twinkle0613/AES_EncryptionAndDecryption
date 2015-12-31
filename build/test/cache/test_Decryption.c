@@ -9,8 +9,6 @@
 #include "unity.h"
 
 
-
-
 void setUp(void){}
 
 
@@ -182,5 +180,87 @@ uint8_t cipcherkey[] = {0x00,0x01,0x02,0x03,
   printfState(decrypOut);
 
   { customTestAssertEqualState(plainText,decrypOut,97); };
+
+}
+
+
+
+void test_decryption_16byte_(void){
+
+  printf("No4.0 - decryption_16byte \n");
+
+    uint8_t plainText[4][4] = { {0x00,0x44,0x88,0xcc},
+
+                              {0x11,0x55,0x99,0xdd},
+
+                              {0x22,0x66,0xaa,0xee},
+
+                              {0x33,0x77,0xbb,0xff} };
+
+  uint8_t cipcherkey[] = { 0x00,0x01,0x02,0x03,
+
+                           0x04,0x05,0x06,0x07,
+
+                           0x08,0x09,0x0a,0x0b,
+
+                           0x0c,0x0d,0x0e,0x0f };
+
+  uint8_t encrypOut[4][4];
+
+  uint8_t decrypOut[4][4];
+
+
+
+  encryption_16byte(plainText,cipcherkey,encrypOut);
+
+  decryption_16byte(encrypOut,cipcherkey,decrypOut);
+
+  { customTestAssertEqualState(plainText,decrypOut,115); };
+
+}
+
+
+
+void test_decryption_16byte_given_str_(void){
+
+  printf("No5.0 - decryption_16byte \n");
+
+  char *outString = malloc(sizeof(char)*17);
+
+  uint8_t plainText[4][4];
+
+  convStrToState("Hello,HwaNeng!!!",plainText);
+
+  uint8_t cipcherkey[] = { 0x00,0x01,0x02,0x03,
+
+                           0x04,0x05,0x06,0x07,
+
+                           0x08,0x09,0x0a,0x0b,
+
+                           0x0c,0x0d,0x0e,0x0f };
+
+  uint8_t encrypOut[4][4];
+
+  uint8_t decrypOut[4][4];
+
+
+
+  encryption_16byte(plainText,cipcherkey,encrypOut);
+
+  printfState(encrypOut);
+
+  printf("\n");
+
+  decryption_16byte(encrypOut,cipcherkey,decrypOut);
+
+  printfState(decrypOut);
+
+  convStateToStr(decrypOut,outString);
+
+  printf("%s",outString);
+
+
+
+  { customTestAssertEqualState(plainText,decrypOut,138); };
 
 }

@@ -12,42 +12,48 @@
 - :test: test_invCipher_given_256_bit_chiper_key
   :line: 70
   :message: ''
+- :test: test_decryption_16byte_
+  :line: 100
+  :message: ''
+- :test: test_decryption_16byte_given_str_
+  :line: 118
+  :message: ''
 :failures: []
 :ignores: []
 :counts:
-  :total: 3
-  :passed: 3
+  :total: 5
+  :passed: 5
   :failed: 0
   :ignored: 0
 :stdout:
 - 'No1.0 - cipher 128-bit key Size '
-- 7a 89 2b 3d
-- d5 ef ca 9f
-- fd 4e 10 f5
-- a7 27 0b 9f
 - ''
 - 00 44 88 cc
 - 11 55 99 dd
 - 22 66 aa ee
 - 33 77 bb ff
 - 'No2.0 - cipher 192-bit key Size '
-- 79 9c aa 0f
-- 3e 34 b7 a9
-- 76 03 b2 6c
-- 97 e9 d1 cc
 - ''
 - 00 44 88 cc
 - 11 55 99 dd
 - 22 66 aa ee
 - 33 77 bb ff
 - 'No3.0 - cipher 256-bit key Size '
-- aa ee dd 26
-- 5e 6e e6 21
-- ce 3c 8b be
-- 06 56 ac bf
 - ''
 - 00 44 88 cc
 - 11 55 99 dd
 - 22 66 aa ee
 - 33 77 bb ff
+- 'No4.0 - decryption_16byte '
+- 'No5.0 - decryption_16byte '
+- 3a e9 a6 25
+- ec b6 7a 68
+- 2a 97 31 47
+- d6 ac 9d 3b
+- ''
+- 48 6f 61 67
+- 65 2c 4e 21
+- 6c 48 65 21
+- 6c 77 6e 21
+- Hello,HwaNeng!!!h/V
 - ''

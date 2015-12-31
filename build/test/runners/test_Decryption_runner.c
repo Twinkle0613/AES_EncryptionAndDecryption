@@ -33,6 +33,8 @@ extern void tearDown(void);
 extern void test_invCipher_given_128_bit_chiper_key(void);
 extern void test_invCipher_given_192_bit_chiper_key(void);
 extern void test_invCipher_given_256_bit_chiper_key(void);
+extern void test_decryption_16byte_(void);
+extern void test_decryption_16byte_given_str_(void);
 
 
 //=======Test Reset Option=====
@@ -51,6 +53,8 @@ int main(void)
   RUN_TEST(test_invCipher_given_128_bit_chiper_key, 16);
   RUN_TEST(test_invCipher_given_192_bit_chiper_key, 42);
   RUN_TEST(test_invCipher_given_256_bit_chiper_key, 70);
+  RUN_TEST(test_decryption_16byte_, 100);
+  RUN_TEST(test_decryption_16byte_given_str_, 118);
 
   return (UnityEnd());
 }

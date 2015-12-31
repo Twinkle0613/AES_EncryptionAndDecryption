@@ -1,7 +1,6 @@
 #include "Encryption.h"
 #include <stdint.h>
 #include <stdio.h>
-
 #include "AddRoundKey.h"
 #include "KeyExpansion.h"
 #include "MixColumns.h"
