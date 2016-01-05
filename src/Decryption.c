@@ -25,8 +25,6 @@ void invCipher(uint8_t in[][4], uint8_t out[][4], uint32_t word[],int NumOfRound
     copyState(state,out);
 }
 
-
-
 void decryption_16byte(uint8_t cipherKey[][4],uint8_t key[],uint8_t result[][4]){
    uint32_t word[44];
    keyExpansion(key,word,4,10);
@@ -34,6 +32,15 @@ void decryption_16byte(uint8_t cipherKey[][4],uint8_t key[],uint8_t result[][4])
 }
 
 
+void decryp_16byte(uint8_t plainText[][4], uint8_t key[], uint8_t encrypOut[][4], int sizeofAES){
+  int wordSize;
+  int round;
+  int keySize;
+  configureAES(sizeofAES,&keySize,&wordSize,&round);
+  uint32_t word[wordSize];
+  keyExpansion(key,word,keySize,round);
+  invCipher(plainText,encrypOut,word,round);
+}
 
 
 

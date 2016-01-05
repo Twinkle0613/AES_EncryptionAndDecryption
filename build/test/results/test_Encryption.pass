@@ -4,22 +4,97 @@
   :file: test_Encryption.c
 :successes:
 - :test: test_cipher_given_128_bit_cipher_key
-  :line: 23
+  :line: 25
   :message: ''
 - :test: test_cipher_given_192_bit_cipher_key
-  :line: 45
+  :line: 47
   :message: ''
 - :test: test_cipher_given_256_bit_cipher_key
-  :line: 71
+  :line: 73
   :message: ''
 - :test: test_encryption16byte_
-  :line: 98
+  :line: 100
+  :message: ''
+- :test: test_encryp_16byte_given_128_bit_cipher_key
+  :line: 120
+  :message: ''
+- :test: test_encryp_16byte_given_192_bit_cipher_key
+  :line: 140
+  :message: ''
+- :test: test_encryp_16byte_given_256_bit_cipher_key
+  :line: 162
+  :message: ''
+- :test: test_strncpy_
+  :line: 193
+  :message: ''
+- :test: test_fillZeroToStr_given
+  :line: 204
+  :message: ''
+- :test: test_keyProcess_given_a_string_1234567_expected_string_1234567000000000_In_AES128
+  :line: 214
+  :message: ''
+- :test: test_keyProcess_given_a_string_0123456789ABCDEF_expected_string_0123456789ABCDEF_In_AES128
+  :line: 223
+  :message: ''
+- :test: test_keyProcess_given_a_string_0123456789ABCDEF12345_expected_string_0123456789ABCDEF_In_AES128
+  :line: 232
+  :message: ''
+- :test: test_keyProcess_given_a_string_1234567_expected_string_123456700000000000000000_In_AES192
+  :line: 241
+  :message: ''
+- :test: test_keyProcess_given_a_string_0123456789ABCDEFGHIJKLNM_expected_string_0123456789ABCDEFGHIJKLNM_In_AES192
+  :line: 250
+  :message: ''
+- :test: test_keyProcess_given_a_string_0123456789ABCDEFGHIJKLNM1221221212_expected_string_0123456789ABCDEFGHIJKLNM_In_AES192
+  :line: 259
+  :message: ''
+- :test: test_keyProcess_given_a_string_01234567_expected_string_012345670000000000000000000000000_In_AES256
+  :line: 268
+  :message: ''
+- :test: test_keyProcess_given_a_string_0123456789ABCDEFGHIJKLNMOPQRSTUV_expected_string_0123456789ABCDEFGHIJKLNMOPQRSTUV_In_AES256
+  :line: 277
+  :message: ''
+- :test: test_keyProcess_given_a_string_0123456789ABCDEFGHIJKLNMOPQRSTUV112233_expected_string_0123456789ABCDEFGHIJKLNMOPQRSTUV_In_AES256
+  :line: 286
+  :message: ''
+- :test: test_optimizeKey_given_1234567_expected_1234567000000000_in_128_bit
+  :line: 295
+  :message: ''
+- :test: test_optimizeKey_given_1234567_expected_123456700000000000000000_in_192_bit
+  :line: 303
+  :message: ''
+- :test: test_optimizeKey_given_1234567_expected_12345670000000000000000000000000_in_256_bit
+  :line: 311
+  :message: ''
+- :test: test_getCipherKeyLen_
+  :line: 321
+  :message: ''
+- :test: test_optimizerStr_given_0123456789ABCDEF_expected_0123456789ABCDEF
+  :line: 335
+  :message: ''
+- :test: test_optimizerStr_given_0123456789ABCDEFA_expected_0123456789ABCDEFA000000000000000
+  :line: 344
+  :message: ''
+- :test: test_optimizerStr_given_0123456789ABCDEF0123456789ABCDEF_expected_0123456789ABCDEF0123456789ABCDEF
+  :line: 355
+  :message: ''
+- :test: test_optimizerStr_given_0123456789ABCDEF0123456789ABCDEFA_expected_0123456789ABCDEF0123456789ABCDEFA000000000000000
+  :line: 364
+  :message: ''
+- :test: test_convStrToStateWithIndex_
+  :line: 373
+  :message: ''
+- :test: test_convStateToStrWithIndex
+  :line: 402
+  :message: ''
+- :test: test_encrypStr_given
+  :line: 430
   :message: ''
 :failures: []
 :ignores: []
 :counts:
-  :total: 4
-  :passed: 4
+  :total: 29
+  :passed: 29
   :failed: 0
   :ignored: 0
 :stdout:
@@ -43,4 +118,62 @@
 - 25 dc 11 6a
 - 84 09 85 0b
 - 1d fb 97 32
+- No5.0 - encryp_16byte with 128-bit key
+- No6.0 - encryp_16byte with 192-bit key
+- No7.0 - encryp_16byte with 256-bit key
+- No10.0 - strncpy
+- Hello
+- No11.0 - fillZeroToStr
+- Hello00000000000
+- No12.0 - keyProcess in AES_128
+- '1234567000000000'
+- No13.0 - keyProcess in AES_128
+- 0123456789ABCDEF
+- No14.0 - keyProcess in AES_128
+- 0123456789ABCDEF
+- No15.0 - keyProcess in AES_192
+- '123456700000000000000000'
+- No16.0 - keyProcess in AES_192
+- 0123456789ABCDEFGHIJKLNM
+- No17.0 - keyProcess in AES_192
+- 0123456789ABCDEFGHIJKLNM
+- No18.0 - keyProcess in AES_256
+- '01234567000000000000000000000000'
+- No19.0 - keyProcess in AES_256
+- 0123456789ABCDEFGHIJKLNMOPQRSTUV
+- No20.0 - keyProcess in AES_256
+- 0123456789ABCDEFGHIJKLNMOPQRSTUV
+- No20.0 - optimizeKey in AES_128
+- '1234567000000000'
+- No21.0 - optimizeKey in AES_192
+- '123456700000000000000000'
+- No22.0 - optimizeKey in AES_256
+- '12345670000000000000000000000000'
+- No23.0 - getCipherKeyLen
+- No24.0 - optimizerStr
+- No25.0 - optimizerStr
+- No25.0 - optimizerStr
+- No26.0 - optimizerStr
+- No27.0 - convStrToStateWithIndex
+- No28.0 - convStateToStrWithIndex
+- encrypOut = 0123456789ABCDEF
+- encrypOut = 0123456789ABCDEFA000000000000000
+- encrypOut = 0123456789ABCDEFA0000000000000000123456789111111
+- No29.0 - encrypStr
+- encrypOut[0] = 17, chiperKey[0] = 17
+- encrypOut[1] = d5, chiperKey[1] = d5
+- encrypOut[2] = 33, chiperKey[2] = 33
+- encrypOut[3] = 4e, chiperKey[3] = 4e
+- encrypOut[4] = e2, chiperKey[4] = e2
+- encrypOut[5] = 33, chiperKey[5] = 33
+- encrypOut[6] = 62, chiperKey[6] = 62
+- encrypOut[7] = c6, chiperKey[7] = c6
+- encrypOut[8] = 6a, chiperKey[8] = 6a
+- encrypOut[9] = cd, chiperKey[9] = cd
+- encrypOut[10] = 2a, chiperKey[10] = 2a
+- encrypOut[11] = af, chiperKey[11] = af
+- encrypOut[12] = b0, chiperKey[12] = b0
+- encrypOut[13] = 1f, chiperKey[13] = 1f
+- encrypOut[14] = d6, chiperKey[14] = d6
+- encrypOut[15] = ea, chiperKey[15] = ea
 - ''

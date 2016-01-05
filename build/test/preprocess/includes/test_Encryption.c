@@ -1,6 +1,7 @@
 ---
 - unity.h
 - Encryption.h
+- Decryption.h
 - CustomAssertion.h
 - AddRoundKey.h
 - KeyExpansion.h

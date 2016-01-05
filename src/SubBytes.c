@@ -1,7 +1,7 @@
 #include "SubBytes.h"
 #include <stdio.h>
 #include <stdint.h>
-
+#include "malloc.h"
 
 
 void convStrToState(char* str, uint8_t state[][4]){
@@ -14,13 +14,28 @@ void convStrToState(char* str, uint8_t state[][4]){
 }
 
 void convStateToStr( uint8_t state[][4] , char* str){
-    int row,col;                               
+   int row,col;            
+   
   for(col = 0; col < 4 ; col++){             
     for(row = 0; row < 4 ; row++){           
       str[row + (4*col)] = state[row][col];   
     }                                        
   }
-  str[(row + (4*col))+1] = '\0';
+  str[16] = '\0';
+}
+
+char* convStateToStr2( uint8_t state[][4]){
+    int row,col;            
+   char* str = malloc(sizeof(char)*17);
+  for(col = 0; col < 4 ; col++){             
+    for(row = 0; row < 4 ; row++){           
+      str[row + (4*col)] = state[row][col];   
+      
+    }                                        
+  }
+ // printf("num = %d\n",(row + (4*col)));
+  str[16] = '\0';
+  return str;
 }
 
 void printfState(uint8_t state[][4]){

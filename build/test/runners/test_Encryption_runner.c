@@ -34,6 +34,31 @@ extern void test_cipher_given_128_bit_cipher_key(void);
 extern void test_cipher_given_192_bit_cipher_key(void);
 extern void test_cipher_given_256_bit_cipher_key(void);
 extern void test_encryption16byte_(void);
+extern void test_encryp_16byte_given_128_bit_cipher_key(void);
+extern void test_encryp_16byte_given_192_bit_cipher_key(void);
+extern void test_encryp_16byte_given_256_bit_cipher_key(void);
+extern void test_strncpy_(void);
+extern void test_fillZeroToStr_given(void);
+extern void test_keyProcess_given_a_string_1234567_expected_string_1234567000000000_In_AES128(void);
+extern void test_keyProcess_given_a_string_0123456789ABCDEF_expected_string_0123456789ABCDEF_In_AES128(void);
+extern void test_keyProcess_given_a_string_0123456789ABCDEF12345_expected_string_0123456789ABCDEF_In_AES128(void);
+extern void test_keyProcess_given_a_string_1234567_expected_string_123456700000000000000000_In_AES192(void);
+extern void test_keyProcess_given_a_string_0123456789ABCDEFGHIJKLNM_expected_string_0123456789ABCDEFGHIJKLNM_In_AES192(void);
+extern void test_keyProcess_given_a_string_0123456789ABCDEFGHIJKLNM1221221212_expected_string_0123456789ABCDEFGHIJKLNM_In_AES192(void);
+extern void test_keyProcess_given_a_string_01234567_expected_string_012345670000000000000000000000000_In_AES256(void);
+extern void test_keyProcess_given_a_string_0123456789ABCDEFGHIJKLNMOPQRSTUV_expected_string_0123456789ABCDEFGHIJKLNMOPQRSTUV_In_AES256(void);
+extern void test_keyProcess_given_a_string_0123456789ABCDEFGHIJKLNMOPQRSTUV112233_expected_string_0123456789ABCDEFGHIJKLNMOPQRSTUV_In_AES256(void);
+extern void test_optimizeKey_given_1234567_expected_1234567000000000_in_128_bit(void);
+extern void test_optimizeKey_given_1234567_expected_123456700000000000000000_in_192_bit(void);
+extern void test_optimizeKey_given_1234567_expected_12345670000000000000000000000000_in_256_bit(void);
+extern void test_getCipherKeyLen_(void);
+extern void test_optimizerStr_given_0123456789ABCDEF_expected_0123456789ABCDEF(void);
+extern void test_optimizerStr_given_0123456789ABCDEFA_expected_0123456789ABCDEFA000000000000000(void);
+extern void test_optimizerStr_given_0123456789ABCDEF0123456789ABCDEF_expected_0123456789ABCDEF0123456789ABCDEF(void);
+extern void test_optimizerStr_given_0123456789ABCDEF0123456789ABCDEFA_expected_0123456789ABCDEF0123456789ABCDEFA000000000000000(void);
+extern void test_convStrToStateWithIndex_(void);
+extern void test_convStateToStrWithIndex(void);
+extern void test_encrypStr_given(void);
 
 
 //=======Test Reset Option=====
@@ -49,10 +74,35 @@ void resetTest(void)
 int main(void)
 {
   UnityBegin("test_Encryption.c");
-  RUN_TEST(test_cipher_given_128_bit_cipher_key, 23);
-  RUN_TEST(test_cipher_given_192_bit_cipher_key, 45);
-  RUN_TEST(test_cipher_given_256_bit_cipher_key, 71);
-  RUN_TEST(test_encryption16byte_, 98);
+  RUN_TEST(test_cipher_given_128_bit_cipher_key, 25);
+  RUN_TEST(test_cipher_given_192_bit_cipher_key, 47);
+  RUN_TEST(test_cipher_given_256_bit_cipher_key, 73);
+  RUN_TEST(test_encryption16byte_, 100);
+  RUN_TEST(test_encryp_16byte_given_128_bit_cipher_key, 120);
+  RUN_TEST(test_encryp_16byte_given_192_bit_cipher_key, 140);
+  RUN_TEST(test_encryp_16byte_given_256_bit_cipher_key, 162);
+  RUN_TEST(test_strncpy_, 193);
+  RUN_TEST(test_fillZeroToStr_given, 204);
+  RUN_TEST(test_keyProcess_given_a_string_1234567_expected_string_1234567000000000_In_AES128, 214);
+  RUN_TEST(test_keyProcess_given_a_string_0123456789ABCDEF_expected_string_0123456789ABCDEF_In_AES128, 223);
+  RUN_TEST(test_keyProcess_given_a_string_0123456789ABCDEF12345_expected_string_0123456789ABCDEF_In_AES128, 232);
+  RUN_TEST(test_keyProcess_given_a_string_1234567_expected_string_123456700000000000000000_In_AES192, 241);
+  RUN_TEST(test_keyProcess_given_a_string_0123456789ABCDEFGHIJKLNM_expected_string_0123456789ABCDEFGHIJKLNM_In_AES192, 250);
+  RUN_TEST(test_keyProcess_given_a_string_0123456789ABCDEFGHIJKLNM1221221212_expected_string_0123456789ABCDEFGHIJKLNM_In_AES192, 259);
+  RUN_TEST(test_keyProcess_given_a_string_01234567_expected_string_012345670000000000000000000000000_In_AES256, 268);
+  RUN_TEST(test_keyProcess_given_a_string_0123456789ABCDEFGHIJKLNMOPQRSTUV_expected_string_0123456789ABCDEFGHIJKLNMOPQRSTUV_In_AES256, 277);
+  RUN_TEST(test_keyProcess_given_a_string_0123456789ABCDEFGHIJKLNMOPQRSTUV112233_expected_string_0123456789ABCDEFGHIJKLNMOPQRSTUV_In_AES256, 286);
+  RUN_TEST(test_optimizeKey_given_1234567_expected_1234567000000000_in_128_bit, 295);
+  RUN_TEST(test_optimizeKey_given_1234567_expected_123456700000000000000000_in_192_bit, 303);
+  RUN_TEST(test_optimizeKey_given_1234567_expected_12345670000000000000000000000000_in_256_bit, 311);
+  RUN_TEST(test_getCipherKeyLen_, 321);
+  RUN_TEST(test_optimizerStr_given_0123456789ABCDEF_expected_0123456789ABCDEF, 335);
+  RUN_TEST(test_optimizerStr_given_0123456789ABCDEFA_expected_0123456789ABCDEFA000000000000000, 344);
+  RUN_TEST(test_optimizerStr_given_0123456789ABCDEF0123456789ABCDEF_expected_0123456789ABCDEF0123456789ABCDEF, 355);
+  RUN_TEST(test_optimizerStr_given_0123456789ABCDEF0123456789ABCDEFA_expected_0123456789ABCDEF0123456789ABCDEFA000000000000000, 364);
+  RUN_TEST(test_convStrToStateWithIndex_, 373);
+  RUN_TEST(test_convStateToStrWithIndex, 402);
+  RUN_TEST(test_encrypStr_given, 430);
 
   return (UnityEnd());
 }

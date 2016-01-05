@@ -6,7 +6,7 @@
 uint8_t multiInGF(uint8_t value, uint8_t valueOfMulti ){
   uint8_t reminder;
   int value2 = multiWithXRO(value,valueOfMulti);
-  int i;
+  //int i;
   reminder = module0x11bWithXRO(value2);
   return reminder;   
 }
