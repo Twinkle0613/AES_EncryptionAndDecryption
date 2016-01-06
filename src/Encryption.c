@@ -1,15 +1,132 @@
+//Library
 #include "Encryption.h"
 #include <stdint.h>
 #include <stdio.h>
+#include "malloc.h"
 #include "string.h"
+#include "CException.h"
+//Modules
 #include "AddRoundKey.h"
 #include "KeyExpansion.h"
 #include "MixColumns.h"
 #include "ShiftRows.h"
 #include "SubBytes.h"
-#include "malloc.h"
 #include "ErrorObject.h"
-#include "CException.h"
+
+/**
+ * Encryption is the process of encoding messages or information to protect the priviacy of messages or infomation when sending.
+ * Only authorized parties with a decrypt key to decode and read it. In this project, the encryption program was writed by using C language.
+ * 
+ * Encryption Concept Diagram:
+ *
+ *                      -------------
+ *   plainText  -----> | Encryption | -----> cipherKey
+ *                     -------------
+ *                           ^
+ *                           |
+ *    Key -------------------
+ *
+ *  -----------------
+ * | Function List: |
+ * -----------------
+ *
+ * >>> Main Function <<<
+ * char* encrypStr(char* str,char* key, int AESmode);
+ * void encryp_16byte(uint8_t plainText[][4], uint8_t key[], uint8_t encrypOut[][4], int sizeofAES);
+ * void cipher( uint8_t in[][4], uint8_t out[][4], uint32_t word[],int NumOfRound);
+ *
+ * >>> Sub Function <<<
+ * char* optimizeKey(char*key,int AESmode);
+ * char* keyProcess(char* key,int keySizeofAES);
+ * void fillZeroToStr(int keySize,char* str,int keySizeofAES);
+ * char* optimizeStr(char* str);
+ * int reserveChipherLen(char* str);
+ * void convStateToStrWithIndex( uint8_t state[][4],char* str,int index);
+ * void convStrToStateWithIndex(char* str, uint8_t state[][4], int index);
+ * void configureAES(int sizeofAES,int* keySize,int* wordSize, int* round);
+ * void copyState(uint8_t in[][4],uint8_t state[][4]);
+ *
+ *  ------------------------
+ * | Explaination Function |
+ * ------------------------
+ * >>> Main Function <<<
+ * The encrypStr(...) function is used for encoding a string 
+ * The encryp_16byte(...) function is used for encoding a 16-byte state
+ * The cipher(...) function is basic function of encryp_16byte.
+ * 
+ * >>> Sub Function <<<
+ * The optimizeKey(...) function is used in encrypStr(...) for optimizing the input key.
+ * The keyProcess(...) function is used in optimizeKey(...) for selecting the type of optimization 
+ * The fillZeroToStr(...) function is used in keyProcess(...) for filling zero in which str its place haven't reach 16-byte.
+ * The optimizeStr(...) function is used in encrypStr(...) for optimiziong the input str.
+ * The reserveChipherLen(...) function is used in encrypStr(...) for calculating the space of cipher Key.
+ * The convStateToStrWithIndex(...) function is used in encrypStr(...) for converting from state to string.
+ * The convStrToStateWithIndex(...) function is used in encrypStr(...) for converting from string to state.
+ * The configureAES(...) function is used in encryp_16byte(...) for setting the length of word and the number of round.
+ * The copyState(...) function is used in cipher(...) for coyping the data of state to other state.
+ *
+ *  ---------------------------------
+ * | Explaination Input Of Function |
+ * ---------------------------------
+ *
+ *  encrypStr(char* str,char* key, int AESmode):
+ *    str - store the string was typed by users.
+ *    key - store the encrypt key was typed by users.
+ *    AESmode - store the mode of AES such as AES_128, AES_192 and AES_256 was selected by users.
+ *  
+ *  encryp_16byte(uint8_t plainText[][4], uint8_t key[], uint8_t encrypOut[][4], int AESmode):
+ *    plainText - store the 2-D array was typed by users
+ *    key - store the encrypt key was typed by users.
+ *    encrypOut - store the output from encryp_16byte function.
+ *    AESmode - store the mode of AES such as AES_128, AES_192 and AES_256 was selected by users.
+ *
+ *  void cipher( uint8_t in[][4], uint8_t out[][4], uint32_t word[],int NumOfRound):
+ *    in - store data in 2-D array was typed by users
+ *    out - store the output from encryp_16byte function.
+ *    word - store the array is set by KeyExpansion Function.
+ *    NumOfRound - store the number of round that depend on the AES mode.
+ *
+ *  char* optimizeKey(char*key,int AESmode):
+ *    key - store the encrypt key was typed by users.
+ *    AESmode - store the mode of AES such as AES_128, AES_192 and AES_256 was selected by users.
+ * 
+ *  char* keyProcess(char* key,int keySizeofAES);
+ *    key - store the encrypt key was typed by users.
+ *    keySizeofAES - store the key size of AES that depend on the AES mode.
+ *
+ *  void fillZeroToStr(int keySize,char* str,int keySizeofAES);
+ *    keySize - store the encrypt key size.
+ *    str - store the string was typed by users.
+ *    keySizeofAES - store the key size of AES that depend on the AES mode.
+ *
+ *  char* optimizeStr(char* str);
+ *    str - store the string was typed by users.
+ *
+ *  int reserveChipherLen(char* str);
+ *    str - store the string was typed by users.
+ *
+ *  void convStateToStrWithIndex( uint8_t state[][4],char* str,int index):
+ *    state - that is 2D array for storing the output of encryp_16byte and decryp_16byte
+ *    str - store the string was typed by users.
+ *    index - store the index was set by program
+ *
+ *  void convStrToStateWithIndex(char* str, uint8_t state[][4], int index):
+ *     str - store the string was typed by users.
+ *     state - store the string in 2-D form.
+ *     index - store the index was set by program
+ *
+ *  void configureAES(int AESmode,int* keySize,int* wordSize, int* round);
+ *     AESmodes - store the mode of AES such as AES_128, AES_192 and AES_256 was selected by users.
+ *     keySize - store the encrypt key size.
+ *     wordSize - store the size of word that output from KeyExpansion.
+ *     round - store the round of process that depend on AES mode.
+ *  
+ *  void copyState(uint8_t in[][4],uint8_t state[][4]);
+ *     in - store data in 2-D array was typed by users
+ *     state - store the string in 2-D form.
+ */
+
+
 
 
 void copyState(uint8_t in[][4],uint8_t state[][4]){
@@ -85,12 +202,7 @@ void encryp_16byte(uint8_t plainText[][4], uint8_t key[], uint8_t encrypOut[][4]
 
 //...........................................................
 
-void printfStateInChar(uint8_t state[][4]){
-  int row;
-  for(row = 0 ; row < 4 ; row++){
-    printf("%.*c %.*c %.*c %.*c\n",2,state[row][0],2,state[row][1],2,state[row][2],2,state[row][3]);
-  }
-}
+
 
 void convStrToStateWithIndex(char* str, uint8_t state[][4], int index){
   int row,col;                               
@@ -131,13 +243,7 @@ char* optimizeStr(char* str){
 
 
 
-void printEncrypOut(char* encrypOut){
-  int i;
-  for( i = 0 ; i < 16 ; i++){
-    printf("0x%x ",encrypOut[i]);
-  }
-  printf("\n");
-}
+
 
 
 int reserveChipherLen(char* str){

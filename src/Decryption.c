@@ -10,14 +10,61 @@
 #include "malloc.h"
 #include "ErrorObject.h"
 #include "CException.h"
-/*  ----Documentation------
 
 
-
-
-
-*/
-
+/**
+ * Decryption is the process of decoding messages or information that was encoded by Encryption.
+ *
+ * 
+ * Decryption Concept Diagram:
+ *
+ *                      -------------
+ *   cipherKey  -----> | Decryption | ----->  plainText
+ *                     -------------
+ *                           ^
+ *                           |
+ *    Key -------------------
+ *
+ *  -----------------
+ * | Function List: |
+ * -----------------
+ *
+ * >>> Main Function <<<
+ * char* decrypStr(char* str,char* key, int AESmode);
+ * void decryp_16byte(uint8_t plainText[][4], uint8_t key[], uint8_t encrypOut[][4], int sizeofAES);
+ * void invCipher( uint8_t in[][4], uint8_t out[][4], uint32_t word[],int NumOfRound);
+ *
+ *
+ *  ------------------------
+ * | Explaination Function |
+ * ------------------------
+ * >>> Main Function <<<
+ * The decrypStr(...) function is used for decoding a string 
+ * The decryp_16byte(...) function is used for decoding a 16-byte state
+ * The invCipher(...) function is basic function of decryp_16byte.
+ * 
+ *  ---------------------------------
+ * | Explaination Input Of Function |
+ * ---------------------------------
+ *
+ *  decrypStr(char* str,char* key, int AESmode):
+ *    str - store the string was typed by users.
+ *    key - store the encrypt key was typed by users.
+ *    AESmode - store the mode of AES such as AES_128, AES_192 and AES_256 was selected by users.
+ *  
+ *  decryp_16byte(uint8_t plainText[][4], uint8_t key[], uint8_t encrypOut[][4], int AESmode):
+ *    plainText - store the 2-D array was typed by users
+ *    key - store the encrypt key was typed by users.
+ *    encrypOut - store the output from encryp_16byte function.
+ *    AESmode - store the mode of AES such as AES_128, AES_192 and AES_256 was selected by users.
+ *
+ *  void invCipher( uint8_t in[][4], uint8_t out[][4], uint32_t word[],int NumOfRound):
+ *    in - store data in 2-D array was typed by users
+ *    out - store the output from encryp_16byte function.
+ *    word - store the array is set by KeyExpansion Function.
+ *    NumOfRound - store the number of round that depend on the AES mode.
+ *
+ */
 
 void invCipher(uint8_t in[][4], uint8_t out[][4], uint32_t word[],int NumOfRound){
   int i;

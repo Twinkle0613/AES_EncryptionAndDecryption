@@ -17,17 +17,24 @@
 #define AES_192_KEYSIZE 24
 #define AES_256_KEYSIZE 32
 char* encrypStr(char* str,char* key, int AESmode);
-void encryp_16byte(uint8_t plainText[][4], uint8_t key[], uint8_t encrypOut[][4], int sizeofAES);
+void encryp_16byte(uint8_t plainText[][4], uint8_t key[], uint8_t encrypOut[][4], int AESmode);
 void cipher( uint8_t in[][4], uint8_t out[][4], uint32_t word[],int NumOfRound);
 
-char* keyProcess(char* key,int keySizeofAES);
-void convWordToArr( uint8_t key[][4],uint32_t word[], int limit);
-void prinfWord( uint32_t word[],int limit);
-void copyState(uint8_t in[][4],uint8_t state[][4]);
-void configureAES(int sizeofAES,int* keySize,int* wordSize, int* round);
+// void convWordToArr( uint8_t key[][4],uint32_t word[], int limit);
+//void prinfWord( uint32_t word[],int limit);
 char* optimizeKey(char*key,int AESmode);
+char* keyProcess(char* key,int keySizeofAES);
+void fillZeroToStr(int keySize,char* str,int keySizeofAES);
 char* optimizeStr(char* str);
+int reserveChipherLen(char* str);
+void convStateToStrWithIndex( uint8_t state[][4],char* str,int index);
+void convStrToStateWithIndex(char* str, uint8_t state[][4], int index);
+void configureAES(int sizeofAES,int* keySize,int* wordSize, int* round);
+void copyState(uint8_t in[][4],uint8_t state[][4]);
 
-void printEncrypOut(char* encrypOut);
-void printfStateInChar(uint8_t state[][4]);
+
+
+
+
+
 #endif // Encryption_H
