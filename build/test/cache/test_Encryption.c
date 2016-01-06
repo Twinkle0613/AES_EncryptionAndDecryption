@@ -4,9 +4,10 @@
 #include "KeyExpansion.h"
 #include "AddRoundKey.h"
 #include "CustomAssertion.h"
-#include "Decryption.h"
 #include "Encryption.h"
 #include "unity.h"
+
+
 
 
 
@@ -611,25 +612,25 @@ void test_optimizeKey_given_1234567_expected_12345670000000000000000000000000_in
 
 
 
-void test_getCipherKeyLen_(void){
+void test_reserceChipherLen_(void){
 
-  printf("No23.0 - getCipherKeyLen\n");
+  printf("No23.0 - reserceChipherLen\n");
 
-  UnityAssertEqualNumber((_U_SINT)((32)), (_U_SINT)((getCipherKeyLen("0123456789ABCDEFG"))), (((void *)0)), (_U_UINT)323, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((32)), (_U_SINT)((reserceChipherLen("0123456789ABCDEFG"))), (((void *)0)), (_U_UINT)323, UNITY_DISPLAY_STYLE_INT);
 
-  UnityAssertEqualNumber((_U_SINT)((16)), (_U_SINT)((getCipherKeyLen("0123456789AFG"))), (((void *)0)), (_U_UINT)324, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((16)), (_U_SINT)((reserceChipherLen("0123456789AFG"))), (((void *)0)), (_U_UINT)324, UNITY_DISPLAY_STYLE_INT);
 
-  UnityAssertEqualNumber((_U_SINT)((16)), (_U_SINT)((getCipherKeyLen("012345FG"))), (((void *)0)), (_U_UINT)325, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((16)), (_U_SINT)((reserceChipherLen("012345FG"))), (((void *)0)), (_U_UINT)325, UNITY_DISPLAY_STYLE_INT);
 
-  UnityAssertEqualNumber((_U_SINT)((16)), (_U_SINT)((getCipherKeyLen("345FG"))), (((void *)0)), (_U_UINT)326, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((16)), (_U_SINT)((reserceChipherLen("345FG"))), (((void *)0)), (_U_UINT)326, UNITY_DISPLAY_STYLE_INT);
 
-  UnityAssertEqualNumber((_U_SINT)((0)), (_U_SINT)((getCipherKeyLen(""))), (((void *)0)), (_U_UINT)327, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((0)), (_U_SINT)((reserceChipherLen(""))), (((void *)0)), (_U_UINT)327, UNITY_DISPLAY_STYLE_INT);
 
-  UnityAssertEqualNumber((_U_SINT)((48)), (_U_SINT)((getCipherKeyLen("0123456789ABCDEFG0123456789ABCDEFG"))), (((void *)0)), (_U_UINT)328, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((48)), (_U_SINT)((reserceChipherLen("0123456789ABCDEFG0123456789ABCDEFG"))), (((void *)0)), (_U_UINT)328, UNITY_DISPLAY_STYLE_INT);
 
-  UnityAssertEqualNumber((_U_SINT)((64)), (_U_SINT)((getCipherKeyLen("0123456789ABCDEFG0123456789ABCDEFG0123456789ABCDEFG"))), (((void *)0)), (_U_UINT)329, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((64)), (_U_SINT)((reserceChipherLen("0123456789ABCDEFG0123456789ABCDEFG0123456789ABCDEFG"))), (((void *)0)), (_U_UINT)329, UNITY_DISPLAY_STYLE_INT);
 
-  UnityAssertEqualNumber((_U_SINT)((80)), (_U_SINT)((getCipherKeyLen("0123456789ABCDEFG0123456789ABCDEFG0123456789ABCDEFG0123456789ABCDEFG"))), (((void *)0)), (_U_UINT)330, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((80)), (_U_SINT)((reserceChipherLen("0123456789ABCDEFG0123456789ABCDEFG0123456789ABCDEFG0123456789ABCDEFG"))), (((void *)0)), (_U_UINT)330, UNITY_DISPLAY_STYLE_INT);
 
 }
 
@@ -871,10 +872,6 @@ void test_encrypStr_given(void){
 
 
 
-  convStrToState(chiperKey,state);
 
-  decryp_16byte(state,key,decrypOut,1);
-
-  { customTestAssertEqualState(plainText,decrypOut,453); };
 
 }

@@ -1,6 +1,6 @@
 #include "unity.h"
 #include "Encryption.h"
-#include "Decryption.h"
+
 #include <stdint.h>
 #include <stdio.h>
 #include "CustomAssertion.h"
@@ -318,16 +318,16 @@ void test_optimizeKey_given_1234567_expected_12345670000000000000000000000000_in
 
 // lengthOfCipherKey = ((strlen(str)+15)/16) * 16;
 
-void test_getCipherKeyLen_(void){
-  printf("No23.0 - getCipherKeyLen\n");
-  TEST_ASSERT_EQUAL(32,getCipherKeyLen("0123456789ABCDEFG"));
-  TEST_ASSERT_EQUAL(16,getCipherKeyLen("0123456789AFG"));
-  TEST_ASSERT_EQUAL(16,getCipherKeyLen("012345FG"));
-  TEST_ASSERT_EQUAL(16,getCipherKeyLen("345FG"));
-  TEST_ASSERT_EQUAL(0,getCipherKeyLen(""));
-  TEST_ASSERT_EQUAL(48,getCipherKeyLen("0123456789ABCDEFG0123456789ABCDEFG"));
-  TEST_ASSERT_EQUAL(64,getCipherKeyLen("0123456789ABCDEFG0123456789ABCDEFG0123456789ABCDEFG"));
-  TEST_ASSERT_EQUAL(80,getCipherKeyLen("0123456789ABCDEFG0123456789ABCDEFG0123456789ABCDEFG0123456789ABCDEFG"));
+void test_reserveChipherLen_(void){
+  printf("No23.0 - reserveChipherLen\n");
+  TEST_ASSERT_EQUAL(32,reserveChipherLen("0123456789ABCDEFG"));
+  TEST_ASSERT_EQUAL(16,reserveChipherLen("0123456789AFG"));
+  TEST_ASSERT_EQUAL(16,reserveChipherLen("012345FG"));
+  TEST_ASSERT_EQUAL(16,reserveChipherLen("345FG"));
+  TEST_ASSERT_EQUAL(0,reserveChipherLen(""));
+  TEST_ASSERT_EQUAL(48,reserveChipherLen("0123456789ABCDEFG0123456789ABCDEFG"));
+  TEST_ASSERT_EQUAL(64,reserveChipherLen("0123456789ABCDEFG0123456789ABCDEFG0123456789ABCDEFG"));
+  TEST_ASSERT_EQUAL(80,reserveChipherLen("0123456789ABCDEFG0123456789ABCDEFG0123456789ABCDEFG0123456789ABCDEFG"));
 }
 
 
@@ -448,8 +448,6 @@ void test_encrypStr_given(void){
     TEST_ASSERT_EQUAL(expectOut[i],chiperKey[i]);
   }
   
-  convStrToState(chiperKey,state);
-  decryp_16byte(state,key,decrypOut,AES_128);
-  TEST_ASSERT_EQUAL_STATE(plainText,decrypOut);
+
 }
 

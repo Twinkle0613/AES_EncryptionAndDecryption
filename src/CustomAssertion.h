@@ -4,10 +4,15 @@
 #include "unity.h"
 void customTestAssertEqualValue(uint8_t expValue,uint8_t actValue,int lineNo,char* msg,...);
 void customTestAssertEqualState(uint8_t expState[][4] , uint8_t actState[][4], int lineNo);
+void customTestAssertNotEqualStrting(uint8_t* expectStr , uint8_t* actualStr,int lineNo);
+
 #define TEST_ASSERT_EQUAL_STATE(expState,actState){               \
    customTestAssertEqualState(expState,actState,__LINE__);        \
 }
 
+#define TEST_ASSERT_NOT_EQUAL_STRING(expectStr,actualStr){       \
+   customTestAssertNotEqualStrting(expectStr,actualStr,__LINE__);  \
+}
 
 #define CUSTOM_TEST_FAIL(lineNo,msg,...)                        \
         {                                                       \

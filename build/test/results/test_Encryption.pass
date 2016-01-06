@@ -66,7 +66,7 @@
 - :test: test_optimizeKey_given_1234567_expected_12345670000000000000000000000000_in_256_bit
   :line: 311
   :message: ''
-- :test: test_getCipherKeyLen_
+- :test: test_reserceChipherLen_
   :line: 321
   :message: ''
 - :test: test_optimizerStr_given_0123456789ABCDEF_expected_0123456789ABCDEF
@@ -149,7 +149,7 @@
 - '123456700000000000000000'
 - No22.0 - optimizeKey in AES_256
 - '12345670000000000000000000000000'
-- No23.0 - getCipherKeyLen
+- No23.0 - reserceChipherLen
 - No24.0 - optimizerStr
 - No25.0 - optimizerStr
 - No25.0 - optimizerStr

@@ -34,13 +34,13 @@ void test_invCipher_given_128_bit_chiper_key(void){
   cipher(plainText,encrypOut,word,10);  
   TEST_ASSERT_EQUAL_STATE(expOut,encrypOut); 
   invCipher(encrypOut,decrypOut,word,10);
-  printf("\n");
-  printfState(decrypOut);
+  // printf("\n");
+  // printfState(decrypOut);
   TEST_ASSERT_EQUAL_STATE(plainText,decrypOut); 
 }
 
 void test_invCipher_given_192_bit_chiper_key(void){
-   printf("No2.0 - cipher 192-bit key Size \n");
+  printf("No2.0 - cipher 192-bit key Size \n");
   uint8_t plainText[4][4] = { {0x00,0x44,0x88,0xcc},\
                               {0x11,0x55,0x99,0xdd},\
                               {0x22,0x66,0xaa,0xee},\
@@ -62,8 +62,8 @@ void test_invCipher_given_192_bit_chiper_key(void){
   cipher(plainText,encrypOut,word,12);
   TEST_ASSERT_EQUAL_STATE(expOut,encrypOut);
   invCipher(encrypOut,decrypOut,word,12);
-  printf("\n");
-  printfState(decrypOut);
+  // printf("\n");
+  // printfState(decrypOut);
   TEST_ASSERT_EQUAL_STATE(plainText,decrypOut); 
 }
 
@@ -92,12 +92,12 @@ uint8_t cipcherkey[] = {0x00,0x01,0x02,0x03,\
   cipher(plainText,encrypOut,word,14);
   TEST_ASSERT_EQUAL_STATE(expOut,encrypOut);
   invCipher(encrypOut,decrypOut,word,14);
-  printf("\n");
-  printfState(decrypOut);
+  // printf("\n");
+  // printfState(decrypOut);
   TEST_ASSERT_EQUAL_STATE(plainText,decrypOut); 
 }
 
-void test_decryption_16byte_(void){
+void test_decryption_16byte_given_plainText_in_encryption_and_expected_decryption_output_same_wtih_plainText(void){
   printf("No4.0 - decryption_16byte \n");
     uint8_t plainText[4][4] = { {0x00,0x44,0x88,0xcc},\
                               {0x11,0x55,0x99,0xdd},\
@@ -110,12 +110,12 @@ void test_decryption_16byte_(void){
   uint8_t encrypOut[4][4];
   uint8_t decrypOut[4][4];
                            
-  encryption_16byte(plainText,cipcherkey,encrypOut);
-  decryption_16byte(encrypOut,cipcherkey,decrypOut);
+  encryp_16byte(plainText,cipcherkey,encrypOut,AES_128);
+  decryp_16byte(encrypOut,cipcherkey,decrypOut,AES_128);
   TEST_ASSERT_EQUAL_STATE(plainText,decrypOut); 
 }
 
-void test_decryption_16byte_given_str_(void){
+void test_decryption_16byte_given_plainText1_in_encryption_and_expected_decryption_output_same_wtih_plainText(void){
   printf("No5.0 - decryption_16byte \n");
   char *outString = malloc(sizeof(char)*17);
   char *encryOutSting = malloc(sizeof(char)*17);
@@ -127,14 +127,14 @@ void test_decryption_16byte_given_str_(void){
                            0x0c,0x0d,0x0e,0x0f };
   uint8_t encrypOut[4][4];
   uint8_t decrypOut[4][4];
-  encryption_16byte(plainText,cipcherkey,encrypOut);
-  decryption_16byte(encrypOut,cipcherkey,decrypOut);
-  printfState(encrypOut);
-  printf("\n");
-  printfState(decrypOut);
+  encryp_16byte(plainText,cipcherkey,encrypOut,AES_128);
+  decryp_16byte(encrypOut,cipcherkey,decrypOut,AES_128);
+  // printfState(encrypOut);
+  // printf("\n");
+  // printfState(decrypOut);
   convStateToStr(decrypOut,outString);
   convStateToStr(encrypOut,encryOutSting);
-  printf("%s\n",outString);
+  // printf("%s\n",outString);
   TEST_ASSERT_EQUAL_STATE(plainText,decrypOut); 
 }
 
@@ -234,6 +234,14 @@ void test_decryp_16byte_given_string_hwa_neng_and_key_9988776622334455_in_AES_12
   
 }
 
+/*
+              AESmode = AES_128                   AESmode = AES_128
+           encrypKey = "9988772211334455";      decrypKey = "9988772211334455"; 
+                 ||                                     ||
+                 V                                      V
+    "Hello,HwaNeng!!!"  -------> encryp_16byte ------> decryp_16byte --------> "Hello,HwaNeng!!!"
+
+*/
 void test_decryp_16byte_given_string_hwa_neng_and_key_9988776622334455_in_AES_192(void){
   printf("No11.0 - decryp_16byte\n");
   uint8_t plainText[4][4];
@@ -247,3 +255,134 @@ void test_decryp_16byte_given_string_hwa_neng_and_key_9988776622334455_in_AES_19
   TEST_ASSERT_EQUAL_STATE(plainText,decrypOut); 
   
 }
+
+/*
+              AESmode = AES_128                   AESmode = AES_128
+           encrypKey = "9988772211334455";      decrypKey = "9988772211334455"; 
+                 ||                                     ||
+                 V                                      V
+      "Hello"  -------> encrypStr ------> decrypStr --------> "Hello00000000000"
+
+*/
+
+void test_decrypStr_given_a_less_than_16byte_of_str_and_the_encrypKey_and_decrypKey_is_same_expected_invCipherKey_is_correct_AES128(void){
+  printf("No12.0 - decrypStr\n");
+    uint8_t* cipherKey = encrypStr("Hello","9988772211334455",AES_128);
+    uint8_t* invCipherKey = decrypStr(cipherKey,"9988772211334455",AES_128);
+  TEST_ASSERT_EQUAL_STRING("Hello00000000000",invCipherKey);
+}
+
+/*
+               AESmode = AES_128                   AESmode = AES_128
+             encrypKey = "9988772211334455";      decrypKey = "9988772211334455"; 
+                           ||                                     ||
+                           V                                      V
+    "Hello,HwaNeng!!!"  -------> encrypStr ------> Decryption --------> "Hello,HwaNeng!!!"
+
+*/
+void test_decrypStr_given_a_16byte_str_and_the_encrypKey_and_decrypKey_is_same_expected_invCipherKey_is_correct_AES128(void){
+  printf("No13.0 - decrypStr\n");
+  uint8_t* cipherKey = encrypStr("Hello,HwaNeng!!!","9988772211334455",AES_128);
+  uint8_t* invCipherKey = decrypStr(cipherKey,"9988772211334455",AES_128);
+  TEST_ASSERT_EQUAL_STRING("Hello,HwaNeng!!!",invCipherKey);
+}
+
+/*
+                        AESmode = AES_128                    AESmode = AES_128
+                      encrypKey = "9988772211334455";      decrypKey = "9988772211334455"; 
+                                        ||                                     ||
+                                        V                                      V
+    "Hello,HwaNeng!!! I m LengZai"  -------> encrypStr ------> decrypStr --------> "Hello,HwaNeng!!! I m LengZai0000"
+
+*/
+void test_decrypStr_given_a_more_than_16byte_of_str_and_the_encrypKey_and_decrypKey_is_same_expected_invCipherKey_is_correct_AES128(void){
+  printf("No14.0 - decrypStr\n");
+  uint8_t* cipherKey = encrypStr("Hello,HwaNeng!!! I m LengZai","9988772211334455",AES_128);
+  uint8_t* invCipherKey = decrypStr(cipherKey,"9988772211334455",AES_128);
+  TEST_ASSERT_EQUAL_STRING("Hello,HwaNeng!!! I m LengZai0000",invCipherKey);
+}
+/*        
+                            AESmode = AES_128                   AESmode = AES_128
+                          encrypKey = "554433221122342";      decrypKey = "9988772211334455";     
+                                      ||                                     ||
+                                      V                                      V
+    "Hello,HwaNeng!!! I m LengZai"  -------> encrypStr ------> decrypStr --------> "XXXXXXXXXXXXXXX"
+
+*/
+void test_decrypStr_given_a_string_and_encrypkey_and_decrypkey_is_not_same_expected_invCipherKey_is_wrong_AES128(void){
+  printf("No15.0 - decrypStr\n");
+  uint8_t* cipherKey = encrypStr("Hello,HwaNeng!!! I m LengZai","554433221122342",AES_128);
+  uint8_t* invCipherKey = decrypStr(cipherKey,"9988772211334455",AES_128);
+ TEST_ASSERT_NOT_EQUAL_STRING("Hello,HwaNeng!!! I m LengZai0000",invCipherKey);
+}
+
+/*
+                            AESmode = AES_128                   AESmode = AES_192 <----Note:different
+                          encrypKey = "9988772211334455";      decrypKey = "9988772211334455";     
+                                        ||                                     ||
+                                        V                                      V
+    "Hello,HwaNeng!!! I m LengZai"  -------> encrypStr ------> decrypStr --------> "XXXXXXXXXXXXXXX"
+
+*/
+void test_decrypStr_given_a_string_and_encrypkey_and_decrypkey_is_same_but_AESmode_is_diffrent_expected_invCipherKey_is_wrong(void){
+  printf("No16.0 - decrypStr\n");
+  uint8_t* cipherKey = encrypStr("Hello,HwaNeng!!! I m LengZai","9988772211334455",AES_192);
+  uint8_t* invCipherKey = decrypStr(cipherKey,"9988772211334455",AES_128);
+ TEST_ASSERT_NOT_EQUAL_STRING("Hello,HwaNeng!!! I m LengZai0000",invCipherKey);
+}
+/*
+                           AESmode = AES_192                   AESmode = AES_192
+                        encrypKey = "9988772211334455";      decrypKey = "9988772211334455"; 
+                                        ||                                     ||
+                                        V                                      V
+    "Hello,HwaNeng!!! I m LengZai"  -------> encrypStr ------> decrypStr --------> "Hello,HwaNeng!!! I m LengZai0000"
+
+*/
+void test_decrypStr_given_a_more_than_16byte_of_str_and_the_encrypKey_and_decrypKey_is_same_in_AES192_expected_invCipherKey_is_correct(void){
+  printf("No17.0 - decrypStr\n");
+  uint8_t* cipherKey = encrypStr("Hello,HwaNeng!!! I m LengZai","9988772211334455",AES_192);
+  uint8_t* invCipherKey = decrypStr(cipherKey,"9988772211334455",AES_192);
+  TEST_ASSERT_EQUAL_STRING("Hello,HwaNeng!!! I m LengZai0000",invCipherKey);
+}
+
+/*
+                          AESmode = AES_256                   AESmode = AES_256
+                        encrypKey = "9988772211334455";      decrypKey = "9988772211334455"; 
+                                      ||                                     ||
+                                      V                                      V
+    "Hello,HwaNeng!!! I m LengZai"  -------> encrypStr ------> decrypStr --------> "Hello,HwaNeng!!! I m LengZai0000"
+
+*/
+void test_decrypStr_given_a_more_than_16byte_of_str_and_the_encrypKey_and_decrypKey_is_same_in_AES256_expected_invCipherKey_is_correct(void){
+  printf("No18.0 - decrypStr\n");
+  uint8_t* cipherKey = encrypStr("Hello,HwaNeng!!! I m LengZai","9988772211334455",AES_256);
+  uint8_t* invCipherKey = decrypStr(cipherKey,"9988772211334455",AES_256);
+  TEST_ASSERT_EQUAL_STRING("Hello,HwaNeng!!! I m LengZai0000",invCipherKey);
+}
+
+
+
+void test_decrypStr_if_given_unknown_mode_expected_thorw_error(void){
+  
+  printf("No19.0 - decrypStr\n");
+  uint8_t* cipherKey = encrypStr("Hello,HwaNeng!!! I m LengZai","9988772211334455",AES_256);
+  uint8_t* invCipherKey = decrypStr(cipherKey,"9988772211334455",9);
+  
+}
+
+void test_decrypStr_if_given_NULL_put_in_decrykey_expected_thorw_error(void){
+  
+  printf("No20.0 - decrypStr\n");
+  uint8_t* cipherKey = encrypStr("Hello,HwaNeng!!! I m LengZai","9988772211334455",AES_256);
+  uint8_t* invCipherKey = decrypStr(cipherKey,NULL,AES_256);
+  
+}
+
+void test_decrypStr__(void){
+  // printf("No21.0 - decrypStr\n");
+  // uint8_t* cipherKey = encrypStr(NULL,"9988772211334455",AES_256);
+  // uint8_t* invCipherKey = decrypStr(cipherKey,"9988772211334455",AES_256);
+  // TEST_ASSERT_EQUAL_STRING("0000000000000000",invCipherKey);
+  
+}
+

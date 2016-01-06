@@ -7,6 +7,16 @@
 #include "MixColumns.h"
 #include "ShiftRows.h"
 #include "SubBytes.h"   
+#include "malloc.h"
+
+/*  ----Documentation------
+
+
+
+
+
+*/
+
 
 void invCipher(uint8_t in[][4], uint8_t out[][4], uint32_t word[],int NumOfRound){
   int i;
@@ -25,13 +35,6 @@ void invCipher(uint8_t in[][4], uint8_t out[][4], uint32_t word[],int NumOfRound
     copyState(state,out);
 }
 
-void decryption_16byte(uint8_t cipherKey[][4],uint8_t key[],uint8_t result[][4]){
-   uint32_t word[44];
-   keyExpansion(key,word,4,10);
-   invCipher(cipherKey,result,word,10);
-}
-
-
 void decryp_16byte(uint8_t plainText[][4], uint8_t key[], uint8_t encrypOut[][4], int sizeofAES){
   int wordSize;
   int round;
@@ -41,6 +44,34 @@ void decryp_16byte(uint8_t plainText[][4], uint8_t key[], uint8_t encrypOut[][4]
   keyExpansion(key,word,keySize,round);
   invCipher(plainText,encrypOut,word,round);
 }
+
+uint8_t* decrypStr(uint8_t* str,char* key,int AESmode){
+
+  if(key == NULL){
+    printf("Error: Please key in your encryption key!\n");
+    return;
+  }
+  if(AESmode != AES_128 && AESmode != AES_192 && AESmode != AES_256){
+    printf("Erorr: Please key in correct AES mode\n");
+    return ;
+  }
+ 
+  int i;
+  int decrypTimes = (reserveChipherLen(str)/16);
+  uint8_t state[4][4];
+  uint8_t decrypState[4][4];
+  uint8_t *decrypOut = malloc(sizeof(char*)*reserveChipherLen(str));
+  char* newKey = optimizeKey(key,AESmode);
+ 
+  for(i = 0; i< decrypTimes ; i++){
+    convStrToStateWithIndex(str,state,i);
+    decryp_16byte(state,newKey,decrypState,AESmode);
+    convStateToStrWithIndex(decrypState,decrypOut,i);
+  }
+  return decrypOut;
+}
+
+
 
 
 

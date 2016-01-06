@@ -110,13 +110,13 @@ void convStateToStrWithIndex( uint8_t state[][4],char* str,int index){
       str[row + (4*col) + (16*index)] = (char)state[row][col];   
     }                                        
   }
-  str[strlen(str)] = '\0';
+  str[ 16 + (16*index) ] = '\0';
 }
 
 
 char* optimizeStr(char* str){
   int i;
-  char* newStr = malloc( sizeof(char*)*getCipherKeyLen(str) );
+  char* newStr = malloc( sizeof(char*)*reserveChipherLen(str) );
  int lenOfStr = strlen(str);
   strncpy(newStr,str,lenOfStr);
    int reminder = lenOfStr % 16;
@@ -126,7 +126,7 @@ char* optimizeStr(char* str){
       newStr[i] = '0';
     }
   }
-  newStr[getCipherKeyLen(str)] = '\0';
+  newStr[reserveChipherLen(str)] = '\0';
   return newStr;
 }
 
@@ -140,9 +140,9 @@ char* encrypStr(char* str,char* key, int AESmode){
     printf("Erorr: Please key in correct AES mode\n");
     return ;
   }
- char* encrypOut = malloc(sizeof(char*)*getCipherKeyLen(str));
-  int encrypTimes = (getCipherKeyLen(str)/16);
- //printf("getCipherKeyLen(str) = %d\n",getCipherKeyLen(str));
+ char* encrypOut = malloc(sizeof(char*)*reserveChipherLen(str));
+  int encrypTimes = (reserveChipherLen(str)/16);
+ //printf("reserveChipherLen(str) = %d\n",reserveChipherLen(str));
   int i;
   uint8_t state[4][4];
   uint8_t encrypState[4][4];
@@ -164,7 +164,8 @@ void printEncrypOut(char* encrypOut){
   printf("\n");
 }
 
-int getCipherKeyLen(char* str){
+
+int reserveChipherLen(char* str){
  return ( ((strlen(str)+15)/16) * 16 );
 } 
 

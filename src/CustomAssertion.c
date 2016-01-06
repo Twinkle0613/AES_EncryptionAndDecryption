@@ -21,7 +21,6 @@ void customTestAssertEqualState(uint8_t expState[][4] , uint8_t actState[][4], i
   }
 }
 
-
 void customTestAssertEqualValue(uint8_t expectValue,uint8_t actualValue,int lineNo,char* msg,...){
   char *msgBuffer = malloc(1024);
   va_list args;
@@ -29,4 +28,20 @@ void customTestAssertEqualValue(uint8_t expectValue,uint8_t actualValue,int line
   vsprintf(msgBuffer, msg,args);
   UNITY_TEST_ASSERT_EQUAL_INT8(actualValue,expectValue,lineNo,msgBuffer);
   va_end(args);
+}
+
+
+void customTestAssertNotEqualStrting(uint8_t* expectStr , uint8_t* actualStr,int lineNo){
+  
+  if( expectStr == NULL ){
+    CUSTOM_TEST_FAIL(lineNo,"expectStr should not be a NULL."); 
+  }
+  if( actualStr == NULL ){
+    CUSTOM_TEST_FAIL(lineNo,"actualStr should not be a NULL."); 
+  }
+  
+ if( strcmp(expectStr,actualStr) == 0){
+   CUSTOM_TEST_FAIL(lineNo,"actualStr should not same with expectStr.");
+ }
+  
 }

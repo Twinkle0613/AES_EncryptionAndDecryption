@@ -28,4 +28,5 @@ char* optimizeKey(char*key,int AESmode);
 char* optimizeStr(char* str);
 void printEncrypOut(char* encrypOut);
 char* encrypStr(char* str,char* key, int AESmode);
+void printfStateInChar(uint8_t state[][4]);
 #endif // Encryption_H

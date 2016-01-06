@@ -51,7 +51,7 @@ extern void test_keyProcess_given_a_string_0123456789ABCDEFGHIJKLNMOPQRSTUV11223
 extern void test_optimizeKey_given_1234567_expected_1234567000000000_in_128_bit(void);
 extern void test_optimizeKey_given_1234567_expected_123456700000000000000000_in_192_bit(void);
 extern void test_optimizeKey_given_1234567_expected_12345670000000000000000000000000_in_256_bit(void);
-extern void test_getCipherKeyLen_(void);
+extern void test_reserceChipherLen_(void);
 extern void test_optimizerStr_given_0123456789ABCDEF_expected_0123456789ABCDEF(void);
 extern void test_optimizerStr_given_0123456789ABCDEFA_expected_0123456789ABCDEFA000000000000000(void);
 extern void test_optimizerStr_given_0123456789ABCDEF0123456789ABCDEF_expected_0123456789ABCDEF0123456789ABCDEF(void);
@@ -95,7 +95,7 @@ int main(void)
   RUN_TEST(test_optimizeKey_given_1234567_expected_1234567000000000_in_128_bit, 295);
   RUN_TEST(test_optimizeKey_given_1234567_expected_123456700000000000000000_in_192_bit, 303);
   RUN_TEST(test_optimizeKey_given_1234567_expected_12345670000000000000000000000000_in_256_bit, 311);
-  RUN_TEST(test_getCipherKeyLen_, 321);
+  RUN_TEST(test_reserceChipherLen_, 321);
   RUN_TEST(test_optimizerStr_given_0123456789ABCDEF_expected_0123456789ABCDEF, 335);
   RUN_TEST(test_optimizerStr_given_0123456789ABCDEFA_expected_0123456789ABCDEFA000000000000000, 344);
   RUN_TEST(test_optimizerStr_given_0123456789ABCDEF0123456789ABCDEF_expected_0123456789ABCDEF0123456789ABCDEF, 355);
