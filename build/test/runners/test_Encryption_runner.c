@@ -8,8 +8,11 @@
   Unity.NumberOfTests++; \
   if (TEST_PROTECT()) \
   { \
+    CEXCEPTION_T e; \
+    Try { \
       setUp(); \
       TestFunc(); \
+    } Catch(e) { TEST_ASSERT_EQUAL_HEX32_MESSAGE(CEXCEPTION_NONE, e, "Unhandled Exception!"); } \
   } \
   if (TEST_PROTECT() && !TEST_IS_IGNORED) \
   { \
@@ -22,6 +25,7 @@
 #include "unity.h"
 #include <setjmp.h>
 #include <stdio.h>
+#include "CException.h"
 
 int GlobalExpectCount;
 int GlobalVerifyOrder;
@@ -61,6 +65,9 @@ extern void test_optimizerStr_given_0123456789ABCDEF0123456789ABCDEFA_expected_0
 extern void test_convStrToStateWithIndex_(void);
 extern void test_convStateToStrWithIndex(void);
 extern void test_encrypStr_given_A_string(void);
+extern void test_encrypStr_given_a_unknown_mode_expected_thorw_err_AES_MODE_CANNOT_BE_NULL_(void);
+extern void test_encrypStr_given_NULL_in_decrykey_expected_thorw_err_KEY_CANNOT_BE_NULL_(void);
+extern void test_encrypStr_given_NULL_in_Str_expected_thorw_err_STR_CANNOT_BE_NULL(void);
 
 
 //=======Test Reset Option=====
@@ -76,37 +83,40 @@ void resetTest(void)
 int main(void)
 {
   UnityBegin("test_Encryption.c");
-  RUN_TEST(test_cipher_given_128_bit_cipher_key, 41);
-  RUN_TEST(test_cipher_given_192_bit_cipher_key, 63);
-  RUN_TEST(test_cipher_given_256_bit_cipher_key, 89);
-  RUN_TEST(test_encryption16byte_, 116);
-  RUN_TEST(test_encryp_16byte_given_128_bit_cipher_key, 136);
-  RUN_TEST(test_encryp_16byte_given_192_bit_cipher_key, 156);
-  RUN_TEST(test_encryp_16byte_given_256_bit_cipher_key, 178);
-  RUN_TEST(test_strncpy_, 212);
-  RUN_TEST(test_fillZeroToStr_given_a_string_in_AES128, 233);
-  RUN_TEST(test_fillZeroToStr_given_a_string_in_AES192, 243);
-  RUN_TEST(test_fillZeroToStr_given_a_string_in_AES256, 252);
-  RUN_TEST(test_keyProcess_given_a_string_1234567_expected_string_1234567000000000_In_AES128, 271);
-  RUN_TEST(test_keyProcess_given_a_string_0123456789ABCDEF_expected_string_0123456789ABCDEF_In_AES128, 280);
-  RUN_TEST(test_keyProcess_given_a_string_0123456789ABCDEF12345_expected_string_0123456789ABCDEF_In_AES128, 289);
-  RUN_TEST(test_keyProcess_given_a_string_1234567_expected_string_123456700000000000000000_In_AES192, 306);
-  RUN_TEST(test_keyProcess_given_a_string_0123456789ABCDEFGHIJKLNM_expected_string_0123456789ABCDEFGHIJKLNM_In_AES192, 315);
-  RUN_TEST(test_keyProcess_given_a_string_0123456789ABCDEFGHIJKLNM1221221212_expected_string_0123456789ABCDEFGHIJKLNM_In_AES192, 324);
-  RUN_TEST(test_keyProcess_given_a_string_01234567_expected_string_012345670000000000000000000000000_In_AES256, 341);
-  RUN_TEST(test_keyProcess_given_a_string_0123456789ABCDEFGHIJKLNMOPQRSTUV_expected_string_0123456789ABCDEFGHIJKLNMOPQRSTUV_In_AES256, 350);
-  RUN_TEST(test_keyProcess_given_a_string_0123456789ABCDEFGHIJKLNMOPQRSTUV112233_expected_string_0123456789ABCDEFGHIJKLNMOPQRSTUV_In_AES256, 359);
-  RUN_TEST(test_optimizeKey_given_1234567_expected_1234567000000000_in_128_bit, 376);
-  RUN_TEST(test_optimizeKey_given_1234567_expected_123456700000000000000000_in_192_bit, 384);
-  RUN_TEST(test_optimizeKey_given_1234567_expected_12345670000000000000000000000000_in_256_bit, 392);
-  RUN_TEST(test_reserveChipherLen_, 411);
-  RUN_TEST(test_optimizerStr_given_0123456789ABCDEF_expected_0123456789ABCDEF, 432);
-  RUN_TEST(test_optimizerStr_given_0123456789ABCDEFA_expected_0123456789ABCDEFA000000000000000, 441);
-  RUN_TEST(test_optimizerStr_given_0123456789ABCDEF0123456789ABCDEF_expected_0123456789ABCDEF0123456789ABCDEF, 452);
-  RUN_TEST(test_optimizerStr_given_0123456789ABCDEF0123456789ABCDEFA_expected_0123456789ABCDEF0123456789ABCDEFA000000000000000, 461);
-  RUN_TEST(test_convStrToStateWithIndex_, 491);
-  RUN_TEST(test_convStateToStrWithIndex, 520);
-  RUN_TEST(test_encrypStr_given_A_string, 558);
+  RUN_TEST(test_cipher_given_128_bit_cipher_key, 43);
+  RUN_TEST(test_cipher_given_192_bit_cipher_key, 65);
+  RUN_TEST(test_cipher_given_256_bit_cipher_key, 91);
+  RUN_TEST(test_encryption16byte_, 118);
+  RUN_TEST(test_encryp_16byte_given_128_bit_cipher_key, 138);
+  RUN_TEST(test_encryp_16byte_given_192_bit_cipher_key, 158);
+  RUN_TEST(test_encryp_16byte_given_256_bit_cipher_key, 180);
+  RUN_TEST(test_strncpy_, 214);
+  RUN_TEST(test_fillZeroToStr_given_a_string_in_AES128, 235);
+  RUN_TEST(test_fillZeroToStr_given_a_string_in_AES192, 245);
+  RUN_TEST(test_fillZeroToStr_given_a_string_in_AES256, 254);
+  RUN_TEST(test_keyProcess_given_a_string_1234567_expected_string_1234567000000000_In_AES128, 273);
+  RUN_TEST(test_keyProcess_given_a_string_0123456789ABCDEF_expected_string_0123456789ABCDEF_In_AES128, 282);
+  RUN_TEST(test_keyProcess_given_a_string_0123456789ABCDEF12345_expected_string_0123456789ABCDEF_In_AES128, 291);
+  RUN_TEST(test_keyProcess_given_a_string_1234567_expected_string_123456700000000000000000_In_AES192, 308);
+  RUN_TEST(test_keyProcess_given_a_string_0123456789ABCDEFGHIJKLNM_expected_string_0123456789ABCDEFGHIJKLNM_In_AES192, 317);
+  RUN_TEST(test_keyProcess_given_a_string_0123456789ABCDEFGHIJKLNM1221221212_expected_string_0123456789ABCDEFGHIJKLNM_In_AES192, 326);
+  RUN_TEST(test_keyProcess_given_a_string_01234567_expected_string_012345670000000000000000000000000_In_AES256, 343);
+  RUN_TEST(test_keyProcess_given_a_string_0123456789ABCDEFGHIJKLNMOPQRSTUV_expected_string_0123456789ABCDEFGHIJKLNMOPQRSTUV_In_AES256, 352);
+  RUN_TEST(test_keyProcess_given_a_string_0123456789ABCDEFGHIJKLNMOPQRSTUV112233_expected_string_0123456789ABCDEFGHIJKLNMOPQRSTUV_In_AES256, 361);
+  RUN_TEST(test_optimizeKey_given_1234567_expected_1234567000000000_in_128_bit, 378);
+  RUN_TEST(test_optimizeKey_given_1234567_expected_123456700000000000000000_in_192_bit, 386);
+  RUN_TEST(test_optimizeKey_given_1234567_expected_12345670000000000000000000000000_in_256_bit, 394);
+  RUN_TEST(test_reserveChipherLen_, 413);
+  RUN_TEST(test_optimizerStr_given_0123456789ABCDEF_expected_0123456789ABCDEF, 434);
+  RUN_TEST(test_optimizerStr_given_0123456789ABCDEFA_expected_0123456789ABCDEFA000000000000000, 443);
+  RUN_TEST(test_optimizerStr_given_0123456789ABCDEF0123456789ABCDEF_expected_0123456789ABCDEF0123456789ABCDEF, 454);
+  RUN_TEST(test_optimizerStr_given_0123456789ABCDEF0123456789ABCDEFA_expected_0123456789ABCDEF0123456789ABCDEFA000000000000000, 463);
+  RUN_TEST(test_convStrToStateWithIndex_, 493);
+  RUN_TEST(test_convStateToStrWithIndex, 522);
+  RUN_TEST(test_encrypStr_given_A_string, 560);
+  RUN_TEST(test_encrypStr_given_a_unknown_mode_expected_thorw_err_AES_MODE_CANNOT_BE_NULL_, 585);
+  RUN_TEST(test_encrypStr_given_NULL_in_decrykey_expected_thorw_err_KEY_CANNOT_BE_NULL_, 599);
+  RUN_TEST(test_encrypStr_given_NULL_in_Str_expected_thorw_err_STR_CANNOT_BE_NULL, 613);
 
   return (UnityEnd());
 }

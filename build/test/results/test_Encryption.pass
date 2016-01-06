@@ -4,103 +4,112 @@
   :file: test_Encryption.c
 :successes:
 - :test: test_cipher_given_128_bit_cipher_key
-  :line: 41
+  :line: 43
   :message: ''
 - :test: test_cipher_given_192_bit_cipher_key
-  :line: 63
+  :line: 65
   :message: ''
 - :test: test_cipher_given_256_bit_cipher_key
-  :line: 89
+  :line: 91
   :message: ''
 - :test: test_encryption16byte_
-  :line: 116
+  :line: 118
   :message: ''
 - :test: test_encryp_16byte_given_128_bit_cipher_key
-  :line: 136
+  :line: 138
   :message: ''
 - :test: test_encryp_16byte_given_192_bit_cipher_key
-  :line: 156
+  :line: 158
   :message: ''
 - :test: test_encryp_16byte_given_256_bit_cipher_key
-  :line: 178
+  :line: 180
   :message: ''
 - :test: test_strncpy_
-  :line: 212
+  :line: 214
   :message: ''
 - :test: test_fillZeroToStr_given_a_string_in_AES128
-  :line: 233
+  :line: 235
   :message: ''
 - :test: test_fillZeroToStr_given_a_string_in_AES192
-  :line: 243
+  :line: 245
   :message: ''
 - :test: test_fillZeroToStr_given_a_string_in_AES256
-  :line: 252
+  :line: 254
   :message: ''
 - :test: test_keyProcess_given_a_string_1234567_expected_string_1234567000000000_In_AES128
-  :line: 271
+  :line: 273
   :message: ''
 - :test: test_keyProcess_given_a_string_0123456789ABCDEF_expected_string_0123456789ABCDEF_In_AES128
-  :line: 280
+  :line: 282
   :message: ''
 - :test: test_keyProcess_given_a_string_0123456789ABCDEF12345_expected_string_0123456789ABCDEF_In_AES128
-  :line: 289
+  :line: 291
   :message: ''
 - :test: test_keyProcess_given_a_string_1234567_expected_string_123456700000000000000000_In_AES192
-  :line: 306
+  :line: 308
   :message: ''
 - :test: test_keyProcess_given_a_string_0123456789ABCDEFGHIJKLNM_expected_string_0123456789ABCDEFGHIJKLNM_In_AES192
-  :line: 315
+  :line: 317
   :message: ''
 - :test: test_keyProcess_given_a_string_0123456789ABCDEFGHIJKLNM1221221212_expected_string_0123456789ABCDEFGHIJKLNM_In_AES192
-  :line: 324
+  :line: 326
   :message: ''
 - :test: test_keyProcess_given_a_string_01234567_expected_string_012345670000000000000000000000000_In_AES256
-  :line: 341
+  :line: 343
   :message: ''
 - :test: test_keyProcess_given_a_string_0123456789ABCDEFGHIJKLNMOPQRSTUV_expected_string_0123456789ABCDEFGHIJKLNMOPQRSTUV_In_AES256
-  :line: 350
+  :line: 352
   :message: ''
 - :test: test_keyProcess_given_a_string_0123456789ABCDEFGHIJKLNMOPQRSTUV112233_expected_string_0123456789ABCDEFGHIJKLNMOPQRSTUV_In_AES256
-  :line: 359
+  :line: 361
   :message: ''
 - :test: test_optimizeKey_given_1234567_expected_1234567000000000_in_128_bit
-  :line: 376
+  :line: 378
   :message: ''
 - :test: test_optimizeKey_given_1234567_expected_123456700000000000000000_in_192_bit
-  :line: 384
+  :line: 386
   :message: ''
 - :test: test_optimizeKey_given_1234567_expected_12345670000000000000000000000000_in_256_bit
-  :line: 392
+  :line: 394
   :message: ''
 - :test: test_reserveChipherLen_
-  :line: 411
+  :line: 413
   :message: ''
 - :test: test_optimizerStr_given_0123456789ABCDEF_expected_0123456789ABCDEF
-  :line: 432
+  :line: 434
   :message: ''
 - :test: test_optimizerStr_given_0123456789ABCDEFA_expected_0123456789ABCDEFA000000000000000
-  :line: 441
+  :line: 443
   :message: ''
 - :test: test_optimizerStr_given_0123456789ABCDEF0123456789ABCDEF_expected_0123456789ABCDEF0123456789ABCDEF
-  :line: 452
+  :line: 454
   :message: ''
 - :test: test_optimizerStr_given_0123456789ABCDEF0123456789ABCDEFA_expected_0123456789ABCDEF0123456789ABCDEFA000000000000000
-  :line: 461
+  :line: 463
   :message: ''
 - :test: test_convStrToStateWithIndex_
-  :line: 491
+  :line: 493
   :message: ''
 - :test: test_convStateToStrWithIndex
-  :line: 520
+  :line: 522
   :message: ''
 - :test: test_encrypStr_given_A_string
-  :line: 558
+  :line: 560
+  :message: ''
+- :test: test_encrypStr_given_a_unknown_mode_expected_thorw_err_AES_MODE_CANNOT_BE_NULL_
+  :line: 585
+  :message: ''
+- :test: test_encrypStr_given_NULL_in_decrykey_expected_thorw_err_KEY_CANNOT_BE_NULL_
+  :line: 599
+  :message: ''
+- :test: test_encrypStr_given_NULL_in_Str_expected_thorw_err_STR_CANNOT_BE_NULL
+  :line: 613
   :message: ''
 :failures: []
 :ignores: []
 :counts:
-  :total: 31
-  :passed: 31
+  :total: 34
+  :passed: 34
   :failed: 0
   :ignored: 0
 :stdout:
@@ -135,4 +144,10 @@
 - No27.0 - convStrToStateWithIndex
 - No28.0 - convStateToStrWithIndex
 - No29.0 - encrypStr
+- No30.0 - encrypStr
+- 'Erorr: Please key in correct AES mode!'
+- No31.0 - decrypStr
+- 'Error: Decrypt Key cannot be NULL!'
+- No32.0 - decrypStr
+- 'Error: Input plainText cannot be NULL!'
 - ''

@@ -8,6 +8,9 @@
 #include "ShiftRows.h"
 #include "SubBytes.h"   
 #include "malloc.h"
+#include "ErrorObject.h"
+#include "CException.h"
+
 
 void setUp(void){}
 
@@ -362,27 +365,46 @@ void test_decrypStr_given_a_more_than_16byte_of_str_and_the_encrypKey_and_decryp
 
 
 
-void test_decrypStr_if_given_unknown_mode_expected_thorw_error(void){
-  
+void test_decrypStr_given_a_unknown_mode_expected_thorw_err_AES_MODE_CANNOT_BE_NULL_(void){
   printf("No19.0 - decrypStr\n");
+  CEXCEPTION_T err;
+  Try{
   uint8_t* cipherKey = encrypStr("Hello,HwaNeng!!! I m LengZai","9988772211334455",AES_256);
-  uint8_t* invCipherKey = decrypStr(cipherKey,"9988772211334455",9);
+  uint8_t* invCipherKey = decrypStr(cipherKey,"9988772211334455",0);
+  }Catch(err){
+   printf("%s",err->errorMsg); 
+   TEST_ASSERT_EQUAL(ERR_AES_MODE_CANNOT_BE_NULL,err->errorCode);
+   TEST_ASSERT_EQUAL_STRING("Erorr: Please key in correct AES mode!",err->errorMsg);
+   freeError(err);
+  }
   
 }
 
-void test_decrypStr_if_given_NULL_put_in_decrykey_expected_thorw_error(void){
-  
+void test_decrypStr_given_NULL_in_decrykey_expected_thorw_err_KEY_CANNOT_BE_NULL_(void){
   printf("No20.0 - decrypStr\n");
+  CEXCEPTION_T err;
+  Try{
   uint8_t* cipherKey = encrypStr("Hello,HwaNeng!!! I m LengZai","9988772211334455",AES_256);
   uint8_t* invCipherKey = decrypStr(cipherKey,NULL,AES_256);
-  
+  }Catch(err){
+   printf("%s",err->errorMsg); 
+   TEST_ASSERT_EQUAL(ERR_KEY_CANNOT_BE_NULL,err->errorCode);
+   TEST_ASSERT_EQUAL_STRING("Error: Decrypt Key cannot be NULL!",err->errorMsg);
+   freeError(err);
+  }
 }
 
-void test_decrypStr__(void){
-  // printf("No21.0 - decrypStr\n");
-  // uint8_t* cipherKey = encrypStr(NULL,"9988772211334455",AES_256);
-  // uint8_t* invCipherKey = decrypStr(cipherKey,"9988772211334455",AES_256);
-  // TEST_ASSERT_EQUAL_STRING("0000000000000000",invCipherKey);
-  
+void test_decrypStr_given_NULL_in_Str_expected_thorw_err_STR_CANNOT_BE_NULL(void){
+  printf("No21.0 - decrypStr\n");
+  CEXCEPTION_T err;
+  Try{
+  uint8_t* cipherKey = encrypStr("1234","9988772211334455",AES_256);
+  uint8_t* invCipherKey = decrypStr(NULL,"9988772211334455",AES_256);
+  }Catch(err){
+   printf("%s",err->errorMsg); 
+   TEST_ASSERT_EQUAL(ERR_STR_CANNOT_BE_NULL,err->errorCode);
+   TEST_ASSERT_EQUAL_STRING("Error: Input plainText cannot be NULL!",err->errorMsg);
+   freeError(err);
+  }
 }
 

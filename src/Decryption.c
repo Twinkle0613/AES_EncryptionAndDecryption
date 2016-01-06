@@ -8,7 +8,8 @@
 #include "ShiftRows.h"
 #include "SubBytes.h"   
 #include "malloc.h"
-
+#include "ErrorObject.h"
+#include "CException.h"
 /*  ----Documentation------
 
 
@@ -46,14 +47,14 @@ void decryp_16byte(uint8_t plainText[][4], uint8_t key[], uint8_t encrypOut[][4]
 }
 
 uint8_t* decrypStr(uint8_t* str,char* key,int AESmode){
-
+  if(str == NULL){
+    throwError("Error: Input plainText cannot be NULL!",ERR_STR_CANNOT_BE_NULL);
+  }
   if(key == NULL){
-    printf("Error: Please key in your encryption key!\n");
-    return;
+    throwError("Error: Decrypt Key cannot be NULL!",ERR_KEY_CANNOT_BE_NULL);
   }
   if(AESmode != AES_128 && AESmode != AES_192 && AESmode != AES_256){
-    printf("Erorr: Please key in correct AES mode\n");
-    return ;
+    throwError("Erorr: Please key in correct AES mode!",ERR_AES_MODE_CANNOT_BE_NULL);
   }
  
   int i;

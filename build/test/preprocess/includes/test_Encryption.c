@@ -7,3 +7,5 @@
 - MixColumns.h
 - ShiftRows.h
 - SubBytes.h
+- ErrorObject.h
+- CException.h

@@ -1,3 +1,5 @@
+#include "CException.h"
+#include "ErrorObject.h"
 #include "SubBytes.h"
 #include "ShiftRows.h"
 #include "MixColumns.h"
@@ -7,8 +9,6 @@
 #include "Encryption.h"
 #include "Decryption.h"
 #include "unity.h"
-
-
 void setUp(void){}
 
 
@@ -55,7 +55,7 @@ void test_invCipher_given_128_bit_chiper_key(void){
 
   cipher(plainText,encrypOut,word,10);
 
-  { customTestAssertEqualState(expOut,encrypOut,35); };
+  { customTestAssertEqualState(expOut,encrypOut,36); };
 
   invCipher(encrypOut,decrypOut,word,10);
 
@@ -63,7 +63,7 @@ void test_invCipher_given_128_bit_chiper_key(void){
 
 
 
-  { customTestAssertEqualState(plainText,decrypOut,39); };
+  { customTestAssertEqualState(plainText,decrypOut,40); };
 
 }
 
@@ -111,7 +111,7 @@ void test_invCipher_given_192_bit_chiper_key(void){
 
   cipher(plainText,encrypOut,word,12);
 
-  { customTestAssertEqualState(expOut,encrypOut,63); };
+  { customTestAssertEqualState(expOut,encrypOut,64); };
 
   invCipher(encrypOut,decrypOut,word,12);
 
@@ -119,7 +119,7 @@ void test_invCipher_given_192_bit_chiper_key(void){
 
 
 
-  { customTestAssertEqualState(plainText,decrypOut,67); };
+  { customTestAssertEqualState(plainText,decrypOut,68); };
 
 }
 
@@ -171,7 +171,7 @@ uint8_t cipcherkey[] = {0x00,0x01,0x02,0x03,
 
   cipher(plainText,encrypOut,word,14);
 
-  { customTestAssertEqualState(expOut,encrypOut,93); };
+  { customTestAssertEqualState(expOut,encrypOut,94); };
 
   invCipher(encrypOut,decrypOut,word,14);
 
@@ -179,7 +179,7 @@ uint8_t cipcherkey[] = {0x00,0x01,0x02,0x03,
 
 
 
-  { customTestAssertEqualState(plainText,decrypOut,97); };
+  { customTestAssertEqualState(plainText,decrypOut,98); };
 
 }
 
@@ -215,7 +215,7 @@ void test_decryption_16byte_given_plainText_in_encryption_and_expected_decryptio
 
   decryp_16byte(encrypOut,cipcherkey,decrypOut,1);
 
-  { customTestAssertEqualState(plainText,decrypOut,115); };
+  { customTestAssertEqualState(plainText,decrypOut,116); };
 
 }
 
@@ -261,7 +261,7 @@ void test_decryption_16byte_given_plainText1_in_encryption_and_expected_decrypti
 
 
 
-  { customTestAssertEqualState(plainText,decrypOut,138); };
+  { customTestAssertEqualState(plainText,decrypOut,139); };
 
 }
 
@@ -279,27 +279,27 @@ void test_configureAES_testing_configuration_in_AES128_AES192_AES256(void){
 
   configureAES(1,&keySize,&wordofSize,&round);
 
-  UnityAssertEqualNumber((_U_SINT)((10)), (_U_SINT)((round)), (((void *)0)), (_U_UINT)147, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((10)), (_U_SINT)((round)), (((void *)0)), (_U_UINT)148, UNITY_DISPLAY_STYLE_INT);
 
-  UnityAssertEqualNumber((_U_SINT)((44)), (_U_SINT)((wordofSize)), (((void *)0)), (_U_UINT)148, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((44)), (_U_SINT)((wordofSize)), (((void *)0)), (_U_UINT)149, UNITY_DISPLAY_STYLE_INT);
 
-  UnityAssertEqualNumber((_U_SINT)((4)), (_U_SINT)((keySize)), (((void *)0)), (_U_UINT)149, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((4)), (_U_SINT)((keySize)), (((void *)0)), (_U_UINT)150, UNITY_DISPLAY_STYLE_INT);
 
   configureAES(2,&keySize,&wordofSize,&round);
 
-  UnityAssertEqualNumber((_U_SINT)((12)), (_U_SINT)((round)), (((void *)0)), (_U_UINT)151, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((12)), (_U_SINT)((round)), (((void *)0)), (_U_UINT)152, UNITY_DISPLAY_STYLE_INT);
 
-  UnityAssertEqualNumber((_U_SINT)((52)), (_U_SINT)((wordofSize)), (((void *)0)), (_U_UINT)152, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((52)), (_U_SINT)((wordofSize)), (((void *)0)), (_U_UINT)153, UNITY_DISPLAY_STYLE_INT);
 
-  UnityAssertEqualNumber((_U_SINT)((6)), (_U_SINT)((keySize)), (((void *)0)), (_U_UINT)153, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((6)), (_U_SINT)((keySize)), (((void *)0)), (_U_UINT)154, UNITY_DISPLAY_STYLE_INT);
 
   configureAES(3,&keySize,&wordofSize,&round);
 
-  UnityAssertEqualNumber((_U_SINT)((14)), (_U_SINT)((round)), (((void *)0)), (_U_UINT)155, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((14)), (_U_SINT)((round)), (((void *)0)), (_U_UINT)156, UNITY_DISPLAY_STYLE_INT);
 
-  UnityAssertEqualNumber((_U_SINT)((60)), (_U_SINT)((wordofSize)), (((void *)0)), (_U_UINT)156, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((60)), (_U_SINT)((wordofSize)), (((void *)0)), (_U_UINT)157, UNITY_DISPLAY_STYLE_INT);
 
-  UnityAssertEqualNumber((_U_SINT)((8)), (_U_SINT)((keySize)), (((void *)0)), (_U_UINT)157, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((8)), (_U_SINT)((keySize)), (((void *)0)), (_U_UINT)158, UNITY_DISPLAY_STYLE_INT);
 
 }
 
@@ -337,7 +337,7 @@ void test_decryp_16byte_given_128_bit_key(void){
 
   decryp_16byte(encrypOut,cipcherkey,decrypOut,1);
 
-  { customTestAssertEqualState(plainText,decrypOut,176); };
+  { customTestAssertEqualState(plainText,decrypOut,177); };
 
 }
 
@@ -377,7 +377,7 @@ void test_decryp_16byte_given_192_bit_key(void){
 
   decryp_16byte(encrypOut,cipcherkey,decrypOut,2);
 
-  { customTestAssertEqualState(plainText,decrypOut,196); };
+  { customTestAssertEqualState(plainText,decrypOut,197); };
 
 
 
@@ -425,7 +425,7 @@ void test_decryp_16byte_given_256_bit_key(void){
 
   decryp_16byte(encrypOut,cipcherkey,decrypOut,3);
 
-  { customTestAssertEqualState(plainText,decrypOut,220); };
+  { customTestAssertEqualState(plainText,decrypOut,221); };
 
 }
 
@@ -451,7 +451,7 @@ void test_decryp_16byte_given_string_hwa_neng_and_key_9988776622334455_in_AES_12
 
   decryp_16byte(encrypOut,cipcherkey,decrypOut,1);
 
-  { customTestAssertEqualState(plainText,decrypOut,233); };
+  { customTestAssertEqualState(plainText,decrypOut,234); };
 
 
 
@@ -477,7 +477,7 @@ void test_decryp_16byte_given_string_hwa_neng_and_key_9988776622334455_in_AES_19
 
   decryp_16byte(encrypOut,cipcherkey,decrypOut,2);
 
-  { customTestAssertEqualState(plainText,decrypOut,255); };
+  { customTestAssertEqualState(plainText,decrypOut,256); };
 
 
 
@@ -491,7 +491,7 @@ void test_decrypStr_given_a_less_than_16byte_of_str_and_the_encrypKey_and_decryp
 
     uint8_t* invCipherKey = decrypStr(cipherKey,"9988772211334455",1);
 
-  UnityAssertEqualString((const char*)("Hello00000000000"), (const char*)(invCipherKey), (((void *)0)), (_U_UINT)272);
+  UnityAssertEqualString((const char*)("Hello00000000000"), (const char*)(invCipherKey), (((void *)0)), (_U_UINT)273);
 
 }
 
@@ -503,7 +503,7 @@ void test_decrypStr_given_a_16byte_str_and_the_encrypKey_and_decrypKey_is_same_e
 
   uint8_t* invCipherKey = decrypStr(cipherKey,"9988772211334455",1);
 
-  UnityAssertEqualString((const char*)("Hello,HwaNeng!!!"), (const char*)(invCipherKey), (((void *)0)), (_U_UINT)287);
+  UnityAssertEqualString((const char*)("Hello,HwaNeng!!!"), (const char*)(invCipherKey), (((void *)0)), (_U_UINT)288);
 
 }
 
@@ -515,7 +515,7 @@ void test_decrypStr_given_a_more_than_16byte_of_str_and_the_encrypKey_and_decryp
 
   uint8_t* invCipherKey = decrypStr(cipherKey,"9988772211334455",1);
 
-  UnityAssertEqualString((const char*)("Hello,HwaNeng!!! I m LengZai0000"), (const char*)(invCipherKey), (((void *)0)), (_U_UINT)302);
+  UnityAssertEqualString((const char*)("Hello,HwaNeng!!! I m LengZai0000"), (const char*)(invCipherKey), (((void *)0)), (_U_UINT)303);
 
 }
 
@@ -527,7 +527,7 @@ void test_decrypStr_given_a_string_and_encrypkey_and_decrypkey_is_not_same_expec
 
   uint8_t* invCipherKey = decrypStr(cipherKey,"9988772211334455",1);
 
- { customTestAssertNotEqualStrting("Hello,HwaNeng!!! I m LengZai0000",invCipherKey,316); };
+ { customTestAssertNotEqualStrting("Hello,HwaNeng!!! I m LengZai0000",invCipherKey,317); };
 
 }
 
@@ -539,7 +539,7 @@ void test_decrypStr_given_a_string_and_encrypkey_and_decrypkey_is_same_but_AESmo
 
   uint8_t* invCipherKey = decrypStr(cipherKey,"9988772211334455",1);
 
- { customTestAssertNotEqualStrting("Hello,HwaNeng!!! I m LengZai0000",invCipherKey,331); };
+ { customTestAssertNotEqualStrting("Hello,HwaNeng!!! I m LengZai0000",invCipherKey,332); };
 
 }
 
@@ -551,7 +551,7 @@ void test_decrypStr_given_a_more_than_16byte_of_str_and_the_encrypKey_and_decryp
 
   uint8_t* invCipherKey = decrypStr(cipherKey,"9988772211334455",2);
 
-  UnityAssertEqualString((const char*)("Hello,HwaNeng!!! I m LengZai0000"), (const char*)(invCipherKey), (((void *)0)), (_U_UINT)345);
+  UnityAssertEqualString((const char*)("Hello,HwaNeng!!! I m LengZai0000"), (const char*)(invCipherKey), (((void *)0)), (_U_UINT)346);
 
 }
 
@@ -563,7 +563,7 @@ void test_decrypStr_given_a_more_than_16byte_of_str_and_the_encrypKey_and_decryp
 
   uint8_t* invCipherKey = decrypStr(cipherKey,"9988772211334455",3);
 
-  UnityAssertEqualString((const char*)("Hello,HwaNeng!!! I m LengZai0000"), (const char*)(invCipherKey), (((void *)0)), (_U_UINT)360);
+  UnityAssertEqualString((const char*)("Hello,HwaNeng!!! I m LengZai0000"), (const char*)(invCipherKey), (((void *)0)), (_U_UINT)361);
 
 }
 
@@ -573,15 +573,29 @@ void test_decrypStr_given_a_more_than_16byte_of_str_and_the_encrypKey_and_decryp
 
 
 
-void test_decrypStr_if_given_unknown_mode_expected_thorw_error(void){
-
-
+void test_decrypStr_given_a_unknown_mode_expected_thorw_err_AES_MODE_CANNOT_BE_NULL_(void){
 
   printf("No19.0 - decrypStr\n");
 
+  ErrorObject* err;
+
+  { jmp_buf *PrevFrame, NewFrame; unsigned int MY_ID = (0); PrevFrame = CExceptionFrames[(0)].pFrame; CExceptionFrames[MY_ID].pFrame = (jmp_buf*)(&NewFrame); CExceptionFrames[MY_ID].Exception = ((void *)0); if (_setjmp(NewFrame) == 0) { if (1){
+
   uint8_t* cipherKey = encrypStr("Hello,HwaNeng!!! I m LengZai","9988772211334455",3);
 
-  uint8_t* invCipherKey = decrypStr(cipherKey,"9988772211334455",9);
+  uint8_t* invCipherKey = decrypStr(cipherKey,"9988772211334455",0);
+
+  }else { } CExceptionFrames[MY_ID].Exception = ((void *)0); } else { err = CExceptionFrames[MY_ID].Exception; err=err; } CExceptionFrames[MY_ID].pFrame = PrevFrame; } if (CExceptionFrames[(0)].Exception != ((void *)0)){
+
+   printf("%s",err->errorMsg);
+
+   UnityAssertEqualNumber((_U_SINT)((ERR_AES_MODE_CANNOT_BE_NULL)), (_U_SINT)((err->errorCode)), (((void *)0)), (_U_UINT)374, UNITY_DISPLAY_STYLE_INT);
+
+   UnityAssertEqualString((const char*)("Erorr: Please key in correct AES mode!"), (const char*)(err->errorMsg), (((void *)0)), (_U_UINT)375);
+
+   freeError(err);
+
+  }
 
 
 
@@ -589,32 +603,56 @@ void test_decrypStr_if_given_unknown_mode_expected_thorw_error(void){
 
 
 
-void test_decrypStr_if_given_NULL_put_in_decrykey_expected_thorw_error(void){
-
-
+void test_decrypStr_given_NULL_in_decrykey_expected_thorw_err_KEY_CANNOT_BE_NULL_(void){
 
   printf("No20.0 - decrypStr\n");
+
+  ErrorObject* err;
+
+  { jmp_buf *PrevFrame, NewFrame; unsigned int MY_ID = (0); PrevFrame = CExceptionFrames[(0)].pFrame; CExceptionFrames[MY_ID].pFrame = (jmp_buf*)(&NewFrame); CExceptionFrames[MY_ID].Exception = ((void *)0); if (_setjmp(NewFrame) == 0) { if (1){
 
   uint8_t* cipherKey = encrypStr("Hello,HwaNeng!!! I m LengZai","9988772211334455",3);
 
   uint8_t* invCipherKey = decrypStr(cipherKey,((void *)0),3);
 
+  }else { } CExceptionFrames[MY_ID].Exception = ((void *)0); } else { err = CExceptionFrames[MY_ID].Exception; err=err; } CExceptionFrames[MY_ID].pFrame = PrevFrame; } if (CExceptionFrames[(0)].Exception != ((void *)0)){
 
+   printf("%s",err->errorMsg);
+
+   UnityAssertEqualNumber((_U_SINT)((ERR_KEY_CANNOT_BE_NULL)), (_U_SINT)((err->errorCode)), (((void *)0)), (_U_UINT)389, UNITY_DISPLAY_STYLE_INT);
+
+   UnityAssertEqualString((const char*)("Error: Decrypt Key cannot be NULL!"), (const char*)(err->errorMsg), (((void *)0)), (_U_UINT)390);
+
+   freeError(err);
+
+  }
 
 }
 
 
 
-void test_decrypStr__(void){
+void test_decrypStr_given_NULL_in_Str_expected_thorw_err_STR_CANNOT_BE_NULL(void){
 
+  printf("No21.0 - decrypStr\n");
 
+  ErrorObject* err;
 
+  { jmp_buf *PrevFrame, NewFrame; unsigned int MY_ID = (0); PrevFrame = CExceptionFrames[(0)].pFrame; CExceptionFrames[MY_ID].pFrame = (jmp_buf*)(&NewFrame); CExceptionFrames[MY_ID].Exception = ((void *)0); if (_setjmp(NewFrame) == 0) { if (1){
 
+  uint8_t* cipherKey = encrypStr("1234","9988772211334455",3);
 
+  uint8_t* invCipherKey = decrypStr(((void *)0),"9988772211334455",3);
 
+  }else { } CExceptionFrames[MY_ID].Exception = ((void *)0); } else { err = CExceptionFrames[MY_ID].Exception; err=err; } CExceptionFrames[MY_ID].pFrame = PrevFrame; } if (CExceptionFrames[(0)].Exception != ((void *)0)){
 
+   printf("%s",err->errorMsg);
 
+   UnityAssertEqualNumber((_U_SINT)((ERR_STR_CANNOT_BE_NULL)), (_U_SINT)((err->errorCode)), (((void *)0)), (_U_UINT)403, UNITY_DISPLAY_STYLE_INT);
 
+   UnityAssertEqualString((const char*)("Error: Input plainText cannot be NULL!"), (const char*)(err->errorMsg), (((void *)0)), (_U_UINT)404);
 
+   freeError(err);
+
+  }
 
 }

@@ -8,7 +8,8 @@
 #include "ShiftRows.h"
 #include "SubBytes.h"
 #include "malloc.h"
-
+#include "ErrorObject.h"
+#include "CException.h"
 
 
 void copyState(uint8_t in[][4],uint8_t state[][4]){
@@ -128,31 +129,7 @@ char* optimizeStr(char* str){
   return newStr;
 }
 
-char* encrypStr(char* str,char* key, int AESmode){
-  //printf("strlen(str) = %d\n",strlen(str));
-  if(key == NULL){
-    printf("Error: Please key in your encryption key!\n");
-    return;
-  }
-  if(AESmode != AES_128 && AESmode != AES_192 && AESmode != AES_256){
-    printf("Erorr: Please key in correct AES mode\n");
-    return ;
-  }
- char* encrypOut = malloc(sizeof(char*)*reserveChipherLen(str));
-  int encrypTimes = (reserveChipherLen(str)/16);
- //printf("reserveChipherLen(str) = %d\n",reserveChipherLen(str));
-  int i;
-  uint8_t state[4][4];
-  uint8_t encrypState[4][4];
-  char* newStr = optimizeStr(str);
-  char* newKey = optimizeKey(key,AESmode);
-  for(i = 0; i< encrypTimes ; i++){
-    convStrToStateWithIndex(newStr,state,i);
-    encryp_16byte(state,newKey,encrypState,AESmode);
-    convStateToStrWithIndex(encrypState,encrypOut,i);
-  }
-  return encrypOut;
-}
+
 
 void printEncrypOut(char* encrypOut){
   int i;
@@ -204,4 +181,30 @@ char* optimizeKey(char*key,int AESmode){
   
 }
 
+char* encrypStr(char* str,char* key, int AESmode){
 
+  if(str == NULL){
+    throwError("Error: Input plainText cannot be NULL!",ERR_STR_CANNOT_BE_NULL);
+  }
+  if(key == NULL){
+    throwError("Error: Decrypt Key cannot be NULL!",ERR_KEY_CANNOT_BE_NULL);
+  }
+  if(AESmode != AES_128 && AESmode != AES_192 && AESmode != AES_256){
+    throwError("Erorr: Please key in correct AES mode!",ERR_AES_MODE_CANNOT_BE_NULL);
+  }
+  
+ char* encrypOut = malloc(sizeof(char*)*reserveChipherLen(str));
+  int encrypTimes = (reserveChipherLen(str)/16);
+
+  int i;
+  uint8_t state[4][4];
+  uint8_t encrypState[4][4];
+  char* newStr = optimizeStr(str);
+  char* newKey = optimizeKey(key,AESmode);
+  for(i = 0; i< encrypTimes ; i++){
+    convStrToStateWithIndex(newStr,state,i);
+    encryp_16byte(state,newKey,encrypState,AESmode);
+    convStateToStrWithIndex(encrypState,encrypOut,i);
+  }
+  return encrypOut;
+}

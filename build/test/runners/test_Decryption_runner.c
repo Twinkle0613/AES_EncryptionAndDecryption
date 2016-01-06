@@ -8,8 +8,11 @@
   Unity.NumberOfTests++; \
   if (TEST_PROTECT()) \
   { \
+    CEXCEPTION_T e; \
+    Try { \
       setUp(); \
       TestFunc(); \
+    } Catch(e) { TEST_ASSERT_EQUAL_HEX32_MESSAGE(CEXCEPTION_NONE, e, "Unhandled Exception!"); } \
   } \
   if (TEST_PROTECT() && !TEST_IS_IGNORED) \
   { \
@@ -22,6 +25,7 @@
 #include "unity.h"
 #include <setjmp.h>
 #include <stdio.h>
+#include "CException.h"
 
 int GlobalExpectCount;
 int GlobalVerifyOrder;
@@ -48,9 +52,9 @@ extern void test_decrypStr_given_a_string_and_encrypkey_and_decrypkey_is_not_sam
 extern void test_decrypStr_given_a_string_and_encrypkey_and_decrypkey_is_same_but_AESmode_is_diffrent_expected_invCipherKey_is_wrong(void);
 extern void test_decrypStr_given_a_more_than_16byte_of_str_and_the_encrypKey_and_decrypKey_is_same_in_AES192_expected_invCipherKey_is_correct(void);
 extern void test_decrypStr_given_a_more_than_16byte_of_str_and_the_encrypKey_and_decrypKey_is_same_in_AES256_expected_invCipherKey_is_correct(void);
-extern void test_decrypStr_if_given_unknown_mode_expected_thorw_error(void);
-extern void test_decrypStr_if_given_NULL_put_in_decrykey_expected_thorw_error(void);
-extern void test_decrypStr__(void);
+extern void test_decrypStr_given_a_unknown_mode_expected_thorw_err_AES_MODE_CANNOT_BE_NULL_(void);
+extern void test_decrypStr_given_NULL_in_decrykey_expected_thorw_err_KEY_CANNOT_BE_NULL_(void);
+extern void test_decrypStr_given_NULL_in_Str_expected_thorw_err_STR_CANNOT_BE_NULL(void);
 
 
 //=======Test Reset Option=====
@@ -66,27 +70,27 @@ void resetTest(void)
 int main(void)
 {
   UnityBegin("test_Decryption.c");
-  RUN_TEST(test_invCipher_given_128_bit_chiper_key, 16);
-  RUN_TEST(test_invCipher_given_192_bit_chiper_key, 42);
-  RUN_TEST(test_invCipher_given_256_bit_chiper_key, 70);
-  RUN_TEST(test_decryption_16byte_given_plainText_in_encryption_and_expected_decryption_output_same_wtih_plainText, 100);
-  RUN_TEST(test_decryption_16byte_given_plainText1_in_encryption_and_expected_decryption_output_same_wtih_plainText, 118);
-  RUN_TEST(test_configureAES_testing_configuration_in_AES128_AES192_AES256, 141);
-  RUN_TEST(test_decryp_16byte_given_128_bit_key, 161);
-  RUN_TEST(test_decryp_16byte_given_192_bit_key, 178);
-  RUN_TEST(test_decryp_16byte_given_256_bit_key, 199);
-  RUN_TEST(test_decryp_16byte_given_string_hwa_neng_and_key_9988776622334455_in_AES_128, 223);
-  RUN_TEST(test_decryp_16byte_given_string_hwa_neng_and_key_9988776622334455_in_AES_192, 245);
-  RUN_TEST(test_decrypStr_given_a_less_than_16byte_of_str_and_the_encrypKey_and_decrypKey_is_same_expected_invCipherKey_is_correct_AES128, 268);
-  RUN_TEST(test_decrypStr_given_a_16byte_str_and_the_encrypKey_and_decrypKey_is_same_expected_invCipherKey_is_correct_AES128, 283);
-  RUN_TEST(test_decrypStr_given_a_more_than_16byte_of_str_and_the_encrypKey_and_decrypKey_is_same_expected_invCipherKey_is_correct_AES128, 298);
-  RUN_TEST(test_decrypStr_given_a_string_and_encrypkey_and_decrypkey_is_not_same_expected_invCipherKey_is_wrong_AES128, 312);
-  RUN_TEST(test_decrypStr_given_a_string_and_encrypkey_and_decrypkey_is_same_but_AESmode_is_diffrent_expected_invCipherKey_is_wrong, 327);
-  RUN_TEST(test_decrypStr_given_a_more_than_16byte_of_str_and_the_encrypKey_and_decrypKey_is_same_in_AES192_expected_invCipherKey_is_correct, 341);
-  RUN_TEST(test_decrypStr_given_a_more_than_16byte_of_str_and_the_encrypKey_and_decrypKey_is_same_in_AES256_expected_invCipherKey_is_correct, 356);
-  RUN_TEST(test_decrypStr_if_given_unknown_mode_expected_thorw_error, 365);
-  RUN_TEST(test_decrypStr_if_given_NULL_put_in_decrykey_expected_thorw_error, 373);
-  RUN_TEST(test_decrypStr__, 381);
+  RUN_TEST(test_invCipher_given_128_bit_chiper_key, 17);
+  RUN_TEST(test_invCipher_given_192_bit_chiper_key, 43);
+  RUN_TEST(test_invCipher_given_256_bit_chiper_key, 71);
+  RUN_TEST(test_decryption_16byte_given_plainText_in_encryption_and_expected_decryption_output_same_wtih_plainText, 101);
+  RUN_TEST(test_decryption_16byte_given_plainText1_in_encryption_and_expected_decryption_output_same_wtih_plainText, 119);
+  RUN_TEST(test_configureAES_testing_configuration_in_AES128_AES192_AES256, 142);
+  RUN_TEST(test_decryp_16byte_given_128_bit_key, 162);
+  RUN_TEST(test_decryp_16byte_given_192_bit_key, 179);
+  RUN_TEST(test_decryp_16byte_given_256_bit_key, 200);
+  RUN_TEST(test_decryp_16byte_given_string_hwa_neng_and_key_9988776622334455_in_AES_128, 224);
+  RUN_TEST(test_decryp_16byte_given_string_hwa_neng_and_key_9988776622334455_in_AES_192, 246);
+  RUN_TEST(test_decrypStr_given_a_less_than_16byte_of_str_and_the_encrypKey_and_decrypKey_is_same_expected_invCipherKey_is_correct_AES128, 269);
+  RUN_TEST(test_decrypStr_given_a_16byte_str_and_the_encrypKey_and_decrypKey_is_same_expected_invCipherKey_is_correct_AES128, 284);
+  RUN_TEST(test_decrypStr_given_a_more_than_16byte_of_str_and_the_encrypKey_and_decrypKey_is_same_expected_invCipherKey_is_correct_AES128, 299);
+  RUN_TEST(test_decrypStr_given_a_string_and_encrypkey_and_decrypkey_is_not_same_expected_invCipherKey_is_wrong_AES128, 313);
+  RUN_TEST(test_decrypStr_given_a_string_and_encrypkey_and_decrypkey_is_same_but_AESmode_is_diffrent_expected_invCipherKey_is_wrong, 328);
+  RUN_TEST(test_decrypStr_given_a_more_than_16byte_of_str_and_the_encrypKey_and_decrypKey_is_same_in_AES192_expected_invCipherKey_is_correct, 342);
+  RUN_TEST(test_decrypStr_given_a_more_than_16byte_of_str_and_the_encrypKey_and_decrypKey_is_same_in_AES256_expected_invCipherKey_is_correct, 357);
+  RUN_TEST(test_decrypStr_given_a_unknown_mode_expected_thorw_err_AES_MODE_CANNOT_BE_NULL_, 366);
+  RUN_TEST(test_decrypStr_given_NULL_in_decrykey_expected_thorw_err_KEY_CANNOT_BE_NULL_, 381);
+  RUN_TEST(test_decrypStr_given_NULL_in_Str_expected_thorw_err_STR_CANNOT_BE_NULL, 395);
 
   return (UnityEnd());
 }

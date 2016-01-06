@@ -4,67 +4,67 @@
   :file: test_Decryption.c
 :successes:
 - :test: test_invCipher_given_128_bit_chiper_key
-  :line: 16
+  :line: 17
   :message: ''
 - :test: test_invCipher_given_192_bit_chiper_key
-  :line: 42
+  :line: 43
   :message: ''
 - :test: test_invCipher_given_256_bit_chiper_key
-  :line: 70
+  :line: 71
   :message: ''
 - :test: test_decryption_16byte_given_plainText_in_encryption_and_expected_decryption_output_same_wtih_plainText
-  :line: 100
+  :line: 101
   :message: ''
 - :test: test_decryption_16byte_given_plainText1_in_encryption_and_expected_decryption_output_same_wtih_plainText
-  :line: 118
+  :line: 119
   :message: ''
 - :test: test_configureAES_testing_configuration_in_AES128_AES192_AES256
-  :line: 141
+  :line: 142
   :message: ''
 - :test: test_decryp_16byte_given_128_bit_key
-  :line: 161
+  :line: 162
   :message: ''
 - :test: test_decryp_16byte_given_192_bit_key
-  :line: 178
+  :line: 179
   :message: ''
 - :test: test_decryp_16byte_given_256_bit_key
-  :line: 199
+  :line: 200
   :message: ''
 - :test: test_decryp_16byte_given_string_hwa_neng_and_key_9988776622334455_in_AES_128
-  :line: 223
+  :line: 224
   :message: ''
 - :test: test_decryp_16byte_given_string_hwa_neng_and_key_9988776622334455_in_AES_192
-  :line: 245
+  :line: 246
   :message: ''
 - :test: test_decrypStr_given_a_less_than_16byte_of_str_and_the_encrypKey_and_decrypKey_is_same_expected_invCipherKey_is_correct_AES128
-  :line: 268
+  :line: 269
   :message: ''
 - :test: test_decrypStr_given_a_16byte_str_and_the_encrypKey_and_decrypKey_is_same_expected_invCipherKey_is_correct_AES128
-  :line: 283
+  :line: 284
   :message: ''
 - :test: test_decrypStr_given_a_more_than_16byte_of_str_and_the_encrypKey_and_decrypKey_is_same_expected_invCipherKey_is_correct_AES128
-  :line: 298
+  :line: 299
   :message: ''
 - :test: test_decrypStr_given_a_string_and_encrypkey_and_decrypkey_is_not_same_expected_invCipherKey_is_wrong_AES128
-  :line: 312
+  :line: 313
   :message: ''
 - :test: test_decrypStr_given_a_string_and_encrypkey_and_decrypkey_is_same_but_AESmode_is_diffrent_expected_invCipherKey_is_wrong
-  :line: 327
+  :line: 328
   :message: ''
 - :test: test_decrypStr_given_a_more_than_16byte_of_str_and_the_encrypKey_and_decrypKey_is_same_in_AES192_expected_invCipherKey_is_correct
-  :line: 341
+  :line: 342
   :message: ''
 - :test: test_decrypStr_given_a_more_than_16byte_of_str_and_the_encrypKey_and_decrypKey_is_same_in_AES256_expected_invCipherKey_is_correct
-  :line: 356
+  :line: 357
   :message: ''
-- :test: test_decrypStr_if_given_unknown_mode_expected_thorw_error
-  :line: 365
+- :test: test_decrypStr_given_a_unknown_mode_expected_thorw_err_AES_MODE_CANNOT_BE_NULL_
+  :line: 366
   :message: ''
-- :test: test_decrypStr_if_given_NULL_put_in_decrykey_expected_thorw_error
-  :line: 373
-  :message: ''
-- :test: test_decrypStr__
+- :test: test_decrypStr_given_NULL_in_decrykey_expected_thorw_err_KEY_CANNOT_BE_NULL_
   :line: 381
+  :message: ''
+- :test: test_decrypStr_given_NULL_in_Str_expected_thorw_err_STR_CANNOT_BE_NULL
+  :line: 395
   :message: ''
 :failures: []
 :ignores: []
@@ -93,7 +93,9 @@
 - No17.0 - decrypStr
 - No18.0 - decrypStr
 - No19.0 - decrypStr
-- 'Erorr: Please key in correct AES mode'
+- 'Erorr: Please key in correct AES mode!'
 - No20.0 - decrypStr
-- 'Error: Please key in your encryption key!'
+- 'Error: Decrypt Key cannot be NULL!'
+- No21.0 - decrypStr
+- 'Error: Input plainText cannot be NULL!'
 - ''
