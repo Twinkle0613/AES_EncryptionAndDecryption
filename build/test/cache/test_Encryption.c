@@ -30,12 +30,6 @@ void tearDown(void)
 
 }
 
-
-
-
-
-
-
 void test_cipher_given_128_bit_cipher_key(void){
 
   printf("No1.0 - cipher 128-bit key Size \n");
@@ -56,7 +50,7 @@ void test_cipher_given_128_bit_cipher_key(void){
 
                             {0x1d,0xfb,0x97,0x32} };
 
-  uint8_t cipcherkey[] = {0x2b,0x7e,0x15,0x16,
+  uint8_t key[] = {0x2b,0x7e,0x15,0x16,
 
                           0x28,0xae,0xd2,0xa6,
 
@@ -68,13 +62,13 @@ void test_cipher_given_128_bit_cipher_key(void){
 
   uint32_t word[44];
 
-  keyExpansion(cipcherkey,word,4,10);
+  keyExpansion(key,word,4,10);
 
   cipher(in,out,word,10);
 
-  printfState(out);
 
-  { customTestAssertEqualState(expOut,out,44); };
+
+  { customTestAssertEqualState(expOut,out,60); };
 
 }
 
@@ -124,9 +118,9 @@ void test_cipher_given_192_bit_cipher_key(void){
 
   cipher(plainText,out,word,12);
 
-  printfState(out);
 
-  { customTestAssertEqualState(expOut,out,70); };
+
+  { customTestAssertEqualState(expOut,out,86); };
 
 }
 
@@ -178,9 +172,9 @@ void test_cipher_given_256_bit_cipher_key(void){
 
   cipher(plainText,out,word,14);
 
-  printfState(out);
 
-  { customTestAssertEqualState(expOut,out,97); };
+
+  { customTestAssertEqualState(expOut,out,113); };
 
 }
 
@@ -216,11 +210,11 @@ void test_encryption16byte_(void){
 
   uint8_t out[4][4];
 
-  encryption_16byte(plainText,cipcherkey,out);
+  encryp_16byte(plainText,cipcherkey,out,1);
 
-  printfState(out);
 
-  { customTestAssertEqualState(expOut,out,117); };
+
+  { customTestAssertEqualState(expOut,out,133); };
 
 }
 
@@ -260,7 +254,7 @@ void test_encryp_16byte_given_128_bit_cipher_key(void){
 
   encryp_16byte(plainText,cipcherkey,encrypOut,1);
 
-  { customTestAssertEqualState(expOut,encrypOut,137); };
+  { customTestAssertEqualState(expOut,encrypOut,153); };
 
 }
 
@@ -304,7 +298,7 @@ void test_encryp_16byte_given_192_bit_cipher_key(void){
 
   encryp_16byte(plainText,key,encrypOut,2);
 
-  { customTestAssertEqualState(expOut,encrypOut,159); };
+  { customTestAssertEqualState(expOut,encrypOut,175); };
 
 }
 
@@ -352,7 +346,7 @@ void test_encryp_16byte_given_256_bit_cipher_key(void){
 
   encryp_16byte(plainText,key,encrypOut,3);
 
-  { customTestAssertEqualState(expOut,encrypOut,183); };
+  { customTestAssertEqualState(expOut,encrypOut,199); };
 
 }
 
@@ -370,33 +364,67 @@ void test_strncpy_(void){
 
   strncpy(processStr,"Hello,HwaNeng!!!",5);
 
-  printf("%s\n",processStr);
 
-  UnityAssertEqualString((const char*)("Hello"), (const char*)(processStr), (((void *)0)), (_U_UINT)201);
+
+  UnityAssertEqualString((const char*)("Hello"), (const char*)(processStr), (((void *)0)), (_U_UINT)220);
 
 }
 
-
-
-void test_fillZeroToStr_given(void){
+void test_fillZeroToStr_given_a_string_in_AES128(void){
 
   printf("No11.0 - fillZeroToStr\n");
 
   char *str = "Hello";
 
-  char* processStr = malloc(sizeof(char)*17);
+  char* processStr = malloc(sizeof(char*)*17);
 
   strncpy(processStr,str,strlen(str));
 
   fillZeroToStr(strlen(str),processStr,16);
 
-  printf("%s\n",processStr);
 
-  UnityAssertEqualString((const char*)("Hello00000000000"), (const char*)(processStr), (((void *)0)), (_U_UINT)211);
+
+  UnityAssertEqualString((const char*)("Hello00000000000"), (const char*)(processStr), (((void *)0)), (_U_UINT)240);
 
 }
 
 
+
+void test_fillZeroToStr_given_a_string_in_AES192(void){
+
+  printf("No11.1 - fillZeroToStr\n");
+
+  char *str = "Hello";
+
+  char* processStr = malloc(sizeof(char*)*17);
+
+  strncpy(processStr,str,strlen(str));
+
+  fillZeroToStr(strlen(str),processStr,24);
+
+
+
+  UnityAssertEqualString((const char*)("Hello0000000000000000000"), (const char*)(processStr), (((void *)0)), (_U_UINT)250);
+
+}
+
+void test_fillZeroToStr_given_a_string_in_AES256(void){
+
+  printf("No11.2 - fillZeroToStr\n");
+
+  char *str = "Hello";
+
+  char* processStr = malloc(sizeof(char*)*17);
+
+  strncpy(processStr,str,strlen(str));
+
+  fillZeroToStr(strlen(str),processStr,32);
+
+
+
+  UnityAssertEqualString((const char*)("Hello000000000000000000000000000"), (const char*)(processStr), (((void *)0)), (_U_UINT)259);
+
+}
 
 void test_keyProcess_given_a_string_1234567_expected_string_1234567000000000_In_AES128(void){
 
@@ -408,9 +436,9 @@ void test_keyProcess_given_a_string_1234567_expected_string_1234567000000000_In_
 
   applyKey = keyProcess(key,16);
 
-  printf("%s\n",applyKey);
 
-  UnityAssertEqualString((const char*)("1234567000000000"), (const char*)(applyKey), (((void *)0)), (_U_UINT)220);
+
+  UnityAssertEqualString((const char*)("1234567000000000"), (const char*)(applyKey), (((void *)0)), (_U_UINT)277);
 
 }
 
@@ -426,9 +454,9 @@ void test_keyProcess_given_a_string_0123456789ABCDEF_expected_string_0123456789A
 
   applyKey = keyProcess(key,16);
 
-  printf("%s\n",applyKey);
 
-  UnityAssertEqualString((const char*)("0123456789ABCDEF"), (const char*)(applyKey), (((void *)0)), (_U_UINT)229);
+
+  UnityAssertEqualString((const char*)("0123456789ABCDEF"), (const char*)(applyKey), (((void *)0)), (_U_UINT)286);
 
 }
 
@@ -444,13 +472,11 @@ void test_keyProcess_given_a_string_0123456789ABCDEF12345_expected_string_012345
 
   applyKey = keyProcess(key,16);
 
-  printf("%s\n",applyKey);
 
-  UnityAssertEqualString((const char*)("0123456789ABCDEF"), (const char*)(applyKey), (((void *)0)), (_U_UINT)238);
+
+  UnityAssertEqualString((const char*)("0123456789ABCDEF"), (const char*)(applyKey), (((void *)0)), (_U_UINT)295);
 
 }
-
-
 
 void test_keyProcess_given_a_string_1234567_expected_string_123456700000000000000000_In_AES192(void){
 
@@ -462,9 +488,9 @@ void test_keyProcess_given_a_string_1234567_expected_string_12345670000000000000
 
   applyKey = keyProcess(key,24);
 
-  printf("%s\n",applyKey);
 
-  UnityAssertEqualString((const char*)("123456700000000000000000"), (const char*)(applyKey), (((void *)0)), (_U_UINT)247);
+
+  UnityAssertEqualString((const char*)("123456700000000000000000"), (const char*)(applyKey), (((void *)0)), (_U_UINT)312);
 
 }
 
@@ -480,9 +506,9 @@ void test_keyProcess_given_a_string_0123456789ABCDEFGHIJKLNM_expected_string_012
 
   applyKey = keyProcess(key,24);
 
-  printf("%s\n",applyKey);
 
-  UnityAssertEqualString((const char*)("0123456789ABCDEFGHIJKLNM"), (const char*)(applyKey), (((void *)0)), (_U_UINT)256);
+
+  UnityAssertEqualString((const char*)("0123456789ABCDEFGHIJKLNM"), (const char*)(applyKey), (((void *)0)), (_U_UINT)321);
 
 }
 
@@ -498,13 +524,11 @@ void test_keyProcess_given_a_string_0123456789ABCDEFGHIJKLNM1221221212_expected_
 
   applyKey = keyProcess(key,24);
 
-  printf("%s\n",applyKey);
 
-  UnityAssertEqualString((const char*)("0123456789ABCDEFGHIJKLNM"), (const char*)(applyKey), (((void *)0)), (_U_UINT)265);
+
+  UnityAssertEqualString((const char*)("0123456789ABCDEFGHIJKLNM"), (const char*)(applyKey), (((void *)0)), (_U_UINT)330);
 
 }
-
-
 
 void test_keyProcess_given_a_string_01234567_expected_string_012345670000000000000000000000000_In_AES256(void){
 
@@ -516,9 +540,9 @@ void test_keyProcess_given_a_string_01234567_expected_string_0123456700000000000
 
   applyKey = keyProcess(key,32);
 
-  printf("%s\n",applyKey);
 
-  UnityAssertEqualString((const char*)("01234567000000000000000000000000"), (const char*)(applyKey), (((void *)0)), (_U_UINT)274);
+
+  UnityAssertEqualString((const char*)("01234567000000000000000000000000"), (const char*)(applyKey), (((void *)0)), (_U_UINT)347);
 
 }
 
@@ -534,9 +558,9 @@ void test_keyProcess_given_a_string_0123456789ABCDEFGHIJKLNMOPQRSTUV_expected_st
 
   applyKey = keyProcess(key,32);
 
-  printf("%s\n",applyKey);
 
-  UnityAssertEqualString((const char*)("0123456789ABCDEFGHIJKLNMOPQRSTUV"), (const char*)(applyKey), (((void *)0)), (_U_UINT)283);
+
+  UnityAssertEqualString((const char*)("0123456789ABCDEFGHIJKLNMOPQRSTUV"), (const char*)(applyKey), (((void *)0)), (_U_UINT)356);
 
 }
 
@@ -552,13 +576,11 @@ void test_keyProcess_given_a_string_0123456789ABCDEFGHIJKLNMOPQRSTUV112233_expec
 
   applyKey = keyProcess(key,32);
 
-  printf("%s\n",applyKey);
 
-  UnityAssertEqualString((const char*)("0123456789ABCDEFGHIJKLNMOPQRSTUV"), (const char*)(applyKey), (((void *)0)), (_U_UINT)292);
+
+  UnityAssertEqualString((const char*)("0123456789ABCDEFGHIJKLNMOPQRSTUV"), (const char*)(applyKey), (((void *)0)), (_U_UINT)365);
 
 }
-
-
 
 void test_optimizeKey_given_1234567_expected_1234567000000000_in_128_bit(void){
 
@@ -568,9 +590,9 @@ void test_optimizeKey_given_1234567_expected_1234567000000000_in_128_bit(void){
 
   char* newkey = optimizeKey(key,1);
 
-  printf("%s\n",newkey);
 
-  UnityAssertEqualString((const char*)("1234567000000000"), (const char*)(newkey), (((void *)0)), (_U_UINT)300);
+
+  UnityAssertEqualString((const char*)("1234567000000000"), (const char*)(newkey), (((void *)0)), (_U_UINT)381);
 
 }
 
@@ -584,9 +606,9 @@ void test_optimizeKey_given_1234567_expected_123456700000000000000000_in_192_bit
 
   char* newkey = optimizeKey(key,2);
 
-  printf("%s\n",newkey);
 
-  UnityAssertEqualString((const char*)("123456700000000000000000"), (const char*)(newkey), (((void *)0)), (_U_UINT)308);
+
+  UnityAssertEqualString((const char*)("123456700000000000000000"), (const char*)(newkey), (((void *)0)), (_U_UINT)389);
 
 }
 
@@ -600,45 +622,33 @@ void test_optimizeKey_given_1234567_expected_12345670000000000000000000000000_in
 
   char* newkey = optimizeKey(key,3);
 
-  printf("%s\n",newkey);
-
-  UnityAssertEqualString((const char*)("12345670000000000000000000000000"), (const char*)(newkey), (((void *)0)), (_U_UINT)316);
-
-}
 
 
-
-
-
-
-
-void test_reserceChipherLen_(void){
-
-  printf("No23.0 - reserceChipherLen\n");
-
-  UnityAssertEqualNumber((_U_SINT)((32)), (_U_SINT)((reserceChipherLen("0123456789ABCDEFG"))), (((void *)0)), (_U_UINT)323, UNITY_DISPLAY_STYLE_INT);
-
-  UnityAssertEqualNumber((_U_SINT)((16)), (_U_SINT)((reserceChipherLen("0123456789AFG"))), (((void *)0)), (_U_UINT)324, UNITY_DISPLAY_STYLE_INT);
-
-  UnityAssertEqualNumber((_U_SINT)((16)), (_U_SINT)((reserceChipherLen("012345FG"))), (((void *)0)), (_U_UINT)325, UNITY_DISPLAY_STYLE_INT);
-
-  UnityAssertEqualNumber((_U_SINT)((16)), (_U_SINT)((reserceChipherLen("345FG"))), (((void *)0)), (_U_UINT)326, UNITY_DISPLAY_STYLE_INT);
-
-  UnityAssertEqualNumber((_U_SINT)((0)), (_U_SINT)((reserceChipherLen(""))), (((void *)0)), (_U_UINT)327, UNITY_DISPLAY_STYLE_INT);
-
-  UnityAssertEqualNumber((_U_SINT)((48)), (_U_SINT)((reserceChipherLen("0123456789ABCDEFG0123456789ABCDEFG"))), (((void *)0)), (_U_UINT)328, UNITY_DISPLAY_STYLE_INT);
-
-  UnityAssertEqualNumber((_U_SINT)((64)), (_U_SINT)((reserceChipherLen("0123456789ABCDEFG0123456789ABCDEFG0123456789ABCDEFG"))), (((void *)0)), (_U_UINT)329, UNITY_DISPLAY_STYLE_INT);
-
-  UnityAssertEqualNumber((_U_SINT)((80)), (_U_SINT)((reserceChipherLen("0123456789ABCDEFG0123456789ABCDEFG0123456789ABCDEFG0123456789ABCDEFG"))), (((void *)0)), (_U_UINT)330, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualString((const char*)("12345670000000000000000000000000"), (const char*)(newkey), (((void *)0)), (_U_UINT)397);
 
 }
 
+void test_reserveChipherLen_(void){
 
+  printf("No23.0 - reserveChipherLen\n");
 
+  UnityAssertEqualNumber((_U_SINT)((32)), (_U_SINT)((reserveChipherLen("0123456789ABCDEFG"))), (((void *)0)), (_U_UINT)413, UNITY_DISPLAY_STYLE_INT);
 
+  UnityAssertEqualNumber((_U_SINT)((16)), (_U_SINT)((reserveChipherLen("0123456789AFG"))), (((void *)0)), (_U_UINT)414, UNITY_DISPLAY_STYLE_INT);
 
+  UnityAssertEqualNumber((_U_SINT)((16)), (_U_SINT)((reserveChipherLen("012345FG"))), (((void *)0)), (_U_UINT)415, UNITY_DISPLAY_STYLE_INT);
 
+  UnityAssertEqualNumber((_U_SINT)((16)), (_U_SINT)((reserveChipherLen("345FG"))), (((void *)0)), (_U_UINT)416, UNITY_DISPLAY_STYLE_INT);
+
+  UnityAssertEqualNumber((_U_SINT)((0)), (_U_SINT)((reserveChipherLen(""))), (((void *)0)), (_U_UINT)417, UNITY_DISPLAY_STYLE_INT);
+
+  UnityAssertEqualNumber((_U_SINT)((48)), (_U_SINT)((reserveChipherLen("0123456789ABCDEFG0123456789ABCDEFG"))), (((void *)0)), (_U_UINT)418, UNITY_DISPLAY_STYLE_INT);
+
+  UnityAssertEqualNumber((_U_SINT)((64)), (_U_SINT)((reserveChipherLen("0123456789ABCDEFG0123456789ABCDEFG0123456789ABCDEFG"))), (((void *)0)), (_U_UINT)419, UNITY_DISPLAY_STYLE_INT);
+
+  UnityAssertEqualNumber((_U_SINT)((80)), (_U_SINT)((reserveChipherLen("0123456789ABCDEFG0123456789ABCDEFG0123456789ABCDEFG0123456789ABCDEFG"))), (((void *)0)), (_U_UINT)420, UNITY_DISPLAY_STYLE_INT);
+
+}
 
 void test_optimizerStr_given_0123456789ABCDEF_expected_0123456789ABCDEF(void){
 
@@ -650,9 +660,9 @@ void test_optimizerStr_given_0123456789ABCDEF_expected_0123456789ABCDEF(void){
 
 
 
-  UnityAssertEqualString((const char*)("0123456789ABCDEF"), (const char*)(newStr), (((void *)0)), (_U_UINT)340);
+  UnityAssertEqualString((const char*)("0123456789ABCDEF"), (const char*)(newStr), (((void *)0)), (_U_UINT)437);
 
-  UnityAssertEqualNumber((_U_SINT)((16)), (_U_SINT)((strlen(newStr))), (((void *)0)), (_U_UINT)341, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((16)), (_U_SINT)((strlen(newStr))), (((void *)0)), (_U_UINT)438, UNITY_DISPLAY_STYLE_INT);
 
 }
 
@@ -668,9 +678,9 @@ void test_optimizerStr_given_0123456789ABCDEFA_expected_0123456789ABCDEFA0000000
 
 
 
-  UnityAssertEqualString((const char*)("0123456789ABCDEFA000000000000000"), (const char*)(newStr), (((void *)0)), (_U_UINT)349);
+  UnityAssertEqualString((const char*)("0123456789ABCDEFA000000000000000"), (const char*)(newStr), (((void *)0)), (_U_UINT)446);
 
-  UnityAssertEqualNumber((_U_SINT)((32)), (_U_SINT)((strlen(newStr))), (((void *)0)), (_U_UINT)350, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((32)), (_U_SINT)((strlen(newStr))), (((void *)0)), (_U_UINT)447, UNITY_DISPLAY_STYLE_INT);
 
 
 
@@ -690,9 +700,9 @@ void test_optimizerStr_given_0123456789ABCDEF0123456789ABCDEF_expected_012345678
 
 
 
-  UnityAssertEqualString((const char*)("0123456789ABCDEF0123456789ABCDEF"), (const char*)(newStr), (((void *)0)), (_U_UINT)360);
+  UnityAssertEqualString((const char*)("0123456789ABCDEF0123456789ABCDEF"), (const char*)(newStr), (((void *)0)), (_U_UINT)457);
 
-  UnityAssertEqualNumber((_U_SINT)((32)), (_U_SINT)((strlen(newStr))), (((void *)0)), (_U_UINT)361, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((32)), (_U_SINT)((strlen(newStr))), (((void *)0)), (_U_UINT)458, UNITY_DISPLAY_STYLE_INT);
 
 }
 
@@ -708,13 +718,11 @@ void test_optimizerStr_given_0123456789ABCDEF0123456789ABCDEFA_expected_01234567
 
 
 
-  UnityAssertEqualString((const char*)("0123456789ABCDEF0123456789ABCDEFA000000000000000"), (const char*)(newStr), (((void *)0)), (_U_UINT)369);
+  UnityAssertEqualString((const char*)("0123456789ABCDEF0123456789ABCDEFA000000000000000"), (const char*)(newStr), (((void *)0)), (_U_UINT)466);
 
-  UnityAssertEqualNumber((_U_SINT)((48)), (_U_SINT)((strlen(newStr))), (((void *)0)), (_U_UINT)370, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualNumber((_U_SINT)((48)), (_U_SINT)((strlen(newStr))), (((void *)0)), (_U_UINT)467, UNITY_DISPLAY_STYLE_INT);
 
 }
-
-
 
 void test_convStrToStateWithIndex_(void){
 
@@ -754,19 +762,19 @@ void test_convStrToStateWithIndex_(void){
 
   convStrToStateWithIndex(str,state,0);
 
-  { customTestAssertEqualState(expOut0,state,392); };
+  { customTestAssertEqualState(expOut0,state,510); };
 
 
 
   convStrToStateWithIndex(str,state,1);
 
-  { customTestAssertEqualState(expOut1,state,395); };
+  { customTestAssertEqualState(expOut1,state,513); };
 
 
 
   convStrToStateWithIndex(str,state,2);
 
-  { customTestAssertEqualState(expOut2,state,398); };
+  { customTestAssertEqualState(expOut2,state,516); };
 
 
 
@@ -810,27 +818,25 @@ void test_convStateToStrWithIndex(void){
 
    convStateToStrWithIndex(state0,encrypOut,0);
 
-   printf("encrypOut = %s\n",encrypOut);
+
 
    convStateToStrWithIndex(state1,encrypOut,1);
 
-   printf("encrypOut = %s\n",encrypOut);
+
 
    convStateToStrWithIndex(state2,encrypOut,2);
 
-   printf("encrypOut = %s\n",encrypOut);
 
-  UnityAssertEqualString((const char*)("0123456789ABCDEFA0000000000000000123456789111111"), (const char*)(encrypOut), (((void *)0)), (_U_UINT)425);
 
-  UnityAssertEqualNumber((_U_SINT)((48)), (_U_SINT)((strlen(encrypOut))), (((void *)0)), (_U_UINT)426, UNITY_DISPLAY_STYLE_INT);
+  UnityAssertEqualString((const char*)("0123456789ABCDEFA0000000000000000123456789111111"), (const char*)(encrypOut), (((void *)0)), (_U_UINT)543);
+
+  UnityAssertEqualNumber((_U_SINT)((48)), (_U_SINT)((strlen(encrypOut))), (((void *)0)), (_U_UINT)544, UNITY_DISPLAY_STYLE_INT);
 
 
 
 }
 
-
-
-void test_encrypStr_given(void){
+void test_encrypStr_given_A_string(void){
 
   printf("No29.0 - encrypStr\n");
 
@@ -864,9 +870,9 @@ void test_encrypStr_given(void){
 
   for( i = 0 ; i<16;i++){
 
-    printf("encrypOut[%d] = %x, chiperKey[%d] = %x\n",i,expectOut[i],i,chiperKey[i]);
 
-    UnityAssertEqualNumber((_U_SINT)((expectOut[i])), (_U_SINT)((chiperKey[i])), (((void *)0)), (_U_UINT)448, UNITY_DISPLAY_STYLE_INT);
+
+    UnityAssertEqualNumber((_U_SINT)((expectOut[i])), (_U_SINT)((chiperKey[i])), (((void *)0)), (_U_UINT)576, UNITY_DISPLAY_STYLE_INT);
 
   }
 

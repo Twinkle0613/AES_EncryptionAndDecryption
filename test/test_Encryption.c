@@ -20,7 +20,23 @@ void tearDown(void)
 {
 }
 
+/*
+              in
+      0x32,0x88,0x31,0xe0
+      0x43,0x5a,0x31,0x37   
+      0xf6,0x30,0x98,0x07     
+      0xa8,0x8d,0xa2,0x34 
 
+               +         -------->cipher------>  out
+            
+            key
+      0x2b,0x7e,0x15,0x16
+      0x28,0xae,0xd2,0xa6
+      0xab,0xf7,0x15,0x88
+      0x09,0xcf,0x4f,0x3c
+
+
+*/
 
 void test_cipher_given_128_bit_cipher_key(void){
   printf("No1.0 - cipher 128-bit key Size \n");
@@ -32,15 +48,15 @@ void test_cipher_given_128_bit_cipher_key(void){
                             {0x25,0xdc,0x11,0x6a},\
                             {0x84,0x09,0x85,0x0b},\
                             {0x1d,0xfb,0x97,0x32} };
-  uint8_t cipcherkey[] = {0x2b,0x7e,0x15,0x16,\
+  uint8_t key[] = {0x2b,0x7e,0x15,0x16,\
                           0x28,0xae,0xd2,0xa6,\
                           0xab,0xf7,0x15,0x88,\
                           0x09,0xcf,0x4f,0x3c};
   uint8_t out[4][4];
   uint32_t word[44];
-  keyExpansion(cipcherkey,word,4,10);
+  keyExpansion(key,word,4,10);
   cipher(in,out,word,10);
-  printfState(out);
+ // printfState(out);
   TEST_ASSERT_EQUAL_STATE(expOut,out);  
 }
 
@@ -66,7 +82,7 @@ void test_cipher_given_192_bit_cipher_key(void){
   uint32_t word[52];
   keyExpansion(key,word,6,12);
   cipher(plainText,out,word,12);
-  printfState(out);
+ // printfState(out);
   TEST_ASSERT_EQUAL_STATE(expOut,out);  
 }
 
@@ -93,7 +109,7 @@ void test_cipher_given_256_bit_cipher_key(void){
   uint32_t word[60];
   keyExpansion(key,word,8,14);
   cipher(plainText,out,word,14);
-  printfState(out);
+  //printfState(out);
   TEST_ASSERT_EQUAL_STATE(expOut,out);  
 }
 
@@ -112,8 +128,8 @@ void test_encryption16byte_(void){
                            0xab,0xf7,0x15,0x88,\
                            0x09,0xcf,0x4f,0x3c};
   uint8_t out[4][4];
-  encryption_16byte(plainText,cipcherkey,out);
-  printfState(out);
+  encryp_16byte(plainText,cipcherkey,out,AES_128);
+  //printfState(out);
   TEST_ASSERT_EQUAL_STATE(expOut,out);  
 }
 
@@ -190,6 +206,9 @@ void test_encryp_16byte_given_256_bit_cipher_key(void){
   
 // }
 
+/*
+    str = "Hello,HwaNeng!!!"   ---->strncpy(out,str,5) -----> out = "Hello"
+*/
 void test_strncpy_(void){
   printf("No10.0 - strncpy\n");
   char *str = "Hello,HwaNeng!!!";
@@ -197,26 +216,64 @@ void test_strncpy_(void){
   char* processStr = malloc(sizeof(char)*5);
   int keySize = 5;
   strncpy(processStr,"Hello,HwaNeng!!!",5);
-  printf("%s\n",processStr);
+  //printf("%s\n",processStr);
   TEST_ASSERT_EQUAL_STRING("Hello",processStr);
 }
 
-void test_fillZeroToStr_given(void){
+//---------------------fillZeroToStr--------------------//
+
+/*
+    str = "Hello"   -----> fillZeroToStr(str,out,AES_128) -----> out = "Hello00000000000"
+    str = "Hello"   -----> fillZeroToStr(str,out,AES_192) -----> out = "Hello0000000000000000000"
+    str = "Hello"   -----> fillZeroToStr(str,out,AES_256) -----> out = "Hello000000000000000000000000000"
+
+*/
+
+
+void test_fillZeroToStr_given_a_string_in_AES128(void){
   printf("No11.0 - fillZeroToStr\n");
   char *str = "Hello";
-  char* processStr = malloc(sizeof(char)*17);
+  char* processStr = malloc(sizeof(char*)*17);
   strncpy(processStr,str,strlen(str));
   fillZeroToStr(strlen(str),processStr,AES_128_KEYSIZE);
-  printf("%s\n",processStr);
+  //printf("%s\n",processStr);
   TEST_ASSERT_EQUAL_STRING("Hello00000000000",processStr);
 }
+
+void test_fillZeroToStr_given_a_string_in_AES192(void){
+  printf("No11.1 - fillZeroToStr\n");
+  char *str = "Hello";
+  char* processStr = malloc(sizeof(char*)*17);
+  strncpy(processStr,str,strlen(str));
+  fillZeroToStr(strlen(str),processStr,AES_192_KEYSIZE);
+  //printf("%s\n",processStr);
+  TEST_ASSERT_EQUAL_STRING("Hello0000000000000000000",processStr);
+}
+void test_fillZeroToStr_given_a_string_in_AES256(void){
+  printf("No11.2 - fillZeroToStr\n");
+  char *str = "Hello";
+  char* processStr = malloc(sizeof(char*)*17);
+  strncpy(processStr,str,strlen(str));
+  fillZeroToStr(strlen(str),processStr,AES_256_KEYSIZE);
+ // printf("%s\n",processStr);
+  TEST_ASSERT_EQUAL_STRING("Hello000000000000000000000000000",processStr);
+}
+
+//--------------------kesProcess-----------------------//
+
+/*  AES_128
+
+    key = "1234567" ------->keyProcess(key,AES_128_KEYSIZE)------> newKey = 1234567000000000;
+    key = "0123456789ABCDEF" ------->keyProcess(key,AES_128_KEYSIZE)-------> newkey = "0123456789ABCDEF";
+    key = "0123456789ABCDEF12345 ------->keyProcess(key,AES_128_KEYSIZE)-------> newkey = "0123456789ABCDEF";
+*/
 
 void test_keyProcess_given_a_string_1234567_expected_string_1234567000000000_In_AES128(void){
   printf("No12.0 - keyProcess in AES_128\n");
   char* applyKey;
   char* key = "1234567";
   applyKey = keyProcess(key,AES_128_KEYSIZE);
-  printf("%s\n",applyKey);
+  //printf("%s\n",applyKey);
   TEST_ASSERT_EQUAL_STRING("1234567000000000",applyKey);
 }
 
@@ -225,7 +282,7 @@ void test_keyProcess_given_a_string_0123456789ABCDEF_expected_string_0123456789A
   char* applyKey;
   char* key = "0123456789ABCDEF";
   applyKey = keyProcess(key,AES_128_KEYSIZE);
-  printf("%s\n",applyKey);
+  //printf("%s\n",applyKey);
   TEST_ASSERT_EQUAL_STRING("0123456789ABCDEF",applyKey);
 }
 
@@ -234,16 +291,24 @@ void test_keyProcess_given_a_string_0123456789ABCDEF12345_expected_string_012345
   char* applyKey;
   char* key = "0123456789ABCDEF12345";
   applyKey = keyProcess(key,AES_128_KEYSIZE);
-  printf("%s\n",applyKey);
+  //printf("%s\n",applyKey);
   TEST_ASSERT_EQUAL_STRING("0123456789ABCDEF",applyKey);
 }
 
+
+/*  AES_192
+
+    key = "1234567" ------->keyProcess(key,AES_192_KEYSIZE)------> newKey = 123456700000000000000000;
+    key = "0123456789ABCDEFGHIJKLNM" ------->keyProcess(key,AES_192_KEYSIZE)-------> newkey = "0123456789ABCDEFGHIJKLNM";
+    key = "0123456789ABCDEFGHIJKLNM1221221212"" ------->keyProcess(key,AES_192_KEYSIZE)-------> newkey = "0123456789ABCDEFGHIJKLNM";
+    
+*/
 void test_keyProcess_given_a_string_1234567_expected_string_123456700000000000000000_In_AES192(void){
   printf("No15.0 - keyProcess in AES_192\n");
   char* applyKey;
   char* key = "1234567";
   applyKey = keyProcess(key,AES_192_KEYSIZE);
-  printf("%s\n",applyKey);
+  //printf("%s\n",applyKey);
   TEST_ASSERT_EQUAL_STRING("123456700000000000000000",applyKey);
 }
 
@@ -252,7 +317,7 @@ void test_keyProcess_given_a_string_0123456789ABCDEFGHIJKLNM_expected_string_012
   char* applyKey;
   char* key = "0123456789ABCDEFGHIJKLNM";
   applyKey = keyProcess(key,AES_192_KEYSIZE);
-  printf("%s\n",applyKey);
+  //printf("%s\n",applyKey);
   TEST_ASSERT_EQUAL_STRING("0123456789ABCDEFGHIJKLNM",applyKey);
 }
 
@@ -261,16 +326,24 @@ void test_keyProcess_given_a_string_0123456789ABCDEFGHIJKLNM1221221212_expected_
   char* applyKey;
   char* key = "0123456789ABCDEFGHIJKLNM1221221212";
   applyKey = keyProcess(key,AES_192_KEYSIZE);
-  printf("%s\n",applyKey);
+  //printf("%s\n",applyKey);
   TEST_ASSERT_EQUAL_STRING("0123456789ABCDEFGHIJKLNM",applyKey);
 }
+
+/*  AES_256
+
+    key = "1234567" ------->keyProcess(key,AES_256_KEYSIZE)------> newKey = 01234567000000000000000000000000;
+    key = "0123456789ABCDEFGHIJKLNMOPQRSTUV" ------->keyProcess(key,AES_256_KEYSIZE)-------> newkey = "0123456789ABCDEFGHIJKLNMOPQRSTUV";
+    key = "0123456789ABCDEFGHIJKLNMOPQRSTUV112233"" ------->keyProcess(key,AES_256_KEYSIZE)-------> newkey = "0123456789ABCDEFGHIJKLNMOPQRSTUV";
+    
+*/
 
 void test_keyProcess_given_a_string_01234567_expected_string_012345670000000000000000000000000_In_AES256(void){
   printf("No18.0 - keyProcess in AES_256\n");
   char* applyKey;
   char* key = "01234567";
   applyKey = keyProcess(key,AES_256_KEYSIZE);
-  printf("%s\n",applyKey);
+  //printf("%s\n",applyKey);
   TEST_ASSERT_EQUAL_STRING("01234567000000000000000000000000",applyKey);
 }
 
@@ -279,7 +352,7 @@ void test_keyProcess_given_a_string_0123456789ABCDEFGHIJKLNMOPQRSTUV_expected_st
   char* applyKey;
   char* key = "0123456789ABCDEFGHIJKLNMOPQRSTUV";
   applyKey = keyProcess(key,AES_256_KEYSIZE);
-  printf("%s\n",applyKey);
+  //printf("%s\n",applyKey);
   TEST_ASSERT_EQUAL_STRING("0123456789ABCDEFGHIJKLNMOPQRSTUV",applyKey);
 }
 
@@ -288,15 +361,23 @@ void test_keyProcess_given_a_string_0123456789ABCDEFGHIJKLNMOPQRSTUV112233_expec
   char* applyKey;
   char* key = "0123456789ABCDEFGHIJKLNMOPQRSTUV112233";
   applyKey = keyProcess(key,AES_256_KEYSIZE);
-  printf("%s\n",applyKey);
+  //printf("%s\n",applyKey);
   TEST_ASSERT_EQUAL_STRING("0123456789ABCDEFGHIJKLNMOPQRSTUV",applyKey);
 }
+
+/*  
+
+    key = "1234567" ------->optimizeKey(key,AES_128_KEYSIZE)------>  newKey = "1234567000000000";
+    key = "1234567" ------->optimizeKey(key,AES_192_KEYSIZE)-------> newkey = "123456700000000000000000";
+    key = "1234567" ------->optimizeKey(key,AES_256_KEYSIZE)-------> newkey = "01234567000000000000000000000000";
+    
+*/
 
 void test_optimizeKey_given_1234567_expected_1234567000000000_in_128_bit(void){
   printf("No20.0 - optimizeKey in AES_128\n");
   char* key = "1234567";
   char* newkey = optimizeKey(key,AES_128);
-  printf("%s\n",newkey);
+  //printf("%s\n",newkey);
   TEST_ASSERT_EQUAL_STRING("1234567000000000",newkey);
 }
 
@@ -304,7 +385,7 @@ void test_optimizeKey_given_1234567_expected_123456700000000000000000_in_192_bit
   printf("No21.0 - optimizeKey in AES_192\n");
   char* key = "1234567";
   char* newkey = optimizeKey(key,AES_192);
-  printf("%s\n",newkey);
+  //printf("%s\n",newkey);
   TEST_ASSERT_EQUAL_STRING("123456700000000000000000",newkey);
 }
 
@@ -312,11 +393,20 @@ void test_optimizeKey_given_1234567_expected_12345670000000000000000000000000_in
   printf("No22.0 - optimizeKey in AES_256\n");
   char* key = "1234567";
   char* newkey = optimizeKey(key,AES_256);
-  printf("%s\n",newkey);
+  //printf("%s\n",newkey);
   TEST_ASSERT_EQUAL_STRING("12345670000000000000000000000000",newkey);
 }
 
-// lengthOfCipherKey = ((strlen(str)+15)/16) * 16;
+/*
+  reserveLength = ( (X+15) /16 ) * 16 ;
+  X = 1.....15  reserveLength = 16 byte;
+  X = 16.....31  reserveLength = 32 byte;
+  X = 32.....47  reserveLength = 48 byte;
+                  .
+                  .
+                  .
+  
+*/
 
 void test_reserveChipherLen_(void){
   printf("No23.0 - reserveChipherLen\n");
@@ -330,7 +420,14 @@ void test_reserveChipherLen_(void){
   TEST_ASSERT_EQUAL(80,reserveChipherLen("0123456789ABCDEFG0123456789ABCDEFG0123456789ABCDEFG0123456789ABCDEFG"));
 }
 
+//----------------------optimizerStr--------------------//
+/*
+   
+   str = "01234567" ------------->optimizeStr(str)-----> newStr = "01234567000000000";                length of str is less than 16 byte
+   str = "0123456789ABCDEF" ---->optimizeStr(str)------> newStr = "0123456789ABCDEF";                 length of str is equal to 16 byte
+   str = "0123456789ABCDEFA" ---->optimizeStr(str)-----> newStr = "0123456789ABCDEFA000000000000000"; length of str is more than 16 byte
 
+*/
 
 void test_optimizerStr_given_0123456789ABCDEF_expected_0123456789ABCDEF(void){
   printf("No24.0 - optimizerStr\n");
@@ -369,6 +466,27 @@ void test_optimizerStr_given_0123456789ABCDEF0123456789ABCDEFA_expected_01234567
   TEST_ASSERT_EQUAL_STRING("0123456789ABCDEF0123456789ABCDEFA000000000000000",newStr);
   TEST_ASSERT_EQUAL(48,strlen(newStr));
 }
+
+
+//---------------convStrToStateWithIndex------------//
+/*
+            expState0   index = 0     
+        {'0','4','8','C'}
+        {'1','5','9','D'}   convStrToStateWithIndex(state,str,index)      
+        {'2','6','A','E'}              str = "0123456789ABCDEF"
+        {'3','7','B','F'} 
+            expState1   index = 1
+        {'0','4','8','C'}
+        {'1','5','9','D'}  convStrToStateWithIndex(state,str,index)     
+        {'2','6','A','E'}              str = "0123456789ABCDEF0123456789ABCDEF"
+        {'3','7','B','F'} 
+            expState2   index = 2
+        {'0','4','8','C'}
+        {'1','5','9','D'}  convStrToStateWithIndex(state,str,index)
+        {'2','6','A','E'}             str = "0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF"
+        {'3','7','B','F'} 
+
+*/
 
 void test_convStrToStateWithIndex_(void){
   printf("No27.0 - convStrToStateWithIndex\n");
@@ -417,17 +535,27 @@ void test_convStateToStrWithIndex(void){
                             {'2','6','1','1'},\
                             {'3','7','1','1'} };
    convStateToStrWithIndex(state0,encrypOut,0);
-   printf("encrypOut = %s\n",encrypOut);
+   //printf("encrypOut = %s\n",encrypOut);
    convStateToStrWithIndex(state1,encrypOut,1);
-   printf("encrypOut = %s\n",encrypOut);
+  // printf("encrypOut = %s\n",encrypOut);
    convStateToStrWithIndex(state2,encrypOut,2);
-   printf("encrypOut = %s\n",encrypOut);
+   //printf("encrypOut = %s\n",encrypOut);
   TEST_ASSERT_EQUAL_STRING("0123456789ABCDEFA0000000000000000123456789111111",encrypOut);
   TEST_ASSERT_EQUAL(48,strlen(encrypOut));
   
 }
 
-void test_encrypStr_given(void){
+
+/*
+                      AESmode = AES_128                 
+                   encrypKey = "9988772211334455";      
+                                  ||                                     
+                                  V                                      
+    str = "Hello,HwaNeng!!!"  -------> encryp_16byte ------> cipherKey = "XXXXXXXXXXX";
+
+*/
+
+void test_encrypStr_given_A_string(void){
   printf("No29.0 - encrypStr\n");
   
   uint8_t* expectOut = malloc(sizeof(char)*17);
@@ -444,7 +572,7 @@ void test_encrypStr_given(void){
 
   int i;
   for( i = 0 ; i<16;i++){
-    printf("encrypOut[%d] = %x, chiperKey[%d] = %x\n",i,expectOut[i],i,chiperKey[i]);
+   // printf("encrypOut[%d] = %x, chiperKey[%d] = %x\n",i,expectOut[i],i,chiperKey[i]);
     TEST_ASSERT_EQUAL(expectOut[i],chiperKey[i]);
   }
   

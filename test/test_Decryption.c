@@ -235,11 +235,11 @@ void test_decryp_16byte_given_string_hwa_neng_and_key_9988776622334455_in_AES_12
 }
 
 /*
-              AESmode = AES_128                   AESmode = AES_128
-           encrypKey = "9988772211334455";      decrypKey = "9988772211334455"; 
-                 ||                                     ||
-                 V                                      V
-    "Hello,HwaNeng!!!"  -------> encryp_16byte ------> decryp_16byte --------> "Hello,HwaNeng!!!"
+              AESmode = AES_128                                          AESmode = AES_128
+           encrypKey = "9988772211334455";                             decrypKey = "9988772211334455"; 
+                 ||                                                                    ||
+                 V                                                                     V
+    "Hello,HwaNeng!!!"------->encryp_16byte(...)--->cipherKey--->decryp_16byte(...)-------->"Hello,HwaNeng!!!"
 
 */
 void test_decryp_16byte_given_string_hwa_neng_and_key_9988776622334455_in_AES_192(void){
@@ -257,11 +257,11 @@ void test_decryp_16byte_given_string_hwa_neng_and_key_9988776622334455_in_AES_19
 }
 
 /*
-              AESmode = AES_128                   AESmode = AES_128
-           encrypKey = "9988772211334455";      decrypKey = "9988772211334455"; 
-                 ||                                     ||
-                 V                                      V
-      "Hello"  -------> encrypStr ------> decrypStr --------> "Hello00000000000"
+              AESmode = AES_128                            AESmode = AES_128
+           encrypKey = "9988772211334455";                decrypKey = "9988772211334455"; 
+                 ||                                                   ||
+                 V                                                    V
+      "Hello"-------> encrypStr(...)--->cipherKey--->decrypStr(...)-------->"Hello00000000000"
 
 */
 
@@ -273,11 +273,11 @@ void test_decrypStr_given_a_less_than_16byte_of_str_and_the_encrypKey_and_decryp
 }
 
 /*
-               AESmode = AES_128                   AESmode = AES_128
-             encrypKey = "9988772211334455";      decrypKey = "9988772211334455"; 
-                           ||                                     ||
-                           V                                      V
-    "Hello,HwaNeng!!!"  -------> encrypStr ------> Decryption --------> "Hello,HwaNeng!!!"
+               AESmode = AES_128                              AESmode = AES_128
+             encrypKey = "9988772211334455";                decrypKey = "9988772211334455"; 
+                           ||                                                 ||
+                           V                                                  V
+    "Hello,HwaNeng!!!"------->encrypStr(...)--->cipherKey--->decrypStr(...)--------> "Hello,HwaNeng!!!"
 
 */
 void test_decrypStr_given_a_16byte_str_and_the_encrypKey_and_decrypKey_is_same_expected_invCipherKey_is_correct_AES128(void){
@@ -288,11 +288,11 @@ void test_decrypStr_given_a_16byte_str_and_the_encrypKey_and_decrypKey_is_same_e
 }
 
 /*
-                        AESmode = AES_128                    AESmode = AES_128
-                      encrypKey = "9988772211334455";      decrypKey = "9988772211334455"; 
-                                        ||                                     ||
-                                        V                                      V
-    "Hello,HwaNeng!!! I m LengZai"  -------> encrypStr ------> decrypStr --------> "Hello,HwaNeng!!! I m LengZai0000"
+                        AESmode = AES_128                                AESmode = AES_128
+                      encrypKey = "9988772211334455";                 decrypKey = "9988772211334455"; 
+                                     ||                                                   ||
+                                     V                                                    V
+    "Hello,HwaNeng!!! I m LengZai"------->encrypStr(...)--->cipherKey--->decrypStr(...)--------> "Hello,HwaNeng!!! I m LengZai0000"
 
 */
 void test_decrypStr_given_a_more_than_16byte_of_str_and_the_encrypKey_and_decrypKey_is_same_expected_invCipherKey_is_correct_AES128(void){
@@ -302,11 +302,11 @@ void test_decrypStr_given_a_more_than_16byte_of_str_and_the_encrypKey_and_decryp
   TEST_ASSERT_EQUAL_STRING("Hello,HwaNeng!!! I m LengZai0000",invCipherKey);
 }
 /*        
-                            AESmode = AES_128                   AESmode = AES_128
-                          encrypKey = "554433221122342";      decrypKey = "9988772211334455";     
-                                      ||                                     ||
-                                      V                                      V
-    "Hello,HwaNeng!!! I m LengZai"  -------> encrypStr ------> decrypStr --------> "XXXXXXXXXXXXXXX"
+                            AESmode = AES_128                            AESmode = AES_128
+                          encrypKey = "554433221122342";              decrypKey = "9988772211334455";     
+                                      ||                                                    ||
+                                      V                                                     V
+    "Hello,HwaNeng!!! I m LengZai"------->encrypStr(...)--->cipherKey--->decrypStr(...)--------> "XXXXXXXXXXXXXXX"
 
 */
 void test_decrypStr_given_a_string_and_encrypkey_and_decrypkey_is_not_same_expected_invCipherKey_is_wrong_AES128(void){
@@ -317,11 +317,11 @@ void test_decrypStr_given_a_string_and_encrypkey_and_decrypkey_is_not_same_expec
 }
 
 /*
-                            AESmode = AES_128                   AESmode = AES_192 <----Note:different
-                          encrypKey = "9988772211334455";      decrypKey = "9988772211334455";     
-                                        ||                                     ||
-                                        V                                      V
-    "Hello,HwaNeng!!! I m LengZai"  -------> encrypStr ------> decrypStr --------> "XXXXXXXXXXXXXXX"
+                            AESmode = AES_128                          AESmode = AES_192 <----Note:different
+                          encrypKey = "9988772211334455";            decrypKey = "9988772211334455";     
+                                        ||                                               ||
+                                        V                                                V
+    Hello,HwaNeng!!! I m LengZai"------->encrypStr(...)--->cipherKey--->decrypStr(...)--------> "XXXXXXXXXXXXXXX"
 
 */
 void test_decrypStr_given_a_string_and_encrypkey_and_decrypkey_is_same_but_AESmode_is_diffrent_expected_invCipherKey_is_wrong(void){
@@ -331,11 +331,11 @@ void test_decrypStr_given_a_string_and_encrypkey_and_decrypkey_is_same_but_AESmo
  TEST_ASSERT_NOT_EQUAL_STRING("Hello,HwaNeng!!! I m LengZai0000",invCipherKey);
 }
 /*
-                           AESmode = AES_192                   AESmode = AES_192
-                        encrypKey = "9988772211334455";      decrypKey = "9988772211334455"; 
-                                        ||                                     ||
-                                        V                                      V
-    "Hello,HwaNeng!!! I m LengZai"  -------> encrypStr ------> decrypStr --------> "Hello,HwaNeng!!! I m LengZai0000"
+                           AESmode = AES_192                            AESmode = AES_192
+                        encrypKey = "9988772211334455";                 decrypKey = "9988772211334455"; 
+                                      ||                                                  ||
+                                      V                                                   V
+    "Hello,HwaNeng!!! I m LengZai"------->encrypStr(...)--->cipherKey--->decrypStr(...)-------->"Hello,HwaNeng!!! I m LengZai0000"
 
 */
 void test_decrypStr_given_a_more_than_16byte_of_str_and_the_encrypKey_and_decrypKey_is_same_in_AES192_expected_invCipherKey_is_correct(void){
@@ -346,11 +346,11 @@ void test_decrypStr_given_a_more_than_16byte_of_str_and_the_encrypKey_and_decryp
 }
 
 /*
-                          AESmode = AES_256                   AESmode = AES_256
-                        encrypKey = "9988772211334455";      decrypKey = "9988772211334455"; 
-                                      ||                                     ||
-                                      V                                      V
-    "Hello,HwaNeng!!! I m LengZai"  -------> encrypStr ------> decrypStr --------> "Hello,HwaNeng!!! I m LengZai0000"
+                          AESmode = AES_256                              AESmode = AES_256
+                        encrypKey = "9988772211334455";                 decrypKey = "9988772211334455"; 
+                                      ||                                                   ||
+                                      V                                                    V
+    "Hello,HwaNeng!!! I m LengZai"------->encrypStr(...)--->cipherKey--->decrypStr(...)--------> "Hello,HwaNeng!!! I m LengZai0000"
 
 */
 void test_decrypStr_given_a_more_than_16byte_of_str_and_the_encrypKey_and_decrypKey_is_same_in_AES256_expected_invCipherKey_is_correct(void){
