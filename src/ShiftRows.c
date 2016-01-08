@@ -1,7 +1,56 @@
 #include "ShiftRows.h"
 #include <stdint.h>
 #include "SubBytes.h"
-
+/*
+ *  ShiftRows(...) is transformation in the Cipher that takes all of the columns of the State and mixes 
+ *  their data (independently of one another) to produce new columns.
+ *
+ *  invShiftRow(...) is transformation in the Inverse Cipher that is the inverse of ShiftRows(...).
+ *
+ *  e.g 
+ * 
+ *   'A' 'E' 'I' 'M'                     'A' 'E' 'I' 'M'
+ *   'B' 'F' 'J' 'N'   ---shiftRow--->   'F' 'J' 'N' 'B'
+ *   'C' 'G' 'K' 'O'                     'K' 'O' 'C' 'G'
+ *   'D' 'H' 'L' 'P'                     'P' 'D' 'H' 'L'
+ *
+ *
+ *
+ *   'A' 'E' 'I' 'M'                        'A' 'E' 'I' 'M'
+ *   'B' 'F' 'J' 'N'   ---invShiftRow--->   'N' 'B' 'F' 'J'
+ *   'C' 'G' 'K' 'O'                        'K' 'O' 'C' 'G'
+ *   'D' 'H' 'L' 'P'                        'D' 'H' 'L' 'P'
+ *
+ *  ------------------------
+ * | Explaination Function |
+ * ------------------------
+ *
+ * The shift(...) function is basic of ShiftRows(...) function 
+ * The invShift(...) function is basic of invShiftRows(...) function 
+ *
+ *  -----------------
+ * | Function List  |
+ * -----------------
+ *
+ * void shift(int row , int stateSize , uint8_t state[][4]);
+ * void shiftRow(uint8_t state[][4]);
+ * void invShift(int row , int stateSize , uint8_t state[][4]);
+ * void invShiftRow(uint8_t state[][4]);
+ *
+ *  ---------------------------------
+ * | Explaination Input Of Function |
+ * ---------------------------------
+ *
+ * shift(int row , int stateSize , uint8_t state[][4])
+ * invShift(int row , int stateSize , uint8_t state[][4])
+ *      row - the number of row for the 2D array of state.
+ *      stateSize - the width of 2D array of state.
+ *      state - store the string in 2D array form.
+ *
+ * shiftRow(uint8_t state[][4]);
+ * invShiftRow(uint8_t state[][4]);
+ *      state - store the string in 2D array form. 
+ */
 void shift(int row , int stateSize , uint8_t state[][4]){
   int rightSize = stateSize - row;
   int leftSize = row;

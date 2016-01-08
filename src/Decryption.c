@@ -13,7 +13,7 @@
 
 
 /**
- * Decryption is the process of decoding messages or information that was encoded by Encryption.
+ * Decryption is the process of decoding messages or information that has been encoded by Encryption.
  *
  * 
  * Decryption Concept Diagram:

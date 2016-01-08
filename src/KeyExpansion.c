@@ -6,7 +6,7 @@
 
 
 /**
- * KeyExpansion is routine used to generate a series of Round Keys from the Cipher Key.
+ * KeyExpansion(...) is routine used to generate a series of Round Keys from the Cipher Key.
  *
  * 
  * Decryption Concept Diagram:
@@ -31,8 +31,6 @@
  *  ------------------------
  * | Explaination Function |
  * ------------------------
- * >>> Main Function <<<
- * The keyExpansion(...) function is used to generate a series of Round Keys from the Cipher Key
  * The convKeyToArr(...) function is used for coverting from a string of key to 4X4 2-D array.
  * The convKeyToWord(...) function is used for coverting from 4X4 2-D array to a string of key.
  * The rotWord(...) function is used in the Key Expansion routine that takes a four-byte word and performs a cyclic permutation.
@@ -56,6 +54,16 @@
  *  uint32_t subWord(uint32_t temp);
  *    temp - store the 32-bit data that is set by program.
  *
+ *  convKeyToArr(char* key, uint8_t arrayKey[][4], int keySize);
+ *    key - store the key is needed to do converting
+ *    arrayKey - store the key is converted to 2-D array form
+ *    keySize - select the number of location of key for converting
+ *
+ *  convKeyToWord(uint8_t key0,uint8_t key1,uint8_t key2,uint8_t key3);
+ *    key0 - store the data is needed converted at 1st and 2nd of data e.g 0xXXXXXX12
+ *    key0 - store the data is needed converted at 3rd and 4th of data e.g 0xXXXX12XX
+ *    key0 - store the data is needed converted at 5th and 6th of data e.g 0xXX12XXXX
+ *    key0 - store the data is needed converted at 7th and 8th of data e.g 0x12XXXXXX
  *
  */
 
